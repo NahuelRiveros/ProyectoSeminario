@@ -1,0 +1,74 @@
+esto es posta
+
+Iniciar proyecto en React 
+npx create-react-app <nombre del proyecto en minuscula> Se intala todo solo
+
+Algunas de estas cosas ya las intala por defecto pero hace falta intalar el NODEMON EXPRESS WEBPACK
+
+Tecnologias 
+MONGODB utiliza a js como lenguaje de consulta y es mas facil
+descargar el community server > https://www.mongodb.com/try/download/community
+en dico local C: crear Carpeta data/db
+
+
+Node.js Funcion del lado del servidor 
+Framework express
+
+front End REACT disenamos la logia para el usuario
+react se complementa
+webpack -> renderizar
+$npm run webpack
+
+morgan-> es un Middleware de nivel de solicitudes de  HTTP que los usuarion hacen
+$npm i morgan
+
+nodemon -> ejecucion del servidor
+$npm i nodemon
+
+mongoDB -> Base de datos -> tener ejectado para que funcione
+$npm i mongoose
+
+
+Express -> Back
+$npm i Express
+
+react -> Front
+$npm i react react-dom
+
+babel -> traducir codigo JSX a HTML
+$ npm i babel-core babel babel-loader babel-preset-react babel-preset-env -D
+
+
+carpeta src -> carpetas del proyecto
+carpeta routes -> rutas de archivos
+carpeta public -> codigo convertido de react y todo los archivos estaticos que usa la pagina
+carpeta app -> codigo de react y luego se renderiza en public
+
+
+firebase--> configurar react con firebase
+$npm install -g firebase-tools
+
+npm i --save firebase reactfire@next
+
+firebase init => nuevo proyecto
+npm run build -> es necesario antes de subir
+firebase deploy-> subir proyecto
+
+
+
+
+//////////////////////////////////////////////
+
+router -> $npm install react-router-dom --save
+Programacion Href 
+configuracion de redireccionamineto de paginas
+
+import {Link} from "react-router-dom"
+esto remplada alas etiquetas <a>
+
+/////////////////////////////////////
+
+
+ssh keygen
+
+
