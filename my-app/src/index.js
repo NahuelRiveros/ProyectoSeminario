@@ -10,4 +10,3 @@ rootElement.render(
     <Name/>
     </>
 ); 
-  
