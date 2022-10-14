@@ -9,7 +9,7 @@ export default function ListRegistro() {
     // console.log(miLista)
     return (
       
-      <div>
+      <div className="grid grid-cols-4 gap-2 bg-blue-400">
         {miLista.map((listado) => (<ListadoUser key={listado.id} listado={listado}  />))}
       </div>
         )

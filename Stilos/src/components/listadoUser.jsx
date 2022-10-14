@@ -8,11 +8,11 @@ function ListadoUser({ listado }) {
   const {eliCuenta} = useContext(ContextoPrincipal);
   return (
     
-      <div>
-        <h1>{listado.id}</h1>
+      <div className="bg-gray-800 text-white p-2 rounded-md">
+        <h1 className="text-xl font-bold capitalize">{listado.id}</h1>
         <h3> {listado.User}</h3>
         <h3> {listado.Pass}</h3>
-        <button onClick={() => eliCuenta(listado.id)}>Eliminar</button>
+        <button onClick={() => eliCuenta(listado.id)} className="bg-red-600 rounded-lg">Eliminar</button>
       </div>
 
   );

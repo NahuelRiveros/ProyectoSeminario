@@ -24,12 +24,12 @@ export  const Registro = () =>{
         setMiPassword('')
     }
   return (
-    <form onSubmit={handelSubmit}>
+    <form onSubmit={handelSubmit} >
         <input type="text" onChange={(e)=> setmiUsuario(e.target.value)}
-        value={User} />
+        value={User} className='rounded-lg bg-slate-600 m-2 placeholder-inherit' placeholder='USUARIO'/>
 
-        <input type="password" onChange={(e) => setMiPassword(e.target.value)} value={Pass} />
-        <button >Agregar</button>
+        <input type="password" onChange={(e) => setMiPassword(e.target.value)} value={Pass} className='rounded-lg bg-slate-600 m-2 placeholder-inherit' placeholder='PASSWORD'/>
+        <button className='rounded-lg bg-green-600 ' >Agregar</button>
     </form>
   )
 }
