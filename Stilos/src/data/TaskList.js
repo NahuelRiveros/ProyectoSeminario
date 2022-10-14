@@ -1,3 +1,6 @@
+// Esto nada mas es un array que simula las cuentas creadas
+// los archivos que no son de extencion jsx se los almacenan aparte
+
 export const tasks = [
   {
     id: 0,

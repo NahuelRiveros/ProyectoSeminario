@@ -1,7 +1,11 @@
 import {ContextoPrincipal} from "../context/context";
 import {useContext} from 'react'
-function ListadoUser({ listado, eliCuenta }) {
-  
+
+// Aqui estamos obteniendo mediante listadoUser({listado}=> este funciona como un props)
+// obtenemos el array ya mapeado y podemos mostrar esos datos en pantalla
+// del useContext traemos la funciones que se va ejecutar con el boton el cual identifica el id del usuario y lo elimina del array
+function ListadoUser({ listado }) {
+  const {eliCuenta} = useContext(ContextoPrincipal);
   return (
     
       <div>
