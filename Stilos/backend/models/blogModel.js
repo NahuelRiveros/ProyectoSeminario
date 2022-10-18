@@ -8,10 +8,11 @@ import db from '../database/db.js';
 // Aca nosotros unportamos el datatype para decir de que tipo de dato es nuestras variables de la base da datos
 import { DataTypes } from 'sequelize';
 
-// bassicamente construimos la estrucutra de nuestras tablas y lo que vamos a manejar
-const tbUser = db.define('users', {usuario: DataTypes.STRING,contrasena: DataTypes.STRING});
 
-export default tbUser;
+// bassicamente construimos la estrucutra de nuestras tablas y lo que vamos a manejar
+export const tbUser = db.define('usuarios', {email: DataTypes.STRING,contrasena: DataTypes.STRING});
+export const tbUserInsert = db.define('usuarios', {fk_persona:DataTypes.INTEGER,email: DataTypes.STRING,contrasena: DataTypes.STRING});
+
 
 
 

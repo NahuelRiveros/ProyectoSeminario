@@ -1,6 +1,6 @@
 // importamos los medelos desarrollados
 
-import tbUser from "../models/blogModel.js";
+import {tbUser,tbUserInsert} from "../models/blogModel.js";
 
 //** Metodos para el CRUD **/
 
@@ -9,8 +9,8 @@ import tbUser from "../models/blogModel.js";
 // SIMPRE UTILIZAR ASYNC y AWAIT
 export const obtRegistros = async (req, res) => {
   try {
-    const users = await tbUser.findAll();
-    res.json(users);
+    const allUsuarios = await tbUser.findAll();
+    res.json(allUsuarios);
   } catch (error) {
     res.json({ msg: error.message });
   }
@@ -18,8 +18,8 @@ export const obtRegistros = async (req, res) => {
 // Mostrar un registro
 export const obtUnRegistro = async (req, res) => {
   try {
-    const unUsers = await tbUser.findAll({ where: { id: req.params.id } });
-    res.json(unUsers);
+    const unUsuario = await tbUser.findAll({ where: { id: req.params.id } });
+    res.json(unUsuario[0]);
   } catch (error) {
     res.json({ msg: error.message });
   }
@@ -27,9 +27,12 @@ export const obtUnRegistro = async (req, res) => {
 // Crear un registro
 export const crearRegistro = async (req, res) => {
   try {
-    const creado = await tbUser.create(req.body);
+    const creado = await tbUserInsert.create(req.body);
     res.json({ msg: "Creado correctamente" });
-  } catch (error) {}
+  } catch (error) 
+  {
+    res.json({ msg: error.message });
+  }
 };
 
 // Actualizar un registro
