@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-//esto devuelve el los datos que tenemos cargado en la base de datos
+//esto devuelve los datos que tenemos cargado en la base de datos en esa ruta
 app.use('/registro' , regisRutas)
 
 //pruebas de a base de datos si se logra hacer la conexion
