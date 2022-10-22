@@ -16,7 +16,6 @@ export const CompoShowRegis = () => {
 
   const getRegistro = async () => {
     const res = await axios.get(URI);
-    console.log('esto'+ res.data);
     setRegistro(res.data);
   };
 

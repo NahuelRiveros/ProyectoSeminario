@@ -15,9 +15,9 @@ function App() {
       hola mundo
       <BrowserRouter>
         <Routes>
-          <Route path="/Home" element={<Login/>}/>
-          <Route path="/Reguser" element={<RegistroUsuario />}/>
-          <Route path="/registro" element={<CompoShowRegis />}/>
+          <Route path="/Homea" element={<Login/>}/>
+          <Route path="/registrarse" element={<RegistroUsuario />}/>
+          <Route path="/Home" element={<CompoShowRegis />}/>
            
           
         </Routes>

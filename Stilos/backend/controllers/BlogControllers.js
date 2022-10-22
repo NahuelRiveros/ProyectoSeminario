@@ -1,6 +1,6 @@
 // importamos los medelos desarrollados
 
-import {tbUser,tbUserInsert} from "../models/blogModel.js";
+import {tbUser,tbUserInsert, tbPers} from "../models/blogModel.js";
 
 //** Metodos para el CRUD **/
 
@@ -10,6 +10,14 @@ import {tbUser,tbUserInsert} from "../models/blogModel.js";
 export const obtRegistros = async (req, res) => {
   try {
     const allUsuarios = await tbUser.findAll();
+    res.json(allUsuarios);
+  } catch (error) {
+    res.json({ msg: error.message });
+  }
+};
+export const obtPers = async (req, res) => {
+  try {
+    const allUsuarios = await tbPers.findAll();
     res.json(allUsuarios);
   } catch (error) {
     res.json({ msg: error.message });

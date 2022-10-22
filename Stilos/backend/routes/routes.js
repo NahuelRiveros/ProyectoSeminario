@@ -1,9 +1,10 @@
 import express from 'express';
-import { auctRegistro, crearRegistro, elimRegistro, obtRegistros, obtUnRegistro } from '../controllers/BlogControllers.js';
+import { auctRegistro, crearRegistro, elimRegistro, obtRegistros, obtUnRegistro,obtPers } from '../controllers/BlogControllers.js';
 // para hacer esta parte debemos tener en cuenta los verbos HTTP para las apis 
 // creamos las rutas
 const rutas = express.Router()
 //get metodo para obtener
+rutas.get('/personas/',obtPers)
 rutas.get('/', obtRegistros)
 rutas.get('/:id', obtUnRegistro)
 //post metedo para crear
