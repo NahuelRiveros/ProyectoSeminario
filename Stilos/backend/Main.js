@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 //esto devuelve los datos que tenemos cargado en la base de datos en esa ruta
-app.use('/registro' , regisRutas)
+app.use('/registro' , regisRutas);
 
 //pruebas de a base de datos si se logra hacer la conexion
 try { 

@@ -40,14 +40,30 @@ export const RegistroUsuario = () => {
 
   const RegistrarUser = async (e) => {
     e.preventDefault();
-    if (contrasena === contrasenaDos){
 
-      await axios.post(URI, {
-        email: email,
-        contrasena: contrasena
-      });
-      navigate("/home");
-    }
+      if(email.indexOf('@') == -1 || email.indexOf('.') == -1) {
+          return alert('pal pingo');
+      }
+      else if (contrasena.length < 7  || contrasena !== contrasenaDos){
+          return alert('contr corta')
+      }
+      else{
+          alert(' va bien')
+          // await axios.post(URI, {
+          //   email: email,
+          //   contrasena: contrasena
+          // });
+          // navigate("/home");
+      }
+  
+    // if (contrasena === contrasenaDos){
+
+    //   await axios.post(URI, {
+    //     email: email,
+    //     contrasena: contrasena
+    //   });
+    //   navigate("/home");
+    // }
   };
   return (
     <Container maxW="2xl" centerContent>
