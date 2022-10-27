@@ -1,8 +1,8 @@
 export const Footer = () => {
   return (
-    <div>
+    <div className="bg-Footer">
       {/* <!-- Footer --> */}
-      <footer className="bg-info text-center">
+      <footer className="text-center">
         {/* <!-- Grid container --> */}
         <div className="container p-4">
           {/* <!-- Section: Social media --> */}
@@ -79,8 +79,8 @@ export const Footer = () => {
           className="text-center p-3"
           
         >
-          © 2020 Copyright:
-          <p className="text-dark">MDBootstrap.com</p>
+          © 2022 Copyright:
+          
         </div>
         {/* <!-- Copyright --> */}
       </footer>

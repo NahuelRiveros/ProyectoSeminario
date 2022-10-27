@@ -33,6 +33,7 @@ export const obtUnRegistro = async (req, res) => {
   }
 };
 // Crear un registro
+
 export const crearRegistro = async (req, res) => {
   try {
     const creado = await tbUserInsert.create(req.body);

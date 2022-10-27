@@ -1,20 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
-// importaciones del Chacra UI
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Button,
-  Container,
-  Box,
-  ButtonGroup,
-} from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const URI = "http://localhost:8000/registro/";
 
@@ -30,32 +17,34 @@ export const RegistroUsuario = () => {
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [contrasenaDos, setContrasenaDos] = useState("");
-  
-  //test
-  const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
 
+  //test
+  //   const [show, setShow] = useState(false);
+  //   const handleClick = () => setShow(!show);
+  // <Button h="1.75rem" size="sm" onClick={handleClick}>
+  //                 {show ? "Ocultar" : "Ver"}
+  //               </Button>
   const navigate = useNavigate();
   // Guardar Datos
-
+  const eventoReg = ( )=>{
+    navigate("/algo/pepito")
+  }
   const RegistrarUser = async (e) => {
     e.preventDefault();
 
-      if(email.indexOf('@') == -1 || email.indexOf('.') == -1) {
-          return alert('pal pingo');
-      }
-      else if (contrasena.length < 7  || contrasena !== contrasenaDos){
-          return alert('contr corta')
-      }
-      else{
-          alert(' va bien')
-          // await axios.post(URI, {
-          //   email: email,
-          //   contrasena: contrasena
-          // });
-          // navigate("/home");
-      }
-  
+    if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
+      return alert("pal pingo");
+    } else if (contrasena.length < 7 || contrasena !== contrasenaDos) {
+      return alert("contr corta");
+    } else {
+      alert(" va bien");
+      // await axios.post(URI, {
+      //   email: email,
+      //   contrasena: contrasena
+      // });
+      // navigate("/home");
+    }
+
     // if (contrasena === contrasenaDos){
 
     //   await axios.post(URI, {
@@ -66,63 +55,102 @@ export const RegistroUsuario = () => {
     // }
   };
   return (
-    <Container maxW="2xl" centerContent>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        width="100%"
-        py={12}
-        bgImage="url('https://media.istockphoto.com/photos/orange-cement-background-picture-id1097244084?k=20&m=1097244084&s=612x612&w=0&h=v_Q_DKV6W_o8w8qrhG9RzN43z0Js7jXhqBFQ8-qfZT4=')"
-        bgPosition="center"
-        bgRepeat="no-repeat"
-        mb={2}
-        padding='2'
-        margin='2'
-      >
-        <form onSubmit={RegistrarUser}>
+    //     <Input placeholder="email"  onChange={(e)=>{setEmail(e.target.value)}} value={email} />
+    // placeholder="Contraseña" onChange={(e)=>{setContrasena(e.target.value)}}
+    //               value={contrasena}
+    // placeholder="Repetir Contraseña" onChange={(e)=>{setContrasenaDos(e.target.value)}} value={contrasenaDos}
+    <div className="bg-Body">
+      <section className="h-100 gradient-form">
+        <div className="container py-5 h-100">
+          <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="col-xl-10">
+              <div className="card rounded-3 text-black">
+                <div className="row g-0">
+                  <div className="col-lg-6">
+                    <div className="card-body p-md-5 mx-md-4">
+                      <div className="text-center">
+                        <img
+                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                          alt="logo"
+                          style={{ width: "185px" }}
+                        />
 
-        
-        <FormControl>
-          {/* EMAIL */}
-          <FormLabel>Email</FormLabel>
-          <Input placeholder="email"  onChange={(e)=>{setEmail(e.target.value)}} value={email} />
-          {/* Contraseñas */}
-          <FormLabel>Contraseña</FormLabel>
-          <InputGroup size="md">
-            <Input
-              pr="4.5rem"
-              type={show ? "text" : "password"}
-              placeholder="Contraseña" onChange={(e)=>{setContrasena(e.target.value)}}
-              value={contrasena}
-            />
-            <InputRightElement width="4.5rem">
-              <Button h="1.75rem" size="sm" onClick={handleClick}>
-                {show ? "Ocultar" : "Ver"}
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-          {/* repetir contraseña */}
-          <FormLabel>Repetir Contraseña</FormLabel>
-          <InputGroup size="md">
-            <Input
-              pr="4.5rem"
-              type="password"
-              placeholder="Repetir Contraseña" onChange={(e)=>{setContrasenaDos(e.target.value)}} value={contrasenaDos}
-            />
-          </InputGroup>
+                        <h4 className="mt-1 mb-5 pb-1">
+                          We are The Lotus Team
+                        </h4>
+                      </div>
 
-          {/* <FormLabel>Localidad</FormLabel>
-      <Input placeholder="Localidad" />
-      <FormLabel>Provincia</FormLabel>
-      <Input placeholder="Provincia" />
-      <FormLabel>Telefono</FormLabel>
-      <Input placeholder="Telefono" /> */}
-        <Button colorScheme='teal' bg='green.900' variant='solid' padding='2' margin='2' type={'submit'} >Registrar</Button>
-        </FormControl>
-        </form>
+                      <form>
+                        <p>Please login to your account</p>
 
-      </Box>
-    </Container>
+                        <div className="form-outline mb-4">
+                          <input
+                            type="email"
+                            id="form2Example11"
+                            className="form-control"
+                            placeholder="Phone number or email address"
+                          />
+                          <label className="form-label" for="form2Example11">
+                            Username
+                          </label>
+                        </div>
+
+                        <div className="form-outline mb-4">
+                          <input
+                            type="password"
+                            id="form2Example22"
+                            className="form-control"
+                          />
+                          <label className="form-label" for="form2Example22">
+                            Password
+                          </label>
+                        </div>
+
+                        <div className="text-center pt-1 mb-5 pb-1">
+                          <button
+                            className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+                            type="button"
+                          >
+                            Log in
+                          </button>
+                          <Link className="text-muted" to={"#!"}>
+                          ¿Se te olvidó tu contraseña?
+                          </Link>
+                        </div>
+
+                        <div className="d-flex align-items-center justify-content-center pb-4">
+                          <p className="mb-0 me-2">¿No tienes una cuenta?</p>
+                          <button
+                            type="button"
+                            className="btn btn-outline-danger"
+                            onClick={eventoReg}
+                          >
+                            Crear Nuevo
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 d-flex align-items-center gradient-custom-2">
+                    <div className="text-white px-3 py-4 p-md-5 mx-md-4">
+                      <h4 className="mb-4">
+                        We are more than just Link company
+                      </h4>
+                      <p className="small mb-0">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit, sed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud exercitation ullamco laboris nisi ut aliquip ex
+                        ea commodo consequat.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };

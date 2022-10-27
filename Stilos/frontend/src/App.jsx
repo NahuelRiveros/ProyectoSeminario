@@ -14,19 +14,17 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   return (
     <div>
-      hola mundo
       <BrowserRouter>
         <Navbar>
+        </Navbar>
         <Routes>
-          {/* <Route path="/Home" element={<Navbar/>}/> */}
+          
           <Route path="/registrarse" element={<RegistroUsuario />}/>
           <Route path="/Homea" element={<CompoShowRegis />}/>
            
           
         </Routes>
 
-        </Navbar>
-          <Carruserl></Carruserl>
         <Footer>
         </Footer>
       </BrowserRouter>
