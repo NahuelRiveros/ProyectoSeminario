@@ -6,21 +6,29 @@
 //El uso de estas dos formas es opcional pero recomiendo la primera par un mejor control de lo que se exporta
 //Aqui tenemos nuestra app que  basicamente es cualquier cosa que nosotros progremos
 import { CompoShowRegis } from "./components/usuariosReg";
-import {Login} from './components/login';
+import {Navbar} from './components/navbar';
 import {RegistroUsuario} from './components/registro'
+import {Footer} from './components/footer';
+import {Carruserl} from './components/carruserl';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   return (
     <div>
       hola mundo
       <BrowserRouter>
+        <Navbar>
         <Routes>
-          <Route path="/Homea" element={<Login/>}/>
+          {/* <Route path="/Home" element={<Navbar/>}/> */}
           <Route path="/registrarse" element={<RegistroUsuario />}/>
-          <Route path="/Home" element={<CompoShowRegis />}/>
+          <Route path="/Homea" element={<CompoShowRegis />}/>
            
           
         </Routes>
+
+        </Navbar>
+          <Carruserl></Carruserl>
+        <Footer>
+        </Footer>
       </BrowserRouter>
     </div>
   );
