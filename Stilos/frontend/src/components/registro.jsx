@@ -1,43 +1,27 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
-const URI = "http://localhost:8000/registro/";
 
-export const RegistroUsuario = () => {
-  //datos personales
-  // const [nombreUser, setNombreUser] = useState("");
-  // const [segundoNom, setSegundoNom] = useState("");
-  // const [apellidoUser, setApellidoUser] = useState("");
-  // const [localidad, setLocalidad] = useState("");
-  // const [provincia, setProvincia] = useState("");
-  // const [telefono, setTelefono] = useState("");
-  //datos de usuario
-  const [email, setEmail] = useState("");
-  const [contrasena, setContrasena] = useState("");
-  const [contrasenaDos, setContrasenaDos] = useState("");
 
-  //test
-  //   const [show, setShow] = useState(false);
-  //   const handleClick = () => setShow(!show);
-  // <Button h="1.75rem" size="sm" onClick={handleClick}>
-  //                 {show ? "Ocultar" : "Ver"}
-  //               </Button>
-  const navigate = useNavigate();
-  // Guardar Datos
-  const eventoReg = ( )=>{
-    navigate("/algo/pepito")
-  }
-  const RegistrarUser = async (e) => {
+
+export const RegistroUser = () => {
+    const [email, setEmail] = useState('')
+    const [contrasena, setContrasena] = useState('')
+    const [contrasenaDos, setContrasenaDos] = useState('')
+    const navigate = useNavigate();
+
+
+
+
+  const submitRegist = async (e) => {
     e.preventDefault();
-
     if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
-      return alert("pal pingo");
+      return alert('Error su correo no es valido');
     } else if (contrasena.length < 7 || contrasena !== contrasenaDos) {
-      return alert("contr corta");
+      return alert("Su contraseña no son iguales");
     } else {
-      alert(" va bien");
+      alert("Registrado Correctamente");
+      navigate("/login");
       // await axios.post(URI, {
       //   email: email,
       //   contrasena: contrasena
@@ -54,95 +38,93 @@ export const RegistroUsuario = () => {
     //   navigate("/home");
     // }
   };
+
   return (
-    //     <Input placeholder="email"  onChange={(e)=>{setEmail(e.target.value)}} value={email} />
-    // placeholder="Contraseña" onChange={(e)=>{setContrasena(e.target.value)}}
-    //               value={contrasena}
-    // placeholder="Repetir Contraseña" onChange={(e)=>{setContrasenaDos(e.target.value)}} value={contrasenaDos}
-    <div className="bg-Body">
-      <section className="h-100 gradient-form">
+    <div>
+      <section className="">
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col-xl-10">
-              <div className="card rounded-3 text-black">
-                <div className="row g-0">
-                  <div className="col-lg-6">
-                    <div className="card-body p-md-5 mx-md-4">
-                      <div className="text-center">
-                        <img
-                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                          alt="logo"
-                          style={{ width: "185px" }}
-                        />
+            <div className="col-lg-12 col-xl-11">
+              <div className="card text-black">
+                <div className="card-body p-md-5 bg-Reg">
+                  <div className="row justify-content-center">
+                    <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                      <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                        Registro
+                      </p>
 
-                        <h4 className="mt-1 mb-5 pb-1">
-                          We are The Lotus Team
-                        </h4>
-                      </div>
+                      <form className="mx-1 mx-md-4" onSubmit={submitRegist}>
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            <input
+                              type="email"
+                              id="form3Example3c"
+                              className="form-control text-light" onChange={(e)=>{setEmail(e.target.value)}} value={email}
+                            />
+                            <label className="form-label">Your Email</label>
+                          </div>
+                        </div>
 
-                      <form>
-                        <p>Please login to your account</p>
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            <input
+                              type="password"
+                              id="form3Example4c"
+                              className="form-control text-light"
+                            onChange={(e)=>{setContrasena(e.target.value) }} value={contrasena}
+                            />
+                            <label className="form-label" >
+                              Password
+                            </label>
+                          </div>
+                        </div>
 
-                        <div className="form-outline mb-4">
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-key fa-lg me-3 fa-fw"></i>
+                          <div className="form-outline flex-fill mb-0">
+                            <input
+                              type="password"
+                              id="form3Example4cd"
+                              className="form-control text-light"
+                              onChange={(e)=>{setContrasenaDos(e.target.value)}} value={contrasenaDos}
+                            />
+                            <label className="form-label">
+                              Repeat your password
+                            </label>
+                          </div>
+                        </div>
+
+                        <div className="form-check d-flex justify-content-center mb-5">
                           <input
-                            type="email"
-                            id="form2Example11"
-                            className="form-control"
-                            placeholder="Phone number or email address"
+                            className="form-check-input me-2"
+                            type="checkbox"
+                            value=""
+                            id="form2Example3c"
                           />
-                          <label className="form-label" for="form2Example11">
-                            Username
+                          <label className="form-check-label">
+                            Acepto todos los términos de servicio{" "}
+                            <a href="#!">Terms of service</a>
                           </label>
                         </div>
 
-                        <div className="form-outline mb-4">
-                          <input
-                            type="password"
-                            id="form2Example22"
-                            className="form-control"
-                          />
-                          <label className="form-label" for="form2Example22">
-                            Password
-                          </label>
-                        </div>
-
-                        <div className="text-center pt-1 mb-5 pb-1">
+                        <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                           <button
-                            className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-                            type="button"
+                            type="submit"
+                            className="btn btn-primary btn-lg"
                           >
-                            Log in
-                          </button>
-                          <Link className="text-muted" to={"#!"}>
-                          ¿Se te olvidó tu contraseña?
-                          </Link>
-                        </div>
-
-                        <div className="d-flex align-items-center justify-content-center pb-4">
-                          <p className="mb-0 me-2">¿No tienes una cuenta?</p>
-                          <button
-                            type="button"
-                            className="btn btn-outline-danger"
-                            onClick={eventoReg}
-                          >
-                            Crear Nuevo
+                            Register
                           </button>
                         </div>
                       </form>
                     </div>
-                  </div>
-                  <div className="col-lg-6 d-flex align-items-center gradient-custom-2">
-                    <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                      <h4 className="mb-4">
-                        We are more than just Link company
-                      </h4>
-                      <p className="small mb-0">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex
-                        ea commodo consequat.
-                      </p>
+                    <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                      <img
+                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                        className="img-fluid"
+                        alt="Sample image"
+                      />
                     </div>
                   </div>
                 </div>

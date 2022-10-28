@@ -7,9 +7,10 @@
 //Aqui tenemos nuestra app que  basicamente es cualquier cosa que nosotros progremos
 import { CompoShowRegis } from "./components/usuariosReg";
 import {Navbar} from './components/navbar';
-import {RegistroUsuario} from './components/registro'
+import {LoginUsuario} from './components/login'
 import {Footer} from './components/footer';
 import {Carruserl} from './components/carruserl';
+import {RegistroUser} from './components/registro';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   return (
@@ -18,8 +19,8 @@ function App() {
         <Navbar>
         </Navbar>
         <Routes>
-          
-          <Route path="/registrarse" element={<RegistroUsuario />}/>
+          <Route path="/registro" element={<RegistroUser/>}/>
+          <Route path="/login" element={<LoginUsuario />}/>
           <Route path="/Homea" element={<CompoShowRegis />}/>
            
           
