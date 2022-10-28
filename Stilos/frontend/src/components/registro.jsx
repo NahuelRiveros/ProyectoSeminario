@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import bcrypt from "bcryptjs";
 
-
+const URI = "http://localhost:8000/registro/";
 
 
 export const RegistroUser = () => {
-    const [email, setEmail] = useState('')
-    const [contrasena, setContrasena] = useState('')
-    const [contrasenaDos, setContrasenaDos] = useState('')
-    const navigate = useNavigate();
+  const [email, setEmail] = useState('')
+  const [contrasena, setContrasena] = useState('')
+  const [contrasenaDos, setContrasenaDos] = useState('')
+  const navigate = useNavigate();
 
 
 
@@ -17,16 +19,18 @@ export const RegistroUser = () => {
     e.preventDefault();
     if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
       return alert('Error su correo no es valido');
-    } else if (contrasena.length < 7 || contrasena !== contrasenaDos) {
-      return alert("Su contraseña no son iguales");
+    } else if (contrasena.length < 7) {
+      return alert("La contraseña debe tener almenos 8 caracteres");
+    } else if (contrasena !== contrasenaDos) {
+      return alert("Las contraseñas no coinciden")
     } else {
+
       alert("Registrado Correctamente");
-      navigate("/login");
-      // await axios.post(URI, {
-      //   email: email,
-      //   contrasena: contrasena
-      // });
-      // navigate("/home");
+      let contHash = await bcrypt.hash(contrasena, 8);
+      await axios.post(URI, {
+        email: email,
+        contrasena: contHash
+      });
     }
   };
 
@@ -51,7 +55,7 @@ export const RegistroUser = () => {
                             <input
                               type="email"
                               id="form3Example3c"
-                              className="form-control text-light" onChange={(e)=>{setEmail(e.target.value)}} value={email}
+                              className="form-control text-light" onChange={(e) => { setEmail(e.target.value) }} value={email}
                             />
                             <label className="form-label">Your Email</label>
                           </div>
@@ -64,7 +68,7 @@ export const RegistroUser = () => {
                               type="password"
                               id="form3Example4c"
                               className="form-control text-light"
-                            onChange={(e)=>{setContrasena(e.target.value) }} value={contrasena}
+                              onChange={(e) => { setContrasena(e.target.value) }} value={contrasena}
                             />
                             <label className="form-label" >
                               Password
@@ -79,7 +83,7 @@ export const RegistroUser = () => {
                               type="password"
                               id="form3Example4cd"
                               className="form-control text-light"
-                              onChange={(e)=>{setContrasenaDos(e.target.value)}} value={contrasenaDos}
+                              onChange={(e) => { setContrasenaDos(e.target.value) }} value={contrasenaDos}
                             />
                             <label className="form-label">
                               Repeat your password
