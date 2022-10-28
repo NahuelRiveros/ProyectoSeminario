@@ -28,15 +28,6 @@ export const RegistroUser = () => {
       // });
       // navigate("/home");
     }
-
-    // if (contrasena === contrasenaDos){
-
-    //   await axios.post(URI, {
-    //     email: email,
-    //     contrasena: contrasena
-    //   });
-    //   navigate("/home");
-    // }
   };
 
   return (
