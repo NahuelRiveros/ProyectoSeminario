@@ -26,8 +26,9 @@ export const obtPers = async (req, res) => {
 // Mostrar un registro
 export const obtUnRegistro = async (req, res) => {
   try {
-    const unUsuario = await tbUser.findAll({ where: { id: req.params.id } });
+    const unUsuario = await tbUser.findAll({ where: { email: req.params.email }});
     res.json(unUsuario[0]);
+    return true
   } catch (error) {
     res.json({ msg: error.message });
   }

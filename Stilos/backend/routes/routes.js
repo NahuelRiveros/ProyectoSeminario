@@ -6,7 +6,7 @@ const rutas = express.Router()
 //get metodo para obtener
 rutas.get('/personas/',obtPers)
 rutas.get('/', obtRegistros)
-rutas.get('/:id', obtUnRegistro)
+rutas.get('/:email', obtUnRegistro)
 //post metedo para crear
 rutas.post('/',crearRegistro)
 // put metodo para actualizar
