@@ -5,7 +5,7 @@ import { allUsers,delUser,newUser,oneUser,udpUser } from '../controllers/UsersCo
 const rutas = express.Router()
 //get metodo para obtener
 rutas.get('/user/',allUsers)
-rutas.get('/unUser/:email', oneUser)
+rutas.post('/unUser/', oneUser)
 //post metedo para crear
 rutas.post('/user/',newUser)
 // put metodo para actualizar

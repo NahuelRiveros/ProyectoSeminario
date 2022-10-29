@@ -14,7 +14,7 @@ export const RegistroUser = () => {
 
 
 
-  const submitRegist =  async(e) => {
+  const submitRegist = async (e) => {
     e.preventDefault();
     if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
       return alert('Error su correo no es valido');
@@ -23,14 +23,16 @@ export const RegistroUser = () => {
     } else if (contrasena !== contrasenaDos) {
       return alert("Las contraseñas no coinciden")
     } else {
-
-      alert("Registrado Correctamente");
-       await axios.post(URI, 
-        {email: email,
-        contrasena: contrasena}
-      ).then(()=>{navigate('/login')})
-      
-    }
+      await axios.post(URI, { email: email, contrasena: contrasena })//.then(()=>{navigate('/login')})
+        .then((response) => {
+          if (response.data.msg == "Usuario ya existe") {
+            return alert("El usuario ya existe")
+          } else {
+            alert("Creado correctamente")
+            navigate('/login')
+          }
+        })
+    };
   };
 
   return (
@@ -52,9 +54,11 @@ export const RegistroUser = () => {
                           <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
                             <input
+                              autoComplete="off"
                               type="email"
                               id="email"
-                              className="form-control text-light" onChange={(e) => { setEmail(e.target.value) }} value={email} 
+                              className="form-control text-light"
+                              onChange={(e) => { setEmail(e.target.value) }} value={email}
                               name='email'
                             />
                             <label className="form-label">Your Email</label>
@@ -65,6 +69,7 @@ export const RegistroUser = () => {
                           <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
                             <input
+                              autoComplete="off"
                               type="password"
                               id="contrasena"
                               className="form-control text-light"
@@ -81,6 +86,7 @@ export const RegistroUser = () => {
                           <i className="fas fa-key fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
                             <input
+                              autoComplete="off"
                               type="password"
                               id="contrasena1"
                               className="form-control text-light"

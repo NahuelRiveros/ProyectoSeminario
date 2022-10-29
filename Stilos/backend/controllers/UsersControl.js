@@ -17,20 +17,24 @@ export const allUsers = async (req, res) => {
 };
 // Buscar Usuario si exite y logear
 export const oneUser = async (req, res) => {
-    const user = await tbUser.findOne({ where: { email: req.params.email }});
+    const user = await tbUser.findOne({ where: { email: req.body.email }}); //al cambiar a metodo POST, el email viene junto a la contraseña en el Body. Siendo asi, tampoco se necesita del parametro, por lo que se saco de Routes
+    console.log(req)
     if (!user){
-      return res.send('No enxiste el correo ingresado')
+      return res.json({msg:'No existe el correo ingresado'})
     }
     try {
+      console.log("aqui")
       const rta = await bcryptjs.compare(req.body.contrasena, user.contrasena)
+      console.log(rta)
       if (!rta) {
-        return res.json("La contraseña no existe")
+        return res.json({msg:"Mal contraseña"})
       }
       res.json(user)
       
     } catch (error) {
+      console.log(user)
 
-      res.json(error)
+      res.json({msg:"Error de Axios"})
       
     }
 };
@@ -42,16 +46,16 @@ export const newUser = async (req, res) => {
     const {email,contrasena} = req.body
     const Existe = await tbUser.findOne({ where: { email: email }});
     if (Existe){
-      res.json({msg:'Usuario ya existe'})
+      return(res.json({msg:'Usuario ya existe'}))
     }
     else {
       let claveHash = await bcryptjs.hash(contrasena,8)
       const creado = await tbUser.create({email,contrasena:claveHash});
-      res.json({ msg: "Creado correctamente" });
+      return(res.json({ msg: "Creado correctamente" }));
     }
   } catch (error) 
   {
-    res.json({ msg: error.message });
+    return(res.json({ msg: error.message }));
   }
 };
 
