@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const URI = "http://localhost:8000/registro/";
+
 
 export const LoginUsuario = () => {
   //datos personales
@@ -31,23 +31,25 @@ export const LoginUsuario = () => {
   }
   const loginAcces = async (e) => {
     e.preventDefault();
-
-      alert(" va bien");
-      // await axios.post(URI, {
-      //   email: email,
-      //   contrasena: contrasena
-      // });
-      // navigate("/home");
+    if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
+      return alert('Error su correo no es valido');
+    } else if (contrasena.length < 7) {
+      return alert("La contraseña debe tener almenos 8 caracteres");
+    } 
+     else {
+      
+      const URI = "http://localhost:8000/registro/unUser/"+ email
+       alert("Logeando +" + URI);
+       await axios.get(URI, 
+        contrasena
+      )
+      
+    }
+    
+      
     }
 
-    // if (contrasena === contrasenaDos){
-
-    //   await axios.post(URI, {
-    //     email: email,
-    //     contrasena: contrasena
-    //   });
-    //   navigate("/home");
-    // }
+   
     return (
       <div className="bg-Body">
         <section className="h-100 gradient-form">
@@ -92,7 +94,7 @@ export const LoginUsuario = () => {
                               id="form2Example22"
                               className="form-control"
                               placeholder="**********"
-                              onChange={(e)=>{setContrasena(e.target.value)}}
+                              onChange={(e)=>{setContrasena(e.target.value)}} value={contrasena}
                             />
                             <label className="form-label">
                               Password

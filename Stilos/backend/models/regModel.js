@@ -11,9 +11,7 @@ import { DataTypes } from 'sequelize';
 
 // bassicamente construimos la estrucutra de nuestras tablas y lo que vamos a manejar
 export const tbUser = db.define('usuarios', { email: DataTypes.STRING,contrasena: DataTypes.STRING});
-export const tbUserInsert = db.define('usuarios', {email: DataTypes.STRING,contrasena: DataTypes.STRING});
 
-export const tbPers = db.define('personas', { nombre_uno: DataTypes.STRING,nombre_dos: DataTypes.STRING,telefono: DataTypes.STRING});
 
 
 

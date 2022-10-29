@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import bcrypt from "bcryptjs";
 
-const URI = "http://localhost:8000/registro/";
+const URI = "http://localhost:8000/registro/user";
 
 
 export const RegistroUser = () => {
@@ -15,7 +14,7 @@ export const RegistroUser = () => {
 
 
 
-  const submitRegist = async (e) => {
+  const submitRegist =  async(e) => {
     e.preventDefault();
     if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
       return alert('Error su correo no es valido');
@@ -26,11 +25,11 @@ export const RegistroUser = () => {
     } else {
 
       alert("Registrado Correctamente");
-      let contHash = await bcrypt.hash(contrasena, 8);
-      await axios.post(URI, {
-        email: email,
-        contrasena: contHash
-      });
+       await axios.post(URI, 
+        {email: email,
+        contrasena: contrasena}
+      ).then(()=>{navigate('/login')})
+      
     }
   };
 
@@ -54,8 +53,9 @@ export const RegistroUser = () => {
                           <div className="form-outline flex-fill mb-0">
                             <input
                               type="email"
-                              id="form3Example3c"
-                              className="form-control text-light" onChange={(e) => { setEmail(e.target.value) }} value={email}
+                              id="email"
+                              className="form-control text-light" onChange={(e) => { setEmail(e.target.value) }} value={email} 
+                              name='email'
                             />
                             <label className="form-label">Your Email</label>
                           </div>
@@ -66,9 +66,10 @@ export const RegistroUser = () => {
                           <div className="form-outline flex-fill mb-0">
                             <input
                               type="password"
-                              id="form3Example4c"
+                              id="contrasena"
                               className="form-control text-light"
                               onChange={(e) => { setContrasena(e.target.value) }} value={contrasena}
+                              name='contrasena'
                             />
                             <label className="form-label" >
                               Password
@@ -81,9 +82,10 @@ export const RegistroUser = () => {
                           <div className="form-outline flex-fill mb-0">
                             <input
                               type="password"
-                              id="form3Example4cd"
+                              id="contrasena1"
                               className="form-control text-light"
                               onChange={(e) => { setContrasenaDos(e.target.value) }} value={contrasenaDos}
+                              name='contrasena1'
                             />
                             <label className="form-label">
                               Repeat your password

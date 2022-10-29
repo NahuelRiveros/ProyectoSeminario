@@ -1,18 +1,17 @@
 import express from 'express';
-import { auctRegistro, crearRegistro, elimRegistro, obtRegistros, obtUnRegistro,obtPers } from '../controllers/BlogControllers.js';
+import { allUsers,delUser,newUser,oneUser,udpUser } from '../controllers/UsersControl.js';
 // para hacer esta parte debemos tener en cuenta los verbos HTTP para las apis 
 // creamos las rutas
 const rutas = express.Router()
 //get metodo para obtener
-rutas.get('/personas/',obtPers)
-rutas.get('/', obtRegistros)
-rutas.get('/:email', obtUnRegistro)
+rutas.get('/user/',allUsers)
+rutas.get('/unUser/:email', oneUser)
 //post metedo para crear
-rutas.post('/',crearRegistro)
+rutas.post('/user/',newUser)
 // put metodo para actualizar
-rutas.put('/:id', auctRegistro)
+rutas.put('/user/:id', udpUser)
 // delete metodo para eliminar registro
-rutas.delete('/:id', elimRegistro)
+rutas.delete('/user/:id', delUser)
 
 
 export default rutas
