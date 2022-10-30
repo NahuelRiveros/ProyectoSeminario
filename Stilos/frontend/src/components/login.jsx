@@ -40,15 +40,13 @@ export const LoginUsuario = () => {
       alert("Logeando +" + URI + email);
       //se cambio a post para poder pasar la contraseña. El metodo GET es incapaz de enviar un body, por lo cual "req.body.contrasena" no existe
       await axios.post(URI, { email: email, contrasena: contrasena })
-        .then((response) => {
-          if (response.data.msg == "No existe el correo ingresado") {
-            alert("El usuario no existe")
-          } else if (response.data.msg == "Mal contraseña") {
-            alert("La contraseña es incorrecta")
-          } else if (response.data.msg == "Error de Axios") {
-            alert("Erros de Axios")
-          } else {
-            alert("Se ha logueado correctamente")
+        .then((res) => {
+          if (res.data.error) {
+            console.log(res.data.error)
+          } 
+          else {
+            sessionStorage.setItem("accessToken", res.data.Token)
+            console.log(`Usuario ${res.data.msg}, ${res.data.Token}`)
           }
         })
     }

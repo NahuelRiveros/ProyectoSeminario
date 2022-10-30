@@ -19,10 +19,10 @@ function App() {
         <Navbar>
         </Navbar>
         <Routes>
+          
           <Route path="/registro" element={<RegistroUser/>}/>
           <Route path="/login" element={<LoginUsuario />}/>
           <Route path="/Homea" element={<CompoShowRegis />}/>
-           
           
         </Routes>
 

@@ -24,11 +24,11 @@ export const RegistroUser = () => {
       return alert("Las contraseñas no coinciden")
     } else {
       await axios.post(URI, { email: email, contrasena: contrasena })//.then(()=>{navigate('/login')})
-        .then((response) => {
-          if (response.data.msg == "Usuario ya existe") {
+        .then((res) => {
+          if (res.data.msg == "Usuario ya existe") {
             return alert("El usuario ya existe")
           } else {
-            alert("Creado correctamente")
+            alert(`"Creado correctamente"`)
             navigate('/login')
           }
         })
