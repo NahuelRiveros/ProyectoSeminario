@@ -5,7 +5,8 @@ import cors from 'cors'
 import express  from 'express';
 import  db  from './database/db.js';
 // aca importe las rutas creada pero cambidole el nombre a las variable aqui
-import rutaUsers from './routes/routes.js';
+import rutaUsers from './routes/users.js';
+import rutaPerfil from './routes/perfilUser.js'
 import session from 'express-session';
 
 
@@ -21,7 +22,7 @@ app.use(express.json());
 //esto devuelve los datos que tenemos cargado en la base de datos en esa ruta.
 // Aqui van todas las rutas donde voy a trabarjar con cada tabla del a BD.
 app.use('/registro' , rutaUsers);
-
+app.use('/persona' , rutaPerfil);
 
   
 

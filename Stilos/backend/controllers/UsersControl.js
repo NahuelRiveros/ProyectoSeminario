@@ -3,6 +3,7 @@
 import {tbUser} from "../models/regModel.js";
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import{validarToken} from '../middleware/Auth.js'
 //** Metodos para el CRUD **/
 
 
@@ -31,9 +32,11 @@ export const oneUser = async (req, res) => {
         
         else{
           //token de acceso
-          const TOKEN = jwt.sign({id,email}, "HOLAMUNDO", {expiresIn: "1m"} );
+          jwt.sign({ id,email }, "HOLAMUNDO", (err, token) =>{
+            res.json({Token : token});
+          });
         
-          res.json({msg:id ,Token : TOKEN});
+          
 
         }
       

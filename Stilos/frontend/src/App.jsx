@@ -11,6 +11,7 @@ import {LoginUsuario} from './components/login'
 import {Footer} from './components/footer';
 import {Carruserl} from './components/carruserl';
 import {RegistroUser} from './components/registro';
+import {PerfilUser} from './components/myProfile'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/registro" element={<RegistroUser/>}/>
           <Route path="/login" element={<LoginUsuario />}/>
           <Route path="/Homea" element={<CompoShowRegis />}/>
+          <Route path="/MiPerfil" element={<PerfilUser/>}/>
           
         </Routes>
 

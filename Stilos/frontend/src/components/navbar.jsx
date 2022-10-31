@@ -1,4 +1,5 @@
 import {} from 'react'
+import { Link } from 'react-router-dom'
 
 
 export const Navbar = () => {
@@ -30,24 +31,24 @@ export const Navbar = () => {
     {/* <!-- Collapsible wrapper --> */}
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       {/* <!-- Navbar brand --> */}
-      <a className="navbar-brand mt-2 mt-lg-0" >
+      <Link className="navbar-brand mt-2 mt-lg-0" to={'/home'} >
         <img
-          src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-          height="15"
-          alt="MDB Logo"
+          src="./assets/react.svg"
+          height="25"
+          alt="Stilos Logo"
           loading="lazy"
         />
-      </a>
+      </Link>
       {/* <!-- Left links --> */}
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <a className="nav-link" >Dashboard</a>
+          <Link className="nav-link" to={'/Damas'}>Damas</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" >Team</a>
+          <Link className="nav-link" to={'/Hombres'}>Hombres</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" >Projects</a>
+          <Link className="nav-link" to={'/Accesorios'}>Accesorios</Link>
         </li>
       </ul>
       {/* <!-- Left links --> */}
@@ -57,13 +58,13 @@ export const Navbar = () => {
     {/* <!-- Right elements --> */}
     <div className="d-flex align-items-center">
       {/* <!-- Icon --> */}
-      <a className="text-reset me-3" >
+      <Link className="text-reset me-3" >
         <i className="fas fa-shopping-cart"></i>
-      </a>
+      </Link>
 
       {/* <!-- Notifications --> */}
       <div className="dropdown">
-        <a
+        <Link
           className="text-reset me-3 dropdown-toggle hidden-arrow"
           
           id="navbarDropdownMenuLink"
@@ -73,25 +74,25 @@ export const Navbar = () => {
         >
           <i className="fas fa-bell"></i>
           <span className="badge rounded-pill badge-notification bg-danger">1</span>
-        </a>
+        </Link>
         <ul
           className="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdownMenuLink"
         >
           <li>
-            <a className="dropdown-item" >Some news</a>
+            <Link className="dropdown-item" >Some news</Link>
           </li>
           <li>
-            <a className="dropdown-item" >Another news</a>
+            <Link className="dropdown-item" >Another news</Link>
           </li>
           <li>
-            <a className="dropdown-item" >Something else here</a>
+            <Link className="dropdown-item" >Something else here</Link>
           </li>
         </ul>
       </div>
       {/* <!-- Avatar --> */}
       <div className="dropdown">
-        <a
+        <Link
           className="dropdown-toggle d-flex align-items-center hidden-arrow"
           
           id="navbarDropdownMenuAvatar"
@@ -103,22 +104,22 @@ export const Navbar = () => {
             src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
             className="rounded-circle"
             height="25"
-            alt="Black and White Portrait of a Man"
+            alt="Black and White Portrait of Link Man"
             loading="lazy"
           />
-        </a>
+        </Link>
         <ul
           className="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdownMenuAvatar"
         >
           <li>
-            <a className="dropdown-item" >My profile</a>
+            <Link className="dropdown-item" to={'/miPerfil'}>My profile</Link>
           </li>
           <li>
-            <a className="dropdown-item" >Settings</a>
+            <Link className="dropdown-item" >Settings</Link>
           </li>
           <li>
-            <a className="dropdown-item" >Logout</a>
+            <Link className="dropdown-item" to={'/login'}>Login</Link>
           </li>
         </ul>
       </div>

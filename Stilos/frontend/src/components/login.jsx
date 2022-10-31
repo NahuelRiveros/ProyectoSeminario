@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const URI = "http://localhost:8000/registro/unUser/"
+const URIpersona = "http://localhost:8000/persona/miPerfil"
 
 export const LoginUsuario = () => {
   //datos personales
@@ -45,8 +46,9 @@ export const LoginUsuario = () => {
             console.log(res.data.error)
           } 
           else {
-            sessionStorage.setItem("accessToken", res.data.Token)
-            console.log(`Usuario ${res.data.msg}, ${res.data.Token}`)
+            localStorage.setItem("authorization", res.data.Token)
+            axios.post(URIpersona , {email:email})
+            navigate('/home')
           }
         })
     }

@@ -7,29 +7,36 @@ const URI = "http://localhost:8000/registro/";
 export const CompoShowRegis = () => {
   const [users, setRegistro] = useState([]);
 
-  useEffect(() => {
-    getRegistro();
-  }, []);
+  // useEffect(() => {
+  //   getRegistro();
+  // }, []);
 
 
   //procesdimiento para mostrar todos los usuarios
 
-  const getRegistro = async () => {
-    const res = await axios.get(URI);
-    setRegistro(res.data);
-  };
+  // const getRegistro = async () => {
+  //   const res = await axios.get(URI);
+  //   setRegistro(res.data);
+  // };
 
 
   // procedimiento para eliminar usuarios
 
-  const deletRegistro = async (id) => {
-    axios.delete(`${URI}${id}`);
-    getRegistro();
-  };
+  // const deletRegistro = async (id) => {
+  //   axios.delete(`${URI}${id}`);
+  //   getRegistro();
+  // };
   return (
-    <div className="container">
+    <div>
+      HOME
+    </div>
+    
+  );
+};
+// procedimientos para crear usuarios
+{/* <div className="container">
       <div className="row-auto">
-        <div className="col-auto">
+        <table className="col-auto">
           <table>
             <tr>
               <th>Titulo</th>
@@ -37,22 +44,19 @@ export const CompoShowRegis = () => {
               <th>actions</th>
             </tr>
           </table>
-          <tbody>
+          <div>
           { users.map ( (user) => (
               <tr key={user.id}>
                 <td>{user.email}</td>
                 {/* <Link to={"/"}>Editar</Link>  */}
-                <button
-                  onClick={() => {
-                    deletRegistro(user.id);
-                  }}
-                ></button>
-              </tr>
-            ))}
-          </tbody>
-        </div>
-      </div>
-    </div>
-  );
-  // procedimientos para crear usuarios
-};
+    //             <button
+    //               onClick={() => {
+    //                 deletRegistro(user.id);
+    //               }}
+    //             ></button>
+    //           </tr>
+    //         ))}
+    //       </div>
+    //     </table>
+    //   </div>
+    // </div> */}

@@ -1,16 +1,18 @@
 import Jwt  from "jsonwebtoken";
-const validarToken = (req, res ,next) =>{
-    const accessToken = req.header("accessToken")
+export const validarToken = (req, res ,next) =>{
+    const accessToken = req.header("authorization")
     if (!accessToken){
         return res.json({error:"User not Logged In!"})
     }
+    
     try {
-        const validarToken = Jwt.verify(accessToken, 'HOLAMUNDO')
+        const validToken = Jwt.verify(accessToken, 'HOLAMUNDO')
+        req.user = validToken
         if (validarToken) {
-            return next()
+            next()
             
         }
     } catch (error) {
-        
-    }
+        res.json({error:error});
+        }
 };
