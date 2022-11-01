@@ -29,20 +29,35 @@ export const obtPersona = async (req , res) => {
 }
 // actualizar datos persona perfil
 export const updatePersona = async (req, res) =>{
-    const {id} = req.user
-    const {nombre_uno , nombre_dos , apellido , localidad , provincia ,genero , telefono }=req.body
-    const ExistePerfil = await personaPerfil.findOne({where:{fk_usuario: id}})
+    const ExistePerfil = await personaPerfil.findOne({where:{id:  req.params.id}})
     if (ExistePerfil){
     try {
-        
-        const datosPersona = await actualizarPerfil.update(nombre_uno , nombre_dos , apellido , localidad , provincia ,genero , telefono ,{where :{ id : id}})
-        return res.send("Datos Actualizados Correctamente")
+        const datosPersona = await actualizarPerfil.update(req.body ,{where :{ id : req.params.id}})
+        return res.json({msg:"Datos Actualizados Correctamente"})
     
         
     } catch (error) {
         return res.json({error:error})
     }}
-    
+    else{
+        return res.json({msg: "usuario no encontrado"})
+    }
 
 }
 
+// Eliminar usuario
+
+export const deletePersona = async (req, res) =>{
+    const ExistePerfil = await personaPerfil.findOne({where:{id:  req.params.id}})
+    if (ExistePerfil){
+        try {
+            const deleted = await personaPerfil.destroy({where:{id:  req.params.id}})
+            res.json({msg: 'datos de persona eliminada =('})
+        } catch (error) {
+            res.josn({msg: error})
+        }
+    }
+    else {
+        return res.json({msg: "usuario no encontrado"})
+    }
+}
