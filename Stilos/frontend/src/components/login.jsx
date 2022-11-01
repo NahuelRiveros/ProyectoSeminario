@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link , useHistory } from "react-router-dom";
 
 const URI = "http://localhost:8000/registro/unUser/"
-const URIpersona = "http://localhost:8000/persona/miPerfil"
+
 
 export const LoginUsuario = () => {
   //datos personales
@@ -17,7 +17,7 @@ export const LoginUsuario = () => {
   //datos de usuario
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
-
+  let history = useHistory();
 
   //test
   //   const [show, setShow] = useState(false);
@@ -38,17 +38,16 @@ export const LoginUsuario = () => {
       return alert("Error: La contraseña debe tener almenos 8 caracteres");
     } else {
 
-      alert("Logeando +" + URI + email);
       //se cambio a post para poder pasar la contraseña. El metodo GET es incapaz de enviar un body, por lo cual "req.body.contrasena" no existe
       await axios.post(URI, { email: email, contrasena: contrasena })
         .then((res) => {
           if (res.data.error) {
-            console.log(res.data.error)
+            alert(res.data.error)
           } 
           else {
             localStorage.setItem("authorization", res.data.Token)
-            axios.post(URIpersona , {email:email})
-            navigate('/home')
+            alert('logeado con token')
+            history.push("/home")
           }
         })
     }

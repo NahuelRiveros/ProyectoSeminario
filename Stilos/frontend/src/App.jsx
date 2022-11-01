@@ -23,7 +23,7 @@ function App() {
           
           <Route path="/registro" element={<RegistroUser/>}/>
           <Route path="/login" element={<LoginUsuario />}/>
-          <Route path="/Homea" element={<CompoShowRegis />}/>
+          <Route path="/Home" element={<CompoShowRegis />}/>
           <Route path="/MiPerfil" element={<PerfilUser/>}/>
           
         </Routes>

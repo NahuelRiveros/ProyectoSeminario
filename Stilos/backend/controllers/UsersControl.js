@@ -21,14 +21,14 @@ export const allUsers = async (req, res) => {
 export const oneUser = async (req, res) => {
     const user = await tbUser.findOne({ where: { email: req.body.email }}); //al cambiar a metodo POST, el email viene junto a la contraseña en el Body. Siendo asi, tampoco se necesita del parametro, por lo que se saco de Routes
     if (!user) {
-      return res.json({error: "Acceso Invalidado Error de Email o contraseña"})
+      return res.json({error: "Acceso Invalidado Error de Email "})
     }
     const {id ,email ,contrasena} = user
     
     // comparacion de contraseñas, si es valido logea con un token de acceso
     bcryptjs.compare(req.body.contrasena, contrasena).then(async (match)=>{
         if (!match) {
-          res.json({error: "Acceso Invalidado Error de Email o contraseña"});}
+          res.json({error: "Acceso Invalidado Error de contraseña"});}
         
         else{
           //token de acceso
