@@ -10,8 +10,9 @@ export  const PerfilUser = ()=> {
   const [provincia, setProvincia] = useState("")
   const [localidad, setLocalidad] = useState("")
   const [genero, setGenero] = useState("")
+  const [Registro, setRegistro] = useState([])
 
-  const URI= "a"
+  const URI= "http://localhost:8000/persona/obtDatos/"
   useEffect(() => {
     getRegistro();
   }, []);
@@ -20,10 +21,16 @@ export  const PerfilUser = ()=> {
   //procesdimiento para mostrar todos los usuarios
 
   const getRegistro = async () => {
-    const res = await axios.get(URI , acces);
-    setRegistro(res.data);
+    const token = localStorage.getItem("authorization")
+    const userRegistros = await axios.get(URI, {headers: { "Authorization" : `Bearer ${token}` }} );
+    setRegistro(userRegistros.data)
+    
   };
 
+  const handelSubmit = ()=>{
+    console.log(`nombre ${nombreUno}, nombredos${nombreDos}, localidad ${localidad}, provincia${provincia}, apellido${apellido},genero ${genero}, telefono${telefono}`)
+    console.log(Registro)
+  }
 
   // procedimiento para insertar datos del usuario
 
@@ -37,6 +44,9 @@ export  const PerfilUser = ()=> {
     <div className="row d-flex justify-content-center align-items-center h-100">
       <div className="col">
         <div className="card card-registration my-4">
+          <form onSubmit={handelSubmit}>
+
+          
           <div className="row g-0">
             <div className="col-xl-6 d-none d-xl-block objBodes">
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
@@ -85,20 +95,20 @@ export  const PerfilUser = ()=> {
 
                   <div className="form-check form-check-inline mb-0 me-4">
                     <input className="form-check-input" type="radio" name="genero" id="femaleGender" onChange={(e)=>{setGenero(e.target.value)}}
-                      value="1" />
-                    <label className="form-check-label" for="femaleGender">Femenino</label>
+                      value={1} />
+                    <label className="form-check-label" htmlFor={"femaleGender"}>Femenino</label>
                   </div>
 
                   <div className="form-check form-check-inline mb-0 me-4">
                     <input className="form-check-input" type="radio" name="genero" id="maleGender" onChange={(e)=>{setGenero(e.target.value)}}
-                      value="2" />
-                    <label className="form-check-label" for="maleGender">Masculino</label>
+                      value={2} />
+                    <label className="form-check-label" htmlFor={"maleGender"}>Masculino</label>
                   </div>
 
                   <div className="form-check form-check-inline mb-0">
                     <input className="form-check-input" type="radio" name="genero" id="otherGender" onChange={(e)=>{setGenero(e.target.value)}}
-                      value="3" />
-                    <label className="form-check-label" for="otherGender">Other</label>
+                      value={3} />
+                    <label className="form-check-label" htmlFor={"otherGender"}>Other</label>
                   </div>
 
                 </div>
@@ -107,20 +117,20 @@ export  const PerfilUser = ()=> {
                   <div className="col-md-6 mb-4">
 
                     <select className="select" onChange={(e)=>{setProvincia(e.target.value)}}>
-                      <option value="1">Provincia</option>
-                      <option value="2">Option 1</option>
-                      <option value="3">Option 2</option>
-                      <option value="4">Option 3</option>
+                      <option value={1}>Provincia</option>
+                      <option value={2}>Option 1</option>
+                      <option value={3}>Option 2</option>
+                      <option value={4}>Option 3</option>
                     </select>
 
                   </div>
                   <div className="col-md-6 mb-4">
 
                     <select className="select" onChange={(e)=>{setLocalidad(e.target.value)}}>
-                      <option value="1">Localidad</option>
-                      <option value="2">Option 1</option>
-                      <option value="3">Option 2</option>
-                      <option value="4">Option 3</option>
+                      <option value={1}>Localidad</option>
+                      <option value={2}>Option 1</option>
+                      <option value={3}>Option 2</option>
+                      <option value={4}>Option 3</option>
                     </select>
 
                   </div>
@@ -134,6 +144,7 @@ export  const PerfilUser = ()=> {
               </div>
             </div>
           </div>
+        </form>
         </div>
       </div>
     </div>

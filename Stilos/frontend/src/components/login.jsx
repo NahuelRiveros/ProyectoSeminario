@@ -1,7 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link , useHistory } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 
 const URI = "http://localhost:8000/registro/unUser/"
 
@@ -17,7 +16,6 @@ export const LoginUsuario = () => {
   //datos de usuario
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
-  let history = useHistory();
 
   //test
   //   const [show, setShow] = useState(false);
@@ -46,8 +44,9 @@ export const LoginUsuario = () => {
           } 
           else {
             localStorage.setItem("authorization", res.data.Token)
-            alert('logeado con token')
-            history.push("/home")
+            console.log(`logeado con token ${res.data.Token}`)
+            navigate('/')
+            
           }
         })
     }

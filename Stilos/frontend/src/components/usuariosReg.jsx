@@ -48,15 +48,15 @@ export const CompoShowRegis = () => {
           { users.map ( (user) => (
               <tr key={user.id}>
                 <td>{user.email}</td>
-                {/* <Link to={"/"}>Editar</Link>  */}
-    //             <button
-    //               onClick={() => {
-    //                 deletRegistro(user.id);
-    //               }}
-    //             ></button>
-    //           </tr>
-    //         ))}
-    //       </div>
-    //     </table>
-    //   </div>
-    // </div> */}
+                <Link to={"/"}>Editar</Link> 
+                 <button
+                  onClick={() => {
+                    deletRegistro(user.id);
+                  }}
+                ></button>
+              </tr>
+            ))}
+          </div>
+        </table>
+      </div>
+    </div> */}

@@ -32,7 +32,7 @@ export const oneUser = async (req, res) => {
         
         else{
           //token de acceso
-          jwt.sign({ id,email }, "HOLAMUNDO", (err, token) =>{
+          jwt.sign({ id,email }, "accessToken", (err, token) =>{
             res.json({Token : token});
           });
         

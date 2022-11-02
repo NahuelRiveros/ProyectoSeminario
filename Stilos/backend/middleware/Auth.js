@@ -6,7 +6,7 @@ export const validarToken = (req, res ,next) =>{
     }
     
     try {
-        const validToken = Jwt.verify(accessToken, 'HOLAMUNDO')
+        const validToken = Jwt.verify(accessToken, "accessToken")
         req.user = validToken
         if (validarToken) {
             next()
