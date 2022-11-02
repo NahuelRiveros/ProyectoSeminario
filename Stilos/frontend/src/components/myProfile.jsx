@@ -22,7 +22,7 @@ export  const PerfilUser = ()=> {
 
   const getRegistro = async () => {
     const token = localStorage.getItem("authorization")
-    const userRegistros = await axios.get(URI, {headers: { "Authorization" : `Bearer ${token}` }} );
+    const userRegistros = await axios.get(URI, {headers: { "authorization" : `${token}` }} );
     setRegistro(userRegistros.data)
     
   };
