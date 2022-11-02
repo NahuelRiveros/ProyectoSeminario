@@ -6,16 +6,22 @@ import { actualizarPerfil } from "../models/updPersona.js";
 // Insert datos persona
 export const newPersona = async (req, res) => {
     const {id} = req.user
+    console.log("aqui")
+    console.log(req.body)
     const {nombre_uno , nombre_dos , apellido , localidad , provincia ,genero , telefono } = req.body
     const ExisteUser = await tbUser.findOne({where :{ id : id}})
+    //console.log(ExisteUser)
     const ExistePerfil = await personaPerfil.findOne({where:{fk_usuario: id}})
+    //console.log(ExistePerfil)
     if (ExisteUser && !ExistePerfil){
 
-       const Insert = personaPerfil.create({nombre_uno , nombre_dos , apellido , localidad , provincia ,genero , telefono , fk_usuario:id})  
+        console.log("creando")
+        const Insert = personaPerfil.create(req.body)  
         return res.send("Guardado Correctamente!") // const inserDataPers = await personaPerfil.create()
     }
     else{
 
+        console.log("existe")
         return res.send("ya existe Usuario con un perfil creado")
     }
     // res.json({msg:'holamundoa', msg2: req.user})
@@ -23,8 +29,8 @@ export const newPersona = async (req, res) => {
 // obtener datos de la persona y mostrarla en el front
 export const obtPersona = async (req , res) => {
     const {id} = req.user
-    const datosPerona = await personaPerfil.findOne({where : {fk_usuario : id}}) 
-     return res.json(datosPerona)
+    const datosPersona = await personaPerfil.findOne({where : {fk_usuario : id}}) 
+     return res.json(datosPersona)
     
 }
 // actualizar datos persona perfil

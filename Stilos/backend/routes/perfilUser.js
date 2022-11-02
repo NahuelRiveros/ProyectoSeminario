@@ -4,7 +4,7 @@ import {validarToken} from '../middleware/Auth.js';
 
 const rutas = express.Router();
 //ruta para guardar datos de la persona
-rutas.post('/createPerfil/',validarToken,newPersona)
+rutas.get('/createPerfil/',validarToken,newPersona)
 // ruta pra obtener datos de la persona
 rutas.get('/obtDatos/',validarToken,obtPersona)
 // ruta par actualizar datos de persona

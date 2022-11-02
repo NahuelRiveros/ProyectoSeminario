@@ -13,6 +13,7 @@ export  const PerfilUser = ()=> {
   const [Registro, setRegistro] = useState([])
 
   const URI= "http://localhost:8000/persona/obtDatos/"
+  const URI2 = "http://localhost:8000/persona/createPerfil/"
   useEffect(() => {
     getRegistro();
   }, []);
@@ -20,31 +21,35 @@ export  const PerfilUser = ()=> {
 
   //procesdimiento para mostrar todos los usuarios
 
-  const getRegistro = async () => {
+  const getRegistro = async (e) => {
     const token = localStorage.getItem("authorization")
     const userRegistros = await axios.get(URI, {headers: { "authorization" : `${token}` }} );
     setRegistro(userRegistros.data)
-    
   };
 
-  const handelSubmit = ()=>{
-    console.log(`nombre ${nombreUno}, nombredos${nombreDos}, localidad ${localidad}, provincia${provincia}, apellido${apellido},genero ${genero}, telefono${telefono}`)
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    console.log(`nombre: ${nombreUno}, nombredos: ${nombreDos}, localidad: ${localidad}, provincia: ${provincia}, apellido: ${apellido},genero: ${genero}, telefono: ${telefono}`)
     console.log(Registro)
+    alert("pa que leas")
+    cargarRegistro()
   }
 
   // procedimiento para insertar datos del usuario
 
-  const cargarRegistro = async (id) => {
-    axios.post(`${URI}${id}`);
-    getRegistro();
+  const cargarRegistro = async () => {
+    const token = localStorage.getItem("authorization")
+    console.log(token)
+    await axios.get(URI2,{headers: { "authorization" : `${token}` }}, {nombre_uno: nombreUno, nombre_dos: nombreDos, apellido: apellido, localidad: localidad, provincia: provincia, genero: genero, telefono: telefono})
   };
+
   return (
     <section className="h-100 bg-dark">
   <div className="container py-5 h-100">
     <div className="row d-flex justify-content-center align-items-center h-100">
       <div className="col">
         <div className="card card-registration my-4">
-          <form onSubmit={handelSubmit}>
+          <form onSubmit={handleSubmit}>
 
           
           <div className="row g-0">
@@ -60,13 +65,13 @@ export  const PerfilUser = ()=> {
                 <div className="row">
                   <div className="col-md-6 mb-4">
                     <div className="form-outline">
-                      <input type="text" id="form3Example1m" className="form-control form-control-lg" onChange={(e)=>{setNombreUno(e.target.value)}} />
+                      <input required type="text" id="form3Example1m" className="form-control form-control-lg" onChange={(e)=>{setNombreUno(e.target.value)}} />
                       <label className="form-label">Primer Nombre</label>
                     </div>
                   </div>
                   <div className="col-md-6 mb-4">
                     <div className="form-outline">
-                      <input type="text" id="form3Example1n" className="form-control form-control-lg" onChange={(e)=>{setNombreDos(e.target.value)}} />
+                      <input required type="text" id="form3Example1n" className="form-control form-control-lg" onChange={(e)=>{setNombreDos(e.target.value)}} />
                       <label className="form-label" >Segundo Nombre</label>
                     </div>
                   </div>
@@ -75,13 +80,13 @@ export  const PerfilUser = ()=> {
                 <div className="row">
                   <div className="col-md-6 mb-4">
                     <div className="form-outline">
-                      <input type="text" id="form3Example1m1" className="form-control form-control-lg" onChange={(e)=>{setApellido(e.target.value)}} />
+                      <input required type="text" id="form3Example1m1" className="form-control form-control-lg" onChange={(e)=>{setApellido(e.target.value)}} />
                       <label className="form-label">Apellido</label>
                     </div>
                   </div>
                   <div className="col-md-6 mb-4">
                     <div className="form-outline">
-                      <input type="text" id="form3Example1n1" className="form-control form-control-lg" onChange={(e)=>{setTelefono(e.target.value)}} />
+                      <input required type="text" id="form3Example1n1" className="form-control form-control-lg" onChange={(e)=>{setTelefono(e.target.value)}} />
                       <label className="form-label" >Telefono</label>
                     </div>
                   </div>
@@ -94,19 +99,19 @@ export  const PerfilUser = ()=> {
                   <h6 className="mb-0 me-4">Genero: </h6>
 
                   <div className="form-check form-check-inline mb-0 me-4">
-                    <input className="form-check-input" type="radio" name="genero" id="femaleGender" onChange={(e)=>{setGenero(e.target.value)}}
+                    <input required className="form-check-input" type="radio" name="genero" id="femaleGender" onChange={(e)=>{setGenero(e.target.value)}}
                       value={1} />
                     <label className="form-check-label" htmlFor={"femaleGender"}>Femenino</label>
                   </div>
 
                   <div className="form-check form-check-inline mb-0 me-4">
-                    <input className="form-check-input" type="radio" name="genero" id="maleGender" onChange={(e)=>{setGenero(e.target.value)}}
+                    <input required className="form-check-input" type="radio" name="genero" id="maleGender" onChange={(e)=>{setGenero(e.target.value)}}
                       value={2} />
                     <label className="form-check-label" htmlFor={"maleGender"}>Masculino</label>
                   </div>
 
                   <div className="form-check form-check-inline mb-0">
-                    <input className="form-check-input" type="radio" name="genero" id="otherGender" onChange={(e)=>{setGenero(e.target.value)}}
+                    <input required className="form-check-input" type="radio" name="genero" id="otherGender" onChange={(e)=>{setGenero(e.target.value)}}
                       value={3} />
                     <label className="form-check-label" htmlFor={"otherGender"}>Other</label>
                   </div>
@@ -116,7 +121,7 @@ export  const PerfilUser = ()=> {
                 <div className="row">
                   <div className="col-md-6 mb-4">
 
-                    <select className="select" onChange={(e)=>{setProvincia(e.target.value)}}>
+                    <select required className="select" onChange={(e)=>{setProvincia(e.target.value)}}>
                       <option value={1}>Provincia</option>
                       <option value={2}>Option 1</option>
                       <option value={3}>Option 2</option>
@@ -126,7 +131,7 @@ export  const PerfilUser = ()=> {
                   </div>
                   <div className="col-md-6 mb-4">
 
-                    <select className="select" onChange={(e)=>{setLocalidad(e.target.value)}}>
+                    <select required className="select" onChange={(e)=>{setLocalidad(e.target.value)}}>
                       <option value={1}>Localidad</option>
                       <option value={2}>Option 1</option>
                       <option value={3}>Option 2</option>
