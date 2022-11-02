@@ -8,12 +8,15 @@ import  db  from './database/db.js';
 import rutaUsers from './routes/users.js';
 import rutaPerfil from './routes/perfilUser.js'
 import session from 'express-session';
+import Sequelize from './database/db.js'
 
 
 // uso de express y cors
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+
 // app.use(express.urlencoded({extended:false}))
 // dotenv.config({paht:'./env/.env'})
 
@@ -23,8 +26,6 @@ app.use(express.json());
 // Aqui van todas las rutas donde voy a trabarjar con cada tabla del a BD.
 app.use('/registro' , rutaUsers);
 app.use('/persona' , rutaPerfil);
-
-  
 
 
 

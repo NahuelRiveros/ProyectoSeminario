@@ -18,7 +18,6 @@ export  const PerfilUser = ()=> {
     getRegistro();
   }, []);
 
-
   //procesdimiento para mostrar todos los usuarios
 
   const getRegistro = async (e) => {
@@ -28,11 +27,11 @@ export  const PerfilUser = ()=> {
     setRegistro(userRegistros.data)
   };
 
+  //Cuando se envia
+
   const handleSubmit = (e)=>{
     e.preventDefault();
     console.log(`nombre: ${nombreUno}, nombredos: ${nombreDos}, localidad: ${localidad}, provincia: ${provincia}, apellido: ${apellido},genero: ${genero}, telefono: ${telefono}`)
-    console.log(Registro)
-    alert("pa que leas")
     cargarRegistro()
   }
 
@@ -40,10 +39,26 @@ export  const PerfilUser = ()=> {
 
   const cargarRegistro = async () => {
     const token = localStorage.getItem("authorization")
-    console.log(token)
     await axios.post(URI2, {nombre_uno: nombreUno, nombre_dos: nombreDos, apellido: apellido, localidad: localidad, provincia: provincia, genero: genero, telefono: telefono}, {headers: { "authorization" : `${token}` }})
   };
 
+  const DeletePersona = async() =>{
+    const token = localStorage.getItem("authorization")
+    await axios.post(URI2, {nombre_uno: nombreUno, nombre_dos: nombreDos, apellido: apellido, localidad: localidad, provincia: provincia, genero: genero, telefono: telefono}, {headers: { "authorization" : `${token}` }})
+  }
+
+  const generoMostrar = () => {
+    if (Registro.genero) {
+      if (Registro.genero == 1) {
+        return (<div> Mujer </div>)
+      } else if (Registro.genero == 2) {
+        return (<div> Hombre </div>)
+      } else {
+        return (<div> Otro </div>)
+      }
+    }
+  }
+  
   return (
     <section className="h-100 bg-dark">
   <div className="container py-5 h-100">
@@ -66,13 +81,17 @@ export  const PerfilUser = ()=> {
                 <div className="row">
                   <div className="col-md-6 mb-4">
                     <div className="form-outline">
-                      <input required type="text" id="form3Example1m" className="form-control form-control-lg" onChange={(e)=>{setNombreUno(e.target.value)}} />
+                      {Registro ? <input value={Registro.nombre_uno} required type="text" id="form3Example1m" className="form-control form-control-lg" onChange={(e)=>{setNombreUno(e.target.value)}} />
+                      :
+                      <input required type="text" id="form3Example1m" className="form-control form-control-lg" onChange={(e)=>{setNombreUno(e.target.value)}} />}
                       <label className="form-label">Primer Nombre</label>
                     </div>
                   </div>
                   <div className="col-md-6 mb-4">
                     <div className="form-outline">
-                      <input required type="text" id="form3Example1n" className="form-control form-control-lg" onChange={(e)=>{setNombreDos(e.target.value)}} />
+                      {Registro ? <input value={Registro.nombre_dos} required type="text" id="form3Example1n" className="form-control form-control-lg" onChange={(e)=>{setNombreDos(e.target.value)}} />
+                      :
+                      <input required type="text" id="form3Example1n" className="form-control form-control-lg" onChange={(e)=>{setNombreDos(e.target.value)}} />}
                       <label className="form-label" >Segundo Nombre</label>
                     </div>
                   </div>
@@ -81,7 +100,9 @@ export  const PerfilUser = ()=> {
                 <div className="row">
                   <div className="col-md-6 mb-4">
                     <div className="form-outline">
-                      <input required type="text" id="form3Example1m1" className="form-control form-control-lg" onChange={(e)=>{setApellido(e.target.value)}} />
+                      {Registro ? <input value={Registro.apellido} required type="text" id="form3Example1m1" className="form-control form-control-lg" onChange={(e)=>{setApellido(e.target.value)}} />
+                      :
+                      <input required type="text" id="form3Example1m1" className="form-control form-control-lg" onChange={(e)=>{setApellido(e.target.value)}} />}
                       <label className="form-label">Apellido</label>
                     </div>
                   </div>
@@ -92,30 +113,31 @@ export  const PerfilUser = ()=> {
                     </div>
                   </div>
                 </div>
-
-                
-
                 <div className="d-md-flex justify-content-start align-items-center mb-4 py-2">
 
                   <h6 className="mb-0 me-4">Genero: </h6>
 
-                  <div className="form-check form-check-inline mb-0 me-4">
-                    <input required className="form-check-input" type="radio" name="genero" id="femaleGender" onChange={(e)=>{setGenero(e.target.value)}}
-                      value={1} />
-                    <label className="form-check-label" htmlFor={"femaleGender"}>Femenino</label>
-                  </div>
+                  {Registro ? generoMostrar()
+                  :
+                  <div>
+                    <div className="form-check form-check-inline mb-0 me-4">
+                      <input required className="form-check-input" type="radio" name="genero" id="femaleGender" onChange={(e)=>{setGenero(e.target.value)}}
+                        value={1} />
+                      <label className="form-check-label" htmlFor={"femaleGender"}>Femenino</label>
+                    </div>
 
-                  <div className="form-check form-check-inline mb-0 me-4">
-                    <input required className="form-check-input" type="radio" name="genero" id="maleGender" onChange={(e)=>{setGenero(e.target.value)}}
-                      value={2} />
-                    <label className="form-check-label" htmlFor={"maleGender"}>Masculino</label>
-                  </div>
+                    <div className="form-check form-check-inline mb-0 me-4">
+                      <input required className="form-check-input" type="radio" name="genero" id="maleGender" onChange={(e)=>{setGenero(e.target.value)}}
+                        value={2} />
+                      <label className="form-check-label" htmlFor={"maleGender"}>Masculino</label>
+                    </div>
 
-                  <div className="form-check form-check-inline mb-0">
-                    <input required className="form-check-input" type="radio" name="genero" id="otherGender" onChange={(e)=>{setGenero(e.target.value)}}
+                    <div className="form-check form-check-inline mb-0">
+                      <input required className="form-check-input" type="radio" name="genero" id="otherGender" onChange={(e)=>{setGenero(e.target.value)}}
                       value={3} />
-                    <label className="form-check-label" htmlFor={"otherGender"}>Other</label>
-                  </div>
+                      <label className="form-check-label" htmlFor={"otherGender"}>Other</label>
+                    </div>
+                  </div>}
 
                 </div>
 
@@ -123,20 +145,18 @@ export  const PerfilUser = ()=> {
                   <div className="col-md-6 mb-4">
 
                     <select required className="select" onChange={(e)=>{setProvincia(e.target.value)}}>
-                      <option value={1}>Provincia</option>
-                      <option value={2}>Option 1</option>
-                      <option value={3}>Option 2</option>
-                      <option value={4}>Option 3</option>
+                      <option disabled value={0}>Provincia</option>
+                      <option value={1}>Formosa</option>
                     </select>
 
                   </div>
                   <div className="col-md-6 mb-4">
 
                     <select required className="select" onChange={(e)=>{setLocalidad(e.target.value)}}>
-                      <option value={1}>Localidad</option>
-                      <option value={2}>Option 1</option>
-                      <option value={3}>Option 2</option>
-                      <option value={4}>Option 3</option>
+                      <option disabled={true} value={1}>Localidad</option>
+                      <option value={2}>Formosa</option>
+                      <option value={3}>Pirane</option>
+                      <option value={4}>Pilcomayo</option>
                     </select>
 
                   </div>
@@ -146,7 +166,9 @@ export  const PerfilUser = ()=> {
                 <div className="d-flex justify-content-end pt-3">
                   <button type="submit" className="btn btn-warning btn-lg ms-2">Guardar</button>
                 </div>
-
+                <div className="d-flex justify-content-end pt-3">
+                  <button type="submit" className="btn btn-warning btn-lg ms-2" onClick={DeletePersona}>Eliminar</button>
+                </div>
               </div>
             </div>
           </div>
