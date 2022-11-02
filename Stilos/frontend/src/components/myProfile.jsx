@@ -23,6 +23,7 @@ export  const PerfilUser = ()=> {
 
   const getRegistro = async (e) => {
     const token = localStorage.getItem("authorization")
+    console.log(token)
     const userRegistros = await axios.get(URI, {headers: { "authorization" : `${token}` }} );
     setRegistro(userRegistros.data)
   };
@@ -40,7 +41,7 @@ export  const PerfilUser = ()=> {
   const cargarRegistro = async () => {
     const token = localStorage.getItem("authorization")
     console.log(token)
-    await axios.get(URI2,{headers: { "authorization" : `${token}` }}, {nombre_uno: nombreUno, nombre_dos: nombreDos, apellido: apellido, localidad: localidad, provincia: provincia, genero: genero, telefono: telefono})
+    await axios.post(URI2, {nombre_uno: nombreUno, nombre_dos: nombreDos, apellido: apellido, localidad: localidad, provincia: provincia, genero: genero, telefono: telefono}, {headers: { "authorization" : `${token}` }})
   };
 
   return (

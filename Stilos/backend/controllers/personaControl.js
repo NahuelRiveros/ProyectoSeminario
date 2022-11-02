@@ -16,7 +16,7 @@ export const newPersona = async (req, res) => {
     if (ExisteUser && !ExistePerfil){
 
         console.log("creando")
-        const Insert = personaPerfil.create(req.body)  
+        const Insert = personaPerfil.create({nombre_uno , nombre_dos , apellido , localidad , provincia ,genero , telefono, fk_usuario: id})  
         return res.send("Guardado Correctamente!") // const inserDataPers = await personaPerfil.create()
     }
     else{
