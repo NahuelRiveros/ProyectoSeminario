@@ -7,8 +7,8 @@ export  const PerfilUser = ()=> {
   const [nombreDos, setNombreDos] = useState("")
   const [apellido, setApellido] = useState("")
   const [telefono, setTelefono] = useState("")
-  const [provincia, setProvincia] = useState("")
-  const [localidad, setLocalidad] = useState("")
+  const [provincia, setProvincia] = useState(0)
+  const [localidad, setLocalidad] = useState(0)
   const [genero, setGenero] = useState("")
   const [Registro, setRegistro] = useState([])
 
@@ -145,18 +145,18 @@ export  const PerfilUser = ()=> {
                   <div className="col-md-6 mb-4">
 
                     <select required className="select" onChange={(e)=>{setProvincia(e.target.value)}}>
-                      <option disabled value={0}>Provincia</option>
-                      <option value={1}>Formosa</option>
+                      <option disabled>Provincia</option>
+                      <option value={0}>Formosa</option>
                     </select>
 
                   </div>
                   <div className="col-md-6 mb-4">
 
                     <select required className="select" onChange={(e)=>{setLocalidad(e.target.value)}}>
-                      <option disabled={true} value={1}>Localidad</option>
-                      <option value={2}>Formosa</option>
-                      <option value={3}>Pirane</option>
-                      <option value={4}>Pilcomayo</option>
+                      <option disabled>Localidad</option>
+                      <option value={0}>Formosa</option>
+                      <option value={1}>Pirane</option>
+                      <option value={2}>Pilcomayo</option>
                     </select>
 
                   </div>
