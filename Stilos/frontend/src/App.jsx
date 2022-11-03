@@ -13,10 +13,18 @@ import {Carruserl} from './components/carruserl';
 import {RegistroUser} from './components/registro';
 import {PerfilUser} from './components/myProfile'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {AuthContext} from './context/authContext'
+import {useState} from "react";
 function App() {
+  const [authState, setAuthState] = useState(false)
+
+
+
   return (
     <div>
       <BrowserRouter>
+        {/* <AuthContext.Provider value={{authState , setAuthState}}>
+        </AuthContext.Provider> */}
         <Navbar>
         </Navbar>
         <Routes>
@@ -27,6 +35,7 @@ function App() {
           <Route path="/MiPerfil" element={<PerfilUser/>}/>
           
         </Routes>
+        
 
         <Footer>
         </Footer>

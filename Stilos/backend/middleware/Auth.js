@@ -2,8 +2,7 @@ import Jwt  from "jsonwebtoken";
 export const validarToken = (req, res ,next) =>{
     const accessToken = req.header("authorization")
     if (!accessToken){
-        console.log(req.header("authorization"))
-        console.log("error de auth")
+        req.header("authorization")
         return res.json({error:"User not Logged In!"})
     }
     

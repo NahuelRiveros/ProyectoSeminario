@@ -1,9 +1,18 @@
-import {} from 'react'
+
 import { Link } from 'react-router-dom'
 
 
 export const Navbar = () => {
 
+  const URI= "http://localhost:8000/persona/obtDatos/"
+  
+ 
+    
+ 
+
+  //procesdimiento para mostrar todos los usuarios
+
+  
 
 
 

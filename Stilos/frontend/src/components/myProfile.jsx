@@ -12,8 +12,9 @@ export  const PerfilUser = ()=> {
   const [genero, setGenero] = useState("")
   const [Registro, setRegistro] = useState([])
 
-  const URI= "http://localhost:8000/persona/obtDatos/"
-  const URI2 = "http://localhost:8000/persona/createPerfil/"
+  const URIobtDatos= "http://localhost:8000/persona/obtDatos/"
+  const URIcreatePerfil = "http://localhost:8000/persona/createPerfil/"
+  const URIdelPersona = 'http://localhost:8000/persona/delPersona/'
   useEffect(() => {
     getRegistro();
   }, []);
@@ -22,8 +23,7 @@ export  const PerfilUser = ()=> {
 
   const getRegistro = async (e) => {
     const token = localStorage.getItem("authorization")
-    console.log(token)
-    const userRegistros = await axios.get(URI, {headers: { "authorization" : `${token}` }} );
+    const userRegistros = await axios.get(URIobtDatos, {headers: { "authorization" : `${token}` }} );
     setRegistro(userRegistros.data)
   };
 
@@ -36,15 +36,17 @@ export  const PerfilUser = ()=> {
   }
 
   // procedimiento para insertar datos del usuario
-
+  
   const cargarRegistro = async () => {
     const token = localStorage.getItem("authorization")
-    await axios.post(URI2, {nombre_uno: nombreUno, nombre_dos: nombreDos, apellido: apellido, localidad: localidad, provincia: provincia, genero: genero, telefono: telefono}, {headers: { "authorization" : `${token}` }})
+    await axios.post(URIcreatePerfil, {nombre_uno: nombreUno, nombre_dos: nombreDos, apellido: apellido, localidad: localidad, provincia: provincia, genero: genero, telefono: telefono}, {headers: { "authorization" : `${token}` }})
   };
 
   const DeletePersona = async() =>{
     const token = localStorage.getItem("authorization")
-    await axios.post(URI2, {nombre_uno: nombreUno, nombre_dos: nombreDos, apellido: apellido, localidad: localidad, provincia: provincia, genero: genero, telefono: telefono}, {headers: { "authorization" : `${token}` }})
+    const Uridel= URIdelPersona+Registro.id;
+    const eliminar = await axios.delete(Uridel, {headers: { "authorization" : `${token}` }})
+    console.log(eliminar.data)
   }
 
   const generoMostrar = () => {
@@ -81,7 +83,7 @@ export  const PerfilUser = ()=> {
                 <div className="row">
                   <div className="col-md-6 mb-4">
                     <div className="form-outline">
-                      {Registro ? <input value={Registro.nombre_uno} required type="text" id="form3Example1m" className="form-control form-control-lg" onChange={(e)=>{setNombreUno(e.target.value)}} />
+                      {Registro ? <input value={Registro.nombre_uno || ""} required type="text" id="form3Example1m" className="form-control form-control-lg" onChange={(e)=>{setNombreUno(e.target.value)}} />
                       :
                       <input required type="text" id="form3Example1m" className="form-control form-control-lg" onChange={(e)=>{setNombreUno(e.target.value)}} />}
                       <label className="form-label">Primer Nombre</label>
@@ -89,7 +91,7 @@ export  const PerfilUser = ()=> {
                   </div>
                   <div className="col-md-6 mb-4">
                     <div className="form-outline">
-                      {Registro ? <input value={Registro.nombre_dos} required type="text" id="form3Example1n" className="form-control form-control-lg" onChange={(e)=>{setNombreDos(e.target.value)}} />
+                      {Registro ? <input value={Registro.nombre_dos || ""} required type="text" id="form3Example1n" className="form-control form-control-lg" onChange={(e)=>{setNombreDos(e.target.value)}} />
                       :
                       <input required type="text" id="form3Example1n" className="form-control form-control-lg" onChange={(e)=>{setNombreDos(e.target.value)}} />}
                       <label className="form-label" >Segundo Nombre</label>
@@ -100,7 +102,7 @@ export  const PerfilUser = ()=> {
                 <div className="row">
                   <div className="col-md-6 mb-4">
                     <div className="form-outline">
-                      {Registro ? <input value={Registro.apellido} required type="text" id="form3Example1m1" className="form-control form-control-lg" onChange={(e)=>{setApellido(e.target.value)}} />
+                      {Registro ? <input value={Registro.apellido || "" } required type="text" id="form3Example1m1" className="form-control form-control-lg" onChange={(e)=>{setApellido(e.target.value)}} />
                       :
                       <input required type="text" id="form3Example1m1" className="form-control form-control-lg" onChange={(e)=>{setApellido(e.target.value)}} />}
                       <label className="form-label">Apellido</label>
@@ -108,7 +110,9 @@ export  const PerfilUser = ()=> {
                   </div>
                   <div className="col-md-6 mb-4">
                     <div className="form-outline">
-                      <input required type="text" id="form3Example1n1" className="form-control form-control-lg" onChange={(e)=>{setTelefono(e.target.value)}} />
+                    {Registro ? <input value={Registro.telefono || "" } required type="text" id="form3Example1m1" className="form-control form-control-lg" onChange={(e)=>{setApellido(e.target.value)}} />
+                      :
+                      <input required type="text" id="form3Example1n1" className="form-control form-control-lg" onChange={(e)=>{setTelefono(e.target.value)}} />}
                       <label className="form-label" >Telefono</label>
                     </div>
                   </div>
@@ -167,7 +171,7 @@ export  const PerfilUser = ()=> {
                   <button type="submit" className="btn btn-warning btn-lg ms-2">Guardar</button>
                 </div>
                 <div className="d-flex justify-content-end pt-3">
-                  <button type="submit" className="btn btn-warning btn-lg ms-2" onClick={DeletePersona}>Eliminar</button>
+                  <button type="button" className="btn btn-warning btn-lg ms-2" onClick={DeletePersona}>Eliminar</button>
                 </div>
               </div>
             </div>
