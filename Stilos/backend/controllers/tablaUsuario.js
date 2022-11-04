@@ -7,8 +7,8 @@ import{validarToken} from '../middleware/Auth.js'
 //** Metodos para el CRUD **/
 
 
-// SIMPRE UTILIZAR ASYNC y AWAIT
-// Mostrar todos los registros
+
+// TODOS LOS USUARIO REGISTRADOS
 export const allUsers = async (req, res) => {
   try {
     const allUsuarios = await tbUser.findAll();
@@ -17,7 +17,9 @@ export const allUsers = async (req, res) => {
     res.json({ msg: error.message });
   }
 };
-// Buscar Usuario si exite y logear
+
+
+// BUSCAS SI EXISTE UN USUARIO Y LOGEAR
 export const oneUser = async (req, res) => {
     const user = await tbUser.findOne({ where: { email: req.body.email }}); //al cambiar a metodo POST, el email viene junto a la contraseña en el Body. Siendo asi, tampoco se necesita del parametro, por lo que se saco de Routes
     if (!user) {
@@ -31,7 +33,7 @@ export const oneUser = async (req, res) => {
           res.json({error: "Acceso Invalidado Error de contraseña"});}
         
         else{
-          //token de acceso
+          //devuelvo al Frontend
           jwt.sign({ id,email }, "accessToken", (err, token) =>{
             res.json({Token : token ,id, email});
           });
@@ -45,7 +47,15 @@ export const oneUser = async (req, res) => {
       
     
     
-// Crear un registro
+
+
+
+
+
+
+
+
+// CREARCION DE UN USUARIO NUEVO
 
 export const newUser = async (req, res) => {
   try {
@@ -65,7 +75,11 @@ export const newUser = async (req, res) => {
   }
 };
 
-// Actualizar un registro
+
+
+
+
+// ACTUALIZACION DE USUARIO
 export const udpUser = async (req, res) => {
   try {
     tbUser.update(req.body, { where: { id: req.params.id } });
@@ -75,7 +89,15 @@ export const udpUser = async (req, res) => {
     res.json({ msg: error.message });
   }
 };
-// Eliminar un registro
+
+
+
+
+
+// ELIMINAR UN USUARIO
+
+
+
 export const delUser = async (req, res) => {
   try {
     await tbUser.destroy({ where: { id: req.params.id } });

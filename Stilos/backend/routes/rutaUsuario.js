@@ -1,6 +1,6 @@
 import express from 'express';
 import {validarToken} from '../middleware/Auth.js'
-import { allUsers,authLog,delUser,newUser,oneUser,udpUser } from '../controllers/UsersControl.js';
+import { allUsers,authLog,delUser,newUser,oneUser,udpUser } from '../controllers/tablaUsuario.js';
 // para hacer esta parte debemos tener en cuenta los verbos HTTP para las apis 
 // creamos las rutas
 const rutas = express.Router()

@@ -1,5 +1,5 @@
 import express from 'express'; 
-import {deletePersona, newPersona, obtPersona} from '../controllers/personaControl.js';
+import {deletePersona, newPersona, obtPersona} from '../controllers/tablaPersona.js';
 import {validarToken} from '../middleware/Auth.js';
 
 const rutas = express.Router();

@@ -5,8 +5,8 @@ import cors from 'cors'
 import express  from 'express';
 import  db  from './database/db.js';
 // aca importe las rutas creada pero cambidole el nombre a las variable aqui
-import rutaUsers from './routes/users.js';
-import rutaPerfil from './routes/perfilUser.js'
+import rutaUsers from './routes/rutaUsuario.js';
+import rutaPerfil from './routes/rutaPersona.js'
 import session from 'express-session';
 import Sequelize from './database/db.js'
 
