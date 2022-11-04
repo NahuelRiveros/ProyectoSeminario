@@ -32,8 +32,8 @@ export const oneUser = async (req, res) => {
         
         else{
           //token de acceso
-          jwt.sign({ id,email }, "accessToken", {expiresIn: '20m' }, (err, token) =>{
-            res.json({Token : token});
+          jwt.sign({ id,email }, "accessToken", (err, token) =>{
+            res.json({Token : token ,id, email});
           });
         
           

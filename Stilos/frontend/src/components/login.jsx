@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link , useNavigate } from "react-router-dom";
-
+import { useAuth } from "../context/authContext";
 const URI = "http://localhost:8000/registro/unUser/"
 
 
 export const LoginUsuario = () => {
+  const {user , setUser} = useAuth()
   //datos personales
   // const [nombreUser, setNombreUser] = useState("");
   // const [segundoNom, setSegundoNom] = useState("");
@@ -55,7 +56,7 @@ export const LoginUsuario = () => {
               title: 'Oops...',
               text: `${res.data.error}`
             })
-            alert(res.data.error)
+            setUser({status:false})
           } 
           else {
             localStorage.setItem("authorization", res.data.Token)
@@ -64,6 +65,11 @@ export const LoginUsuario = () => {
               'Haz clic en ok',
               'success'
             )
+            setUser({
+              id: res.data.id ,
+              email: res.data.email,
+              status: true
+            }) 
             navigate('/')
             
           }

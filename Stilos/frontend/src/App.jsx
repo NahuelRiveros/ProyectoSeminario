@@ -13,26 +13,31 @@ import {Carruserl} from './components/carruserl';
 import {RegistroUser} from './components/registro';
 import {PerfilUser} from './components/myProfile'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import {AuthContext} from './context/authContext'
+import {useAuth} from './context/authContext'
 import {useState, useEffect, useContext} from "react";
 import axios  from "axios";
 
+
 function App() {
 
-  // const [authState, setAuthState] = useState(false)
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:8000/registro/auth', {headers: { "authorization" : localStorage.getItem("authorization") }}).then((res)=>{
-  //     if (res.data.error){
-  //       setAuthState(false)
-  //     }
-  //     else {
-  //       setAuthState(true)
-  //     } 
-  //   })
+  const {user, setUser} = useAuth()
+  
+  useEffect(() => {
+    axios.get('http://localhost:8000/registro/auth', {headers: { "authorization" : localStorage.getItem("authorization") }}).then((res)=>{
+      if (res.data.error){
+        setUser({...user,status:false})
+      }
+      else {
+        setUser({
+          id:res.data.id,
+          email:res.data.email,
+          status: true
+        })
+        
+      } 
+    })
     
-  // }, [])
-  // console.log(authState)
+  }, [])
 
   return (
     <div>
