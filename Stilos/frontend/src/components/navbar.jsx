@@ -1,16 +1,28 @@
 import { Link } from "react-router-dom";
-import {useEffect, useState} from 'react'
-
+import {useEffect, useState, useContext} from 'react'
+import {AuthContext} from '../context/authContext'
+import axios from "axios";
 
 
 export const Navbar = () => {
   const URI = "http://localhost:8000/persona/obtDatos/";
   //procesdimiento para mostrar todos los usuarios
-const [isLogin, setIsLogin] = useState(false);
-const token = localStorage.getItem('authorization')
+// const {authState} = useContext(AuthContext)
 
 
-
+const [authState, setAuthState] = useState([])
+useEffect(() => {
+    axios.get('http://localhost:8000/registro/auth', {headers: { "authorization" : localStorage.getItem("authorization") }}).then((res)=>{
+        if (res.data.error){
+            return setAuthState(false)
+        }
+        else {
+            return setAuthState(true)
+        } 
+    })
+    
+}, [])
+console.log(authState)
   return (
     <div>
       {/* <!-- Navbar --> */}
@@ -128,11 +140,11 @@ const token = localStorage.getItem('authorization')
                 <li>
                   <Link className="dropdown-item">Settings</Link>
                 </li>
-                {token ? <li>
+                {localStorage.getItem("authorization") ? <li>
                   <Link className="dropdown-item" to={"/login"}>
                     Logout
                   </Link>
-                </li>: <li>
+                </li> : <li>
                   <Link className="dropdown-item" to={"/login"}>
                     Login
                   </Link>

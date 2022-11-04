@@ -84,3 +84,8 @@ export const delUser = async (req, res) => {
     res.json({ msg: error.message });
   }
 };
+
+//
+export const authLog = async (req, res)=>{
+  res.json(req.user)
+}

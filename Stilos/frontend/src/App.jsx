@@ -14,16 +14,30 @@ import {RegistroUser} from './components/registro';
 import {PerfilUser} from './components/myProfile'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {AuthContext} from './context/authContext'
-import {useState} from "react";
+import {useState, useEffect, useContext} from "react";
+import axios  from "axios";
+
 function App() {
-  const [authState, setAuthState] = useState(false)
 
+  // const [authState, setAuthState] = useState(false)
 
+  // useEffect(() => {
+  //   axios.get('http://localhost:8000/registro/auth', {headers: { "authorization" : localStorage.getItem("authorization") }}).then((res)=>{
+  //     if (res.data.error){
+  //       setAuthState(false)
+  //     }
+  //     else {
+  //       setAuthState(true)
+  //     } 
+  //   })
+    
+  // }, [])
+  // console.log(authState)
 
   return (
     <div>
       <BrowserRouter>
-        <AuthContext.Provider value={{authState , setAuthState}}>
+        
         <Navbar>
         </Navbar>
         
@@ -35,7 +49,7 @@ function App() {
           <Route path="/MiPerfil" element={<PerfilUser/>}/>
           
         </Routes>
-        </AuthContext.Provider>
+        
 
         <Footer>
         </Footer>
