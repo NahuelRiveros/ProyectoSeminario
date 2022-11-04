@@ -1,13 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import {useEffect, useState} from 'react'
-
 
 
 export const Navbar = () => {
   const URI = "http://localhost:8000/persona/obtDatos/";
   //procesdimiento para mostrar todos los usuarios
-const [isLogin, setIsLogin] = useState(false);
+
+  const navigate = useNavigate();
+
 const token = localStorage.getItem('authorization')
+console.log(token)
+
+const handleLogout = () => {
+  const logoutToken = localStorage.removeItem('authorization')
+  navigate("/login")
+}
 
 
 
@@ -129,9 +136,9 @@ const token = localStorage.getItem('authorization')
                   <Link className="dropdown-item">Settings</Link>
                 </li>
                 {token ? <li>
-                  <Link className="dropdown-item" to={"/login"}>
+                  <button className="dropdown-item" onClick={handleLogout}>
                     Logout
-                  </Link>
+                  </button>
                 </li>: <li>
                   <Link className="dropdown-item" to={"/login"}>
                     Login
