@@ -1,6 +1,6 @@
 // importamos los medelos desarrollados
 
-import {tbUser} from "../models/regModel.js";
+import {tbUser} from "../models/modelRegistroUsuario.js";
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import{validarToken} from '../middleware/Auth.js'

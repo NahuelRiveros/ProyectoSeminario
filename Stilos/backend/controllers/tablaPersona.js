@@ -1,6 +1,6 @@
-import {tbUser} from "../models/regModel.js";
-import { personaPerfil } from "../models/personaModel.js";
-import { actualizarPerfil } from "../models/updPersona.js";
+import {tbUser} from "../models/modelRegistroUsuario.js";
+import { personaPerfil } from "../models/modelPersona.js";
+import { actualizarPerfil } from "../models/modelUpdatePersona.js";
 
 //** Metodos para el CRUD **/
 // Insert datos persona y actualizacion
