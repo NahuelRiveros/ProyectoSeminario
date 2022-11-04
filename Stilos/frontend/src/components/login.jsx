@@ -31,20 +31,39 @@ export const LoginUsuario = () => {
   const loginAcces = async (e) => {
     e.preventDefault();
     if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
-      return alert('Error: El correo no es valido');
+      return Swal.fire({
+        title: 'Error!',
+        text: 'El correo no es valido',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      })
     } else if (contrasena.length < 7) {
-      return alert("Error: La contraseña debe tener almenos 8 caracteres");
+      return Swal.fire({
+        title: 'Error!',
+        text: 'La contraseña debe tener almenos 8 caracteres',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      })
     } else {
 
       //se cambio a post para poder pasar la contraseña. El metodo GET es incapaz de enviar un body, por lo cual "req.body.contrasena" no existe
       await axios.post(URI, { email: email, contrasena: contrasena })
         .then((res) => {
           if (res.data.error) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: `${res.data.error}`
+            })
             alert(res.data.error)
           } 
           else {
             localStorage.setItem("authorization", res.data.Token)
-            console.log(`logeado con token ${res.data.Token}`)
+            Swal.fire(
+              'Logeado!',
+              'Haz clic en ok',
+              'success'
+            )
             navigate('/')
             
           }

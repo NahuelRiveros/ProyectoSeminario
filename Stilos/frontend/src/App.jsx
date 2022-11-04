@@ -23,10 +23,10 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        {/* <AuthContext.Provider value={{authState , setAuthState}}>
-        </AuthContext.Provider> */}
+        <AuthContext.Provider value={{authState , setAuthState}}>
         <Navbar>
         </Navbar>
+        
         <Routes>
           
           <Route path="/registro" element={<RegistroUser/>}/>
@@ -35,7 +35,7 @@ function App() {
           <Route path="/MiPerfil" element={<PerfilUser/>}/>
           
         </Routes>
-        
+        </AuthContext.Provider>
 
         <Footer>
         </Footer>
