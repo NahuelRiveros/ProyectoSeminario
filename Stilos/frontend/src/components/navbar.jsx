@@ -1,13 +1,32 @@
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import {useEffect, useState, useContext} from 'react'
 import {AuthContext} from '../context/authContext'
 import axios from "axios";
+=======
+import { Link , useNavigate } from "react-router-dom";
+import {useEffect, useState} from 'react'
 
+>>>>>>> c3385246626c93c7899526dbaffab4da30ba1e20
 
 export const Navbar = () => {
   const URI = "http://localhost:8000/persona/obtDatos/";
   //procesdimiento para mostrar todos los usuarios
+<<<<<<< HEAD
 // const {authState} = useContext(AuthContext)
+=======
+
+  const navigate = useNavigate();
+
+const token = localStorage.getItem('authorization')
+console.log(token)
+
+const handleLogout = () => {
+  const logoutToken = localStorage.removeItem('authorization')
+  navigate("/login")
+}
+
+>>>>>>> c3385246626c93c7899526dbaffab4da30ba1e20
 
 
 const [authState, setAuthState] = useState([])
@@ -140,11 +159,19 @@ console.log(authState)
                 <li>
                   <Link className="dropdown-item">Settings</Link>
                 </li>
+<<<<<<< HEAD
                 {localStorage.getItem("authorization") ? <li>
                   <Link className="dropdown-item" to={"/login"}>
                     Logout
                   </Link>
                 </li> : <li>
+=======
+                {token ? <li>
+                  <button className="dropdown-item" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </li>: <li>
+>>>>>>> c3385246626c93c7899526dbaffab4da30ba1e20
                   <Link className="dropdown-item" to={"/login"}>
                     Login
                   </Link>

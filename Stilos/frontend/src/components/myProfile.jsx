@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export  const PerfilUser = ()=> {
   const [nombreUno, setNombreUno] = useState("")
@@ -15,9 +15,21 @@ export  const PerfilUser = ()=> {
   const URIobtDatos= "http://localhost:8000/persona/obtDatos/"
   const URIcreatePerfil = "http://localhost:8000/persona/createPerfil/"
   const URIdelPersona = 'http://localhost:8000/persona/delPersona/'
+
+  const navigate = useNavigate();
+
   useEffect(() => {
+    handleLogin();
     getRegistro();
   }, []);
+
+
+  const handleLogin= () => {
+    const login = localStorage.getItem("authorization")
+    if (!login) {
+      navigate("/login")
+    }
+  }
 
   //procesdimiento para mostrar todos los usuarios
 
