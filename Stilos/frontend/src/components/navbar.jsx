@@ -138,9 +138,7 @@ const handleLogout = () => {
                     My profile
                   </Link>
                 </li>
-                <li>
-                  <Link className="dropdown-item">Settings</Link>
-                </li>
+                
                 {user.status === true ? <li>
                   <button className="dropdown-item" type="button" onClick={handleLogout}>
                     Logout
