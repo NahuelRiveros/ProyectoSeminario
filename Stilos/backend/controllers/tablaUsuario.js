@@ -1,9 +1,9 @@
 // importamos los medelos desarrollados
 
-import {tbUser} from "../models/modelRegistroUsuario.js";
+import { tbUser } from "../models/modelRegistroUsuario.js";
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import{validarToken} from '../middleware/Auth.js'
+import { validarToken } from '../middleware/Auth.js'
 //** Metodos para el CRUD **/
 
 
@@ -21,32 +21,34 @@ export const allUsers = async (req, res) => {
 
 // BUSCAS SI EXISTE UN USUARIO Y LOGEAR
 export const oneUser = async (req, res) => {
-    const user = await tbUser.findOne({ where: { email: req.body.email }}); //al cambiar a metodo POST, el email viene junto a la contraseña en el Body. Siendo asi, tampoco se necesita del parametro, por lo que se saco de Routes
-    if (!user) {
-      return res.json({error: "Acceso Invalidado Error de Email "})
-    }
-    const {id ,email ,contrasena} = user
-    
-    // comparacion de contraseñas, si es valido logea con un token de acceso
-    bcryptjs.compare(req.body.contrasena, contrasena).then(async (match)=>{
-        if (!match) {
-          res.json({error: "Acceso Invalidado Error de contraseña"});}
-        
-        else{
-          //devuelvo al Frontend
-          jwt.sign({ id,email }, "accessToken", (err, token) =>{
-            res.json({Token : token ,id, email});
-          });
-        
-          
+  const user = await tbUser.findOne({ where: { email: req.body.email } }); //al cambiar a metodo POST, el email viene junto a la contraseña en el Body. Siendo asi, tampoco se necesita del parametro, por lo que se saco de Routes
+  if (!user) {
+    return res.json({ error: "Acceso Invalidado Error de Email " })
+  }
+  const { id, email, contrasena } = user
 
-        }
-      
-        
-  } )}
-      
-    
-    
+  // comparacion de contraseñas, si es valido logea con un token de acceso
+  bcryptjs.compare(req.body.contrasena, contrasena).then(async (match) => {
+    if (!match) {
+      res.json({ error: "Acceso Invalidado Error de contraseña" });
+    }
+
+    else {
+      //devuelvo al Frontend
+      jwt.sign({ id, email }, "accessToken", (err, token) => {
+        res.json({ Token: token, id, email });
+      });
+
+
+
+    }
+
+
+  })
+}
+
+
+
 
 
 
@@ -59,19 +61,18 @@ export const oneUser = async (req, res) => {
 
 export const newUser = async (req, res) => {
   try {
-    const {email,contrasena} = req.body
-    const Existe = await tbUser.findOne({ where: { email: email }});
-    if (Existe){
-      return(res.json({msg:'Usuario ya existe'}))
+    const { email, contrasena } = req.body
+    const Existe = await tbUser.findOne({ where: { email: email } });
+    if (Existe) {
+      return (res.json({ msg: 'Usuario ya existe' }))
     }
     else {
-      let claveHash = await bcryptjs.hash(contrasena,8)
-      const creado = await tbUser.create({email,contrasena:claveHash});
-      return(res.json({ msg: "Creado correctamente" }));
+      let claveHash = await bcryptjs.hash(contrasena, 8)
+      const creado = await tbUser.create({ email, contrasena: claveHash });
+      return (res.json({ msg: "Creado correctamente" }));
     }
-  } catch (error) 
-  {
-    return(res.json({ msg: error.message }));
+  } catch (error) {
+    return (res.json({ msg: error.message}));
   }
 };
 
@@ -108,6 +109,6 @@ export const delUser = async (req, res) => {
 };
 
 //
-export const authLog = async (req, res)=>{
+export const authLog = async (req, res) => {
   res.json(req.user)
 }

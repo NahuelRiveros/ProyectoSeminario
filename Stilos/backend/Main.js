@@ -7,6 +7,8 @@ import  db  from './database/db.js';
 // aca importe las rutas creada pero cambidole el nombre a las variable aqui
 import rutaUsers from './routes/rutaUsuario.js';
 import rutaPerfil from './routes/rutaPersona.js'
+import rutasSU from './routes/rutaSU.js'
+import rutaAdmins from './routes/rutaAdmins.js'
 import session from 'express-session';
 import Sequelize from './database/db.js'
 
@@ -26,6 +28,8 @@ app.use(express.json());
 // Aqui van todas las rutas donde voy a trabarjar con cada tabla del a BD.
 app.use('/registro' , rutaUsers);
 app.use('/persona' , rutaPerfil);
+app.use('/superUser', rutasSU)
+app.use('/admins', rutaAdmins)
 
 
 
