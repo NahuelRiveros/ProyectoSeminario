@@ -9,8 +9,8 @@ import { actualizarPerfil } from "../models/modelUpdatePersona.js";
 // Insert datos persona y actualizacion
 export const newPersona = async (req, res) => {
     const {id} = req.user
-    console.log("aqui")
-    console.log(req.body.fk_genero)
+    // console.log("aqui")
+    // console.log(req.body.)
     const {nombre_uno , nombre_dos , apellido , fk_localidad , fk_provincia ,fk_genero , telefono } = req.body
     const ExisteUser = await tbUser.findOne({where :{ id : id}})
     //console.log(ExisteUser)

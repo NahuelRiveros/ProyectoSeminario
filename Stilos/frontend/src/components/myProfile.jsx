@@ -62,10 +62,10 @@ export  const PerfilUser = ()=> {
   }
 
   const generoMostrar = () => {
-    if (Registro.genero) {
-      if (Registro.genero == 1) {
+    if (Registro.fk_genero) {
+      if (Registro.fk_genero == 1) {
         return (<div> Mujer </div>)
-      } else if (Registro.genero == 2) {
+      } else if (Registro.fk_genero == 2) {
         return (<div> Hombre </div>)
       } else {
         return (<div> Otro </div>)
@@ -122,7 +122,7 @@ export  const PerfilUser = ()=> {
                   </div>
                   <div className="col-md-6 mb-4">
                     <div className="form-outline">
-                    {Registro ? <input defaultValue={Registro.telefono} required type="text" id="form3Example1n1" className="form-control form-control-lg" onChange={(e)=>setApellido(e.target.value)} />
+                    {Registro ? <input defaultValue={Registro.telefono} required type="text" id="form3Example1n1" className="form-control form-control-lg" onChange={(e)=>setTelefono(e.target.value)} />
                       :
                       <input required type="text" id="form3Example1n1" className="form-control form-control-lg" onChange={(e)=>setTelefono(e.target.value)} />}
                       <label className="form-label" >Telefono</label>
