@@ -3,14 +3,15 @@ import { personaPerfil } from "../models/modelPersona.js";
 import { actualizarPerfil } from "../models/modelUpdatePersona.js";
 
 //** Metodos para el CRUD **/
+
+
+
 // Insert datos persona y actualizacion
-
-
 export const newPersona = async (req, res) => {
     const {id} = req.user
     console.log("aqui")
-    console.log(req.body)
-    const {nombre_uno , nombre_dos , apellido , localidad , provincia ,genero , telefono } = req.body
+    console.log(req.body.fk_genero)
+    const {nombre_uno , nombre_dos , apellido , fk_localidad , fk_provincia ,fk_genero , telefono } = req.body
     const ExisteUser = await tbUser.findOne({where :{ id : id}})
     //console.log(ExisteUser)
     const ExistePerfil = await personaPerfil.findOne({where:{fk_usuario: id}})
@@ -18,14 +19,14 @@ export const newPersona = async (req, res) => {
     if (ExisteUser && !ExistePerfil){
 
         console.log("creando")
-        const Insert = personaPerfil.create({nombre_uno , nombre_dos , apellido , localidad , provincia ,genero , telefono, fk_usuario: id})  
+        const Insert = personaPerfil.create({nombre_uno , nombre_dos , apellido , fk_localidad , fk_provincia ,fk_genero , telefono, fk_usuario: id})  
         return res.send("Guardado Correctamente!") // const inserDataPers = await personaPerfil.create()
     }
     else if (ExisteUser && ExistePerfil){
 
         console.log("existe")
         try {
-            const datosPersona = await actualizarPerfil.update({nombre_uno , nombre_dos , apellido , localidad , provincia ,genero , telefono, fk_usuario: id}, {where: {fk_usuario: id}})
+            const datosPersona = await actualizarPerfil.update({nombre_uno , nombre_dos , apellido , fk_localidad , fk_provincia ,fk_genero , telefono, fk_usuario: id}, {where: {fk_usuario: id}})
             return res.json({msg:"Datos Actualizados Correctamente"})
         
             

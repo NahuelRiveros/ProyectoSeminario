@@ -4,16 +4,9 @@ import { Link , useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 const URI = "http://localhost:8000/registro/unUser/"
 
-
 export const LoginUsuario = () => {
   const {user , setUser} = useAuth()
-  //datos personales
-  // const [nombreUser, setNombreUser] = useState("");
-  // const [segundoNom, setSegundoNom] = useState("");
-  // const [apellidoUser, setApellidoUser] = useState("");
-  // const [localidad, setLocalidad] = useState("");
-  // const [provincia, setProvincia] = useState("");
-  // const [telefono, setTelefono] = useState("");
+  
   //datos de usuario
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");

@@ -23,6 +23,8 @@ function App() {
   const {user, setUser} = useAuth()
   
   useEffect(() => {
+    // Perfil logeado con su token 
+    // Peticion al backend
     axios.get('http://localhost:8000/registro/auth', {headers: { "authorization" : localStorage.getItem("authorization") }}).then((res)=>{
       if (res.data.error){
         setUser({...user,status:false})

@@ -7,9 +7,9 @@ export  const PerfilUser = ()=> {
   const [nombreDos, setNombreDos] = useState("")
   const [apellido, setApellido] = useState("")
   const [telefono, setTelefono] = useState("")
-  const [provincia, setProvincia] = useState(0)
-  const [localidad, setLocalidad] = useState(0)
-  const [genero, setGenero] = useState("")
+  const [provincia, setProvincia] = useState(1)
+  const [localidad, setLocalidad] = useState(1)
+  const [genero, setGenero] = useState(1)
   const [Registro, setRegistro] = useState([])
 
   const URIobtDatos= "http://localhost:8000/persona/obtDatos/"
@@ -51,7 +51,7 @@ export  const PerfilUser = ()=> {
   
   const cargarRegistro = async () => {
     const token = localStorage.getItem("authorization")
-    await axios.post(URIcreatePerfil, {nombre_uno: nombreUno, nombre_dos: nombreDos, apellido: apellido, localidad: localidad, provincia: provincia, genero: genero, telefono: telefono}, {headers: { "authorization" : `${token}` }})
+    await axios.post(URIcreatePerfil, {nombre_uno: nombreUno, nombre_dos: nombreDos, apellido: apellido, fk_localidad: localidad, fk_provincia: provincia, fk_genero: genero, telefono: telefono}, {headers: { "authorization" : `${token}` }})
   };
 
   const DeletePersona = async() =>{
@@ -162,7 +162,7 @@ export  const PerfilUser = ()=> {
 
                     <select required className="select" onChange={(e)=>setProvincia(e.target.value)}>
                       <option disabled>Provincia</option>
-                      <option value={0}>Formosa</option>
+                      <option value={1}>Formosa</option>
                     </select>
 
                   </div>

@@ -1,4 +1,7 @@
 import Jwt  from "jsonwebtoken";
+
+//TOKEN DE ACCESO PARA LOS QUE SE LOGEAN
+
 export const validarToken = (req, res ,next) =>{
     const accessToken = req.header("authorization")
     if (!accessToken){

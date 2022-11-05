@@ -12,16 +12,13 @@ import rutaAdmins from './routes/rutaAdmins.js'
 import session from 'express-session';
 import Sequelize from './database/db.js'
 
-
 // uso de express y cors
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-
 // app.use(express.urlencoded({extended:false}))
 // dotenv.config({paht:'./env/.env'})
-
 
 
 //esto devuelve los datos que tenemos cargado en la base de datos en esa ruta.
@@ -30,8 +27,6 @@ app.use('/registro' , rutaUsers);
 app.use('/persona' , rutaPerfil);
 app.use('/superUser', rutasSU)
 app.use('/admins', rutaAdmins)
-
-
 
 
 
