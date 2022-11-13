@@ -1,6 +1,44 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
+import {jsPDF} from "jsPDF";
+
 export const ReportesAdmin = () => {
+  const [hombre,setHombre] = useState(0)
+  const [mujer,setMujer] = useState(0)
+  const [otro,setOtro] = useState(0)
+
+  const URI= "http://localhost:8000/admins/personas/"
 
 
+  const InformeGeneroUsers = async (e) => {
+    getCant()
+    //printPDF()
+  }
+
+  const getCant = async (e) => {
+    var hom, muj, otr = 0
+    const AllPersons = await axios.get(URI);
+    const usuarios = (AllPersons.data)
+    console.log(usuarios[1])
+    for (var i = 0; i < usuarios.lenght; i++) {
+      console.log(usuarios[i])
+      if (i = 0, usuarios[i].fk_genero == 1) {
+        hom += 1
+      } else if (usuarios[i].fk_genero == 2) {
+        muj += 1
+      } else if (usuarios[i].fk_genero == 3) {
+        otr += 1
+      }
+    }
+    console.log("hombres: ", hom, " mujeres: ", muj, " otros: ", otr)
+  };
+
+  const printPDF = () =>{
+    const doc = new jsPDF();
+
+    doc.text("Hello world!", 10, 10);
+    doc.save("a4.pdf");
+  }
     
   return (
     <div>
@@ -85,7 +123,7 @@ export const ReportesAdmin = () => {
                       </div>
                       <div className="text-end">
                         <h3>423</h3>
-                        <button className="btn btn-tertiary mb-0">
+                        <button className="btn btn-tertiary mb-0" onClick={InformeGeneroUsers}>
                           Reporte de usuario por genero
                         </button>
                       </div>
