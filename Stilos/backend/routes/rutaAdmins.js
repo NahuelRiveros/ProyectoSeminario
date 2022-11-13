@@ -7,7 +7,7 @@ const rutas = express.Router()
 rutas.get('/prod/', allProd)
 rutas.get('/unProd/:id', oneProd)
 //post metedo para crear
-rutas.post('/prod/',newProd)
+rutas.post('/prodAdd/',newProd)
 // put metodo para actualizar
 rutas.put('/prod/:id', updProd)
 // delete metodo para eliminar registro
