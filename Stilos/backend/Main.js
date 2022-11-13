@@ -27,6 +27,7 @@ app.use('/registro' , rutaUsers);
 app.use('/persona' , rutaPerfil);
 app.use('/superUser', rutasSU)
 app.use('/admins', rutaAdmins)
+app.use('/carrito', rutaCarrito)
 
 
 
