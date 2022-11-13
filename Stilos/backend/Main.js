@@ -6,11 +6,12 @@ import express  from 'express';
 import  db  from './database/db.js';
 // aca importe las rutas creada pero cambidole el nombre a las variable aqui
 import rutaUsers from './routes/rutaUsuario.js';
-import rutaPerfil from './routes/rutaPersona.js'
-import rutasSU from './routes/rutaSU.js'
-import rutaAdmins from './routes/rutaAdmins.js'
+import rutaPerfil from './routes/rutaPersona.js';
+import rutasSU from './routes/rutaSU.js';
+import rutaAdmins from './routes/rutaAdmins.js';
+import rutaCarrito from './routes/rutaCarrito.js'
 import session from 'express-session';
-import Sequelize from './database/db.js'
+import Sequelize from './database/db.js';
 
 // uso de express y cors
 const app = express();
