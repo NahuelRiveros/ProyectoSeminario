@@ -1,6 +1,6 @@
 import {tbUser} from "../models/modelRegistroUsuario.js";
-import { personaPerfil } from "../models/modelPersona.js";
-import { actualizarPerfil } from "../models/modelUpdatePersona.js";
+import { tbPersonaPerfil } from "../models/modelPersona.js";
+import { tbActualizarPerfil } from "../models/modelUpdatePersona.js";
 
 //** Metodos para el CRUD **/
 
@@ -14,19 +14,19 @@ export const newPersona = async (req, res) => {
     const {nombre_uno , nombre_dos , apellido , fk_localidad , fk_provincia ,fk_genero , telefono } = req.body
     const ExisteUser = await tbUser.findOne({where :{ id : id}})
     //console.log(ExisteUser)
-    const ExistePerfil = await personaPerfil.findOne({where:{fk_usuario: id}})
+    const ExistePerfil = await tbPersonaPerfil.findOne({where:{fk_usuario: id}})
     //console.log(ExistePerfil)
     if (ExisteUser && !ExistePerfil){
 
         console.log("creando")
-        const Insert = personaPerfil.create({nombre_uno , nombre_dos , apellido , fk_localidad , fk_provincia ,fk_genero , telefono, fk_usuario: id})  
-        return res.send("Guardado Correctamente!") // const inserDataPers = await personaPerfil.create()
+        const Insert = tbPersonaPerfil.create({nombre_uno , nombre_dos , apellido , fk_localidad , fk_provincia ,fk_genero , telefono, fk_usuario: id})  
+        return res.send("Guardado Correctamente!") // const inserDataPers = await tbPersonaPerfil.create()
     }
     else if (ExisteUser && ExistePerfil){
 
         console.log("existe")
         try {
-            const datosPersona = await actualizarPerfil.update({nombre_uno , nombre_dos , apellido , fk_localidad , fk_provincia ,fk_genero , telefono, fk_usuario: id}, {where: {fk_usuario: id}})
+            const datosPersona = await tbActualizarPerfil.update({nombre_uno , nombre_dos , apellido , fk_localidad , fk_provincia ,fk_genero , telefono, fk_usuario: id}, {where: {fk_usuario: id}})
             return res.json({msg:"Datos Actualizados Correctamente"})
         
             
@@ -43,7 +43,7 @@ export const newPersona = async (req, res) => {
 // obtener datos de la persona y mostrarla en el front
 export const obtPersona = async (req , res) => {
     const {id} = req.user
-    const datosPersona = await personaPerfil.findOne({where : {fk_usuario : id}}) 
+    const datosPersona = await tbPersonaPerfil.findOne({where : {fk_usuario : id}}) 
      return res.json(datosPersona)
     
 }
@@ -52,10 +52,10 @@ export const obtPersona = async (req , res) => {
 // Eliminar usuario
 
 export const deletePersona = async (req, res) =>{
-    const ExistePerfil = await personaPerfil.findOne({where:{id:  req.params.id}})
+    const ExistePerfil = await tbPersonaPerfil.findOne({where:{id:  req.params.id}})
     if (ExistePerfil){
         try {
-            const deleted = await personaPerfil.destroy({where:{id:  req.params.id}})
+            const deleted = await tbPersonaPerfil.destroy({where:{id:  req.params.id}})
             res.json({msg: 'datos de persona eliminada =('})
         } catch (error) {
             res.josn({msg: error})

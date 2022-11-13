@@ -1,5 +1,5 @@
 import express from 'express'; 
-import { allProd, oneProd, delProd, newProd, updProd } from '../controllers/adminProdControllers.js';
+import { allProd, oneProd, delProd, newProd, updProd, contGenPersona } from '../controllers/adminControllers.js';
 
 
 const rutas = express.Router()
@@ -14,5 +14,9 @@ rutas.put('/prod/:id', updProd)
 rutas.delete('/prod/:id', delProd)
 // auth login
 //rutas.get('/auth',validarToken,authLog )
+
+
+//Rutas para informe de personas
+rutas.get('/personas/', contGenPersona)
 
 export default rutas

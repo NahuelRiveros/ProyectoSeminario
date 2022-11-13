@@ -1,4 +1,8 @@
 import { tbProd } from "../models/modelAdminProd.js";
+import { tbPersonaPerfil } from "../models/modelPersona.js";
+
+
+//Controladores de productos
 
 export const allProd = async (req, res) => {
     try {
@@ -51,3 +55,19 @@ export const oneProd = async (req, res) => {
       res.json({ msg: error.message });
     }
   };
+
+//controladores de personas
+
+export const contGenPersona = async (req, res) => {
+  const hombres = 0
+  const mujeres = 0
+  const otros = 0
+  try {
+      const allPerson = await tbPersonaPerfil.findAll();
+      res.json(allPerson)
+
+    } catch (error) {
+      res.json({ msg: error.message });
+    }
+}
+
