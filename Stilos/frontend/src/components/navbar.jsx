@@ -84,34 +84,17 @@ const handleLogout = () => {
             </Link>
 
             {/* <!-- Notifications --> */}
-            <div className="dropdown">
+            
               <Link
                 className="text-reset me-3 dropdown-toggle hidden-arrow"
-                id="navbarDropdownMenuLink"
-                role="button"
-                data-mdb-toggle="dropdown"
                 aria-expanded="false"
+                to={'admin/reportes'}
               >
-                <i className="fas fa-bell"></i>
-                <span className="badge rounded-pill badge-notification bg-danger">
-                  1
-                </span>
+                <i className="fas fa-dolly-flatbed"></i>
+                
               </Link>
-              <ul
-                className="dropdown-menu dropdown-menu-end"
-                aria-labelledby="navbarDropdownMenuLink"
-              >
-                <li>
-                  <Link className="dropdown-item">Some news</Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item">Another news</Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item">Something else here</Link>
-                </li>
-              </ul>
-            </div>
+              
+            
             {/* <!-- Avatar --> */}
             <div className="dropdown">
               <Link

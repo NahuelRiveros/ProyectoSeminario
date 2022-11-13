@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import {jsPDF} from "jsPDF";
 import { Await, Link } from "react-router-dom";
 // HOOCKs useState y useEffect
 const URI = "http://localhost:8000/registro/";
@@ -10,7 +11,12 @@ export const CompoShowRegis = () => {
   // useEffect(() => {
   //   getRegistro();
   // }, []);
+  const printPdf = () =>{
+    const doc = new jsPDF();
 
+    doc.text("Hello world!", 10, 10);
+    doc.save("a4.pdf");
+  }
 
   //procesdimiento para mostrar todos los usuarios
 
@@ -85,7 +91,16 @@ export const CompoShowRegis = () => {
 </div>
 {/* <!-- Carousel wrapper --> */}
     </div>
+    <div>
+      <button onClick={printPdf}>
+        PDF
+      </button>
     </div>
+
+
+    {/* termina */}
+    </div>
+    
     
   );
 };

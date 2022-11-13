@@ -10,6 +10,7 @@ import {Navbar} from './components/navbar';
 import {LoginUsuario} from './components/login'
 import {Footer} from './components/footer';
 import {Carruserl} from './components/carruserl';
+import { ReportesAdmin } from "./components/repotesAdmin";
 import {RegistroUser} from './components/registro';
 import {PerfilUser} from './components/myProfile'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -44,7 +45,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        
+        {/* cambiar el navbar segun tipo de usuario */}
         <Navbar>
         </Navbar>
         
@@ -52,9 +53,9 @@ function App() {
           
           <Route path="/registro" element={<RegistroUser/>}/>
           <Route path="/login" element={<LoginUsuario />}/>
-          <Route path="/" element={<CompoShowRegis />}/>
+          <Route path="/Admin" element={<CompoShowRegis />}/>
           <Route path="/MiPerfil" element={<PerfilUser/>}/>
-          
+          <Route path="/admin/reportes" element={<ReportesAdmin/>}/>
         </Routes>
         
 

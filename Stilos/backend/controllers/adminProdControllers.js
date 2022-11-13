@@ -26,6 +26,7 @@ export const oneProd = async (req, res) => {
     try {
         const { existencia, imagen, precio, talle, color, genero, marca, tipo } = req.body
         const creado = await tbProd.create({ existencia_producto:existencia, imagen_producto:imagen, precio_unitario:precio, fk_talle:talle, fk_color:color, fk_genero:genero, fk_marca:marca, fk_tipo:tipo });
+        
         return (res.json({ msg: "Creado correctamente" }));
     } catch (error) {
       return (res.json({ msg: error.message}));
