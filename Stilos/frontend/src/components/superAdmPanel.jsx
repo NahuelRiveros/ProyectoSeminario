@@ -99,7 +99,9 @@ useEffect(() => {
               <tr key={usuario.id}>
                 <td>{usuario.id}</td>
                 <td>{usuario.email}</td>
-                <td> <button className="btn">Otorgar Rango</button> <button>Quitar Rango</button></td>
+                <td> 
+                  <button className="btn btn-outline-success">Dar Rango</button> <button className="btn btn-outline-danger ">Quitar Rango</button>
+                </td>
               </tr>
               
               
