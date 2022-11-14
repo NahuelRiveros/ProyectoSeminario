@@ -1,6 +1,6 @@
 import { tbProd } from "../models/modelAdminProd.js";
 import { tbPersonaPerfil } from "../models/modelPersona.js";
-
+import { tbUserAdmin } from "../models/modelRegistroUsuario.js";
 
 //Controladores de productos
 
@@ -71,3 +71,14 @@ export const contGenPersona = async (req, res) => {
     }
 }
 
+
+export const viewUsuarioAdmin = async (req, res) => {
+ 
+  try {
+      const allPerson = await tbUserAdmin.findAll();
+      res.json(allPerson)
+
+    } catch (error) {
+      res.json({ msg: error.message });
+    }
+}

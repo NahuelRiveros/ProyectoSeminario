@@ -11,6 +11,7 @@ import {LoginUsuario} from './components/login'
 import {Footer} from './components/footer';
 import {Carruserl} from './components/carruserl';
 import { ReportesAdmin } from "./components/repotesAdmin";
+import {SuperAdmPanel} from './components/superAdmPanel';
 import {RegistroUser} from './components/registro';
 import {PerfilUser} from './components/myProfile'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -56,6 +57,7 @@ function App() {
           <Route path="/Admin" element={<CompoShowRegis />}/>
           <Route path="/MiPerfil" element={<PerfilUser/>}/>
           <Route path="/admin/reportes" element={<ReportesAdmin/>}/>
+          <Route path="/superAdmin/Panel" element={<SuperAdmPanel />}/>
         </Routes>
         
 

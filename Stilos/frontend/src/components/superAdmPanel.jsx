@@ -1,103 +1,115 @@
+import DataTable from "react-data-table-component";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
+import { Await } from "react-router-dom";
+export const SuperAdmPanel = () => {
 
-const SuperAdmin = () =>{
-    
-    return ( 
-        <div>
-        <section className="mb-4">
-      <div className="card">
-        <div className="card-header text-center py-3">
-          <h5 className="mb-0 text-center">
-            <strong></strong>
-          </h5>
+  const [buscador, setBuscador] = useState('')
+  const [usuarios, setUsuarios] = useState([])
+  const [listaUsers, setListaUsers] = useState([])
+  const URI = 'http://localhost:8000/admins/viewUsers/'
+
+
+const peticionGet = async()=> {
+  await axios.get(URI).then((response)=>{
+    setUsuarios(response.data)
+    setListaUsers(response.data)
+    console.log(response.data)
+  }).catch (
+    (error) => {
+      console.log(error)
+    }
+  )
+
+}
+
+useEffect(() => {
+  peticionGet()
+}, []);
+
+
+
+  const columns = [
+    {
+      name: "ID",
+      selector: "id",
+      sortable: true,
+    },
+    {
+      name: "Nombre",
+      selector: "nombre_uno",
+      sortable: true,
+    },
+    {
+      name: "Apellido",
+      selector: "apellido",
+      sortable: true,
+    },
+  ];
+  const paginationOptions ={
+    rowsPerPageText: 'Filas por Pagina',
+    rangeSeparatorText : 'de',
+    selectAllRowsItem : true,
+    selectAllRowsItemText : 'todos'
+  }
+  
+  const handelBuscador = (e)=>{
+    setBuscador(e)
+    filtrarElemento(e);
+  }
+
+  const filtrarElemento = (termBusqueda)=>{
+    var search = listaUsers.filter(items=>{
+      if(items.email.toString().toLowerCase().includes(termBusqueda.toLowerCase())){
+        return items;
+      }
+    });
+    setUsuarios(search)
+  }
+
+  return (
+    <div className="table-responsive">
+      <div className="input-group mb-4">
+        <input
+          type="text"
+          className="form-control"
+          id="advanced-search-input"
+          placeholder="Buscador"
+          onChange={(e)=>{handelBuscador(e.target.value)}}
+        />
+        <button
+          className="btn btn-primary"
+          id="advanced-search-button"
+          type="button"
+        >
+          <i className="fa fa-search"></i>
+        </button>
         </div>
-        <div className="card-body">
-          <div className="table-responsive">
-            <table className="table table-hover text-nowrap">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col">Product Detail Views</th>
-                  <th scope="col">Unique Purchases</th>
-                  <th scope="col">Quantity</th>
-                  <th scope="col">Product Revenue</th>
-                  <th scope="col">Avg. Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Value</th>
-                  <td>18,492</td>
-                  <td>228</td>
-                  <td>350</td>
-                  <td>$4,787.64</td>
-                  <td>$13.68</td>
-                </tr>
-                <tr>
-                  <th scope="row">Percentage change</th>
-                  <td>
-                    <span className="text-danger">
-                      <i className="fas fa-caret-down me-1"></i
-                        ><span>-48.8%%</span>
-                    </span>
-                  </td>
-                  <td>
-                    <span className="text-success">
-                      <i className="fas fa-caret-up me-1"></i><span>14.0%</span>
-                    </span>
-                  </td>
-                  <td>
-                    <span className="text-success">
-                      <i className="fas fa-caret-up me-1"></i><span>46.4%</span>
-                    </span>
-                  </td>
-                  <td>
-                    <span className="text-success">
-                      <i className="fas fa-caret-up me-1"></i><span>29.6%</span>
-                    </span>
-                  </td>
-                  <td>
-                    <span className="text-danger">
-                      <i className="fas fa-caret-down me-1"></i
-                        ><span>-11.5%</span>
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Absolute change</th>
-                  <td>
-                    <span className="text-danger">
-                      <i className="fas fa-caret-down me-1"></i
-                        ><span>-17,654</span>
-                    </span>
-                  </td>
-                  <td>
-                    <span className="text-success">
-                      <i className="fas fa-caret-up me-1"></i><span>28</span>
-                    </span>
-                  </td>
-                  <td>
-                    <span className="text-success">
-                      <i className="fas fa-caret-up me-1"></i><span>111</span>
-                    </span>
-                  </td>
-                  <td>
-                    <span className="text-success">
-                      <i className="fas fa-caret-up me-1"></i
-                        ><span>$1,092.72</span>
-                    </span>
-                  </td>
-                  <td>
-                    <span className="text-danger">
-                      <i className="fas fa-caret-down me-1"></i
-                        ><span>$-1.78</span>
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div className="table-responsive">
+          <table className="table table-sm table-bordered">
+
+            <thead>
+              <th>Id</th>
+              <th>Email</th>
+              <th>Action</th>
+            </thead>
+            <tbody>
+              {usuarios && usuarios.map((usuario)=>
+              <tr key={usuario.id}>
+                <td>{usuario.id}</td>
+                <td>{usuario.email}</td>
+                <td> <button className="btn">Otorgar Rango</button> <button>Quitar Rango</button></td>
+              </tr>
+              
+              
+              )}
+            </tbody>
+          </table>
+
         </div>
-      </div>
-    </section>
+
+      
     </div>
-)}
+  );
+};

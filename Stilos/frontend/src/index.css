@@ -117,3 +117,11 @@ body {
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
   }
+
+  .img_Tam {
+    width : 45px; height: 45px
+  }
+
+  .bg-red {
+    background-color: #d8363a;
+  }

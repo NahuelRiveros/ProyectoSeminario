@@ -23,10 +23,12 @@
     "pg-hstore": "^2.3.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
+    "react-data-table-component": "^7.5.3",
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.2",
-    "sequelize": "^6.25.1"
+    "sequelize": "^6.25.1",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
