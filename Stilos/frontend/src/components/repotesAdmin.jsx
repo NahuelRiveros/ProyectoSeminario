@@ -1,42 +1,71 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {jsPDF} from "jsPDF";
+import autoTable from 'jspdf-autotable'
 
 export const ReportesAdmin = () => {
   const [hombre,setHombre] = useState(0)
   const [mujer,setMujer] = useState(0)
   const [otro,setOtro] = useState(0)
+  const [fecha,setFecha] = useState()
 
   const URI= "http://localhost:8000/admins/personas/"
 
+  useEffect(() => {
+    getCant()
+    getFecha()
+  }, []);
+
 
   const InformeGeneroUsers = async (e) => {
-    getCant()
-    //printPDF()
+    printPDFGen()
   }
 
-  const getCant = async (e) => {
-    var hom, muj, otr = 0
+  const getCant = async () => {
+    let hom = 0
+    let muj = 0
+    let otr = 0
     const AllPersons = await axios.get(URI);
     const usuarios = (AllPersons.data)
-    console.log(usuarios[1])
-    for (var i = 0; i < usuarios.lenght; i++) {
-      console.log(usuarios[i])
-      if (i = 0, usuarios[i].fk_genero == 1) {
-        hom += 1
-      } else if (usuarios[i].fk_genero == 2) {
-        muj += 1
-      } else if (usuarios[i].fk_genero == 3) {
-        otr += 1
-      }
-    }
-    console.log("hombres: ", hom, " mujeres: ", muj, " otros: ", otr)
+     for (let i = 0; i < usuarios.length; i++) {
+       if (usuarios[i].fk_genero == 1) {
+        hom +=1
+        setHombre(hom)
+       } else if (usuarios[i].fk_genero == 2) {
+        muj +=1
+        setMujer(muj)
+       } else if (usuarios[i].fk_genero == 3) {
+        otr +=1
+        setOtro(otr)
+       }
+     }
+     console.log("hombres: ", hombre, " mujeres: ", mujer, " otros: ", otro)
   };
 
-  const printPDF = () =>{
-    const doc = new jsPDF();
+  const getFecha = async () =>{
+    var hoy = new Date();
+    var opciones = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
+    opciones.timeZoneName = 'short'
+    var ahora = hoy.toLocaleString('en-US', opciones);
+    return setFecha(ahora)
+  }
 
-    doc.text("Hello world!", 10, 10);
+  const printPDFGen = async () =>{
+    const doc = new jsPDF({orientation: 'p', unit: 'mm', format: 'a4'});
+
+    doc.setFontSize(30)
+    doc.text("Informe", 30, 18);
+    doc.setFontSize(16)
+    doc.text("Tipo: Cantidad de usuarios por genero", 20,30)
+    doc.text("Orden: --",20,40)
+    doc.text("Fecha: "+fecha,20,50)
+
+    doc.autoTable({
+      startY: 65,
+      head: [['Genero', 'Cantidad']],
+      body: [["Hombres", hombre],["Mujeres", mujer],["Otros", otro]],
+    })
+
     doc.save("a4.pdf");
   }
     
