@@ -66,7 +66,7 @@ export const ReportesAdmin = () => {
       body: [["Hombres", hombre],["Mujeres", mujer],["Otros", otro]],
     })
 
-    doc.save("a4.pdf");
+    doc.save("Informe-Genero-"+fecha);
   }
     
   return (
