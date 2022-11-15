@@ -11,6 +11,9 @@ export const ReportesAdmin = () => {
 
   const URI= "http://localhost:8000/admins/personas/"
 
+  const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  const dias_semana = ['Domingo', 'Lunes', 'martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+
   useEffect(() => {
     getCant()
     getFecha()
@@ -44,10 +47,7 @@ export const ReportesAdmin = () => {
 
   const getFecha = async () =>{
     var hoy = new Date();
-    var opciones = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
-    opciones.timeZoneName = 'short'
-    var ahora = hoy.toLocaleString('en-US', opciones);
-    return setFecha(ahora)
+    return setFecha(hoy)
   }
 
   const printPDFGen = async () =>{
@@ -58,7 +58,7 @@ export const ReportesAdmin = () => {
     doc.setFontSize(16)
     doc.text("Tipo: Cantidad de usuarios por genero", 20,30)
     doc.text("Orden: --",20,40)
-    doc.text("Fecha: "+fecha,20,50)
+    doc.text("Fecha: "+dias_semana[fecha.getDay()]+", "+fecha.getDate()+" de "+meses[fecha.getMonth()]+" de "+fecha.getUTCFullYear()+ " ("+fecha.getDate()+"/"+fecha.getMonth()+"/"+fecha.getUTCFullYear()+")",20,50)
 
     doc.autoTable({
       startY: 65,
@@ -66,7 +66,7 @@ export const ReportesAdmin = () => {
       body: [["Hombres", hombre],["Mujeres", mujer],["Otros", otro]],
     })
 
-    doc.save("Informe-Genero-"+fecha);
+    doc.save("Informe-Genero-"+fecha.getDate()+fecha.getMonth()+fecha.getUTCFullYear());
   }
     
   return (

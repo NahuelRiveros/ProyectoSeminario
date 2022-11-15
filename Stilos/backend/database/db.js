@@ -4,7 +4,7 @@
 
 import Sequelize from 'sequelize';
 
-const db = new Sequelize ('Stilos', 'postgres', '123456789', {
+const db = new Sequelize ('Stilos', 'postgres', '04211997a', {
   host: 'localhost',
   dialect:'postgres' /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
 });

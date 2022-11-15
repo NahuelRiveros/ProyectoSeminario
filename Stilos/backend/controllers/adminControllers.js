@@ -59,9 +59,6 @@ export const oneProd = async (req, res) => {
 //controladores de personas
 
 export const contGenPersona = async (req, res) => {
-  const hombres = 0
-  const mujeres = 0
-  const otros = 0
   try {
       const allPerson = await tbPersonaPerfil.findAll();
       res.json(allPerson)
