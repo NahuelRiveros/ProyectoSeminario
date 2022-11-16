@@ -125,3 +125,7 @@ body {
   .bg-red {
     background-color: #d8363a;
   }
+
+  .rgba {
+    background-color: rgba(251, 251, 251, 0.15);
+  }

@@ -18,6 +18,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {useAuth} from './context/authContext'
 import {useState, useEffect, useContext} from "react";
 import axios  from "axios";
+import { ProductoHombre } from "./components/ProductoHombre";
+import { ProductoMujer } from "./components/ProductoMujer";
+import { ProductoAccesorio } from "./components/ProductoAccesorio";
 
 
 function App() {
@@ -58,6 +61,10 @@ function App() {
           <Route path="/MiPerfil" element={<PerfilUser/>}/>
           <Route path="/admin/reportes" element={<ReportesAdmin/>}/>
           <Route path="/superAdmin/Panel" element={<SuperAdmPanel />}/>
+          <Route path="/producto/hombre" element={<ProductoHombre />}/>
+          <Route path="/producto/mujer" element={<ProductoMujer />}/>
+          <Route path="/producto/accesorio" element={<ProductoAccesorio />}/>
+
         </Routes>
         
 

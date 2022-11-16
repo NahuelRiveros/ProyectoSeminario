@@ -57,17 +57,17 @@ const handleLogout = () => {
             {/* <!-- Left links --> */}
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link" to={"/Damas"}>
+                <Link className="nav-link" to={"/producto/mujer"}>
                   Damas
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to={"/Hombres"}>
+                <Link className="nav-link" to={"/producto/hombre"}>
                   Hombres
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to={"/Accesorios"}>
+                <Link className="nav-link" to={"/producto/accesorio"}>
                   Accesorios
                 </Link>
               </li>

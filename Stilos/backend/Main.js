@@ -5,11 +5,17 @@ import cors from 'cors'
 import express  from 'express';
 import  db  from './database/db.js';
 // aca importe las rutas creada pero cambidole el nombre a las variable aqui
+
+// rutas de las conexiones a la base de datos para hacer peticiones
 import rutaUsers from './routes/rutaUsuario.js';
 import rutaPerfil from './routes/rutaPersona.js';
 import rutasSU from './routes/rutaSU.js';
 import rutaAdmins from './routes/rutaAdmins.js';
-import rutaCarrito from './routes/rutaCarrito.js'
+import rutaCarrito from './routes/rutaCarrito.js';
+import rutaShop from './routes/rutaProductoShop.js';
+
+
+
 import session from 'express-session';
 import Sequelize from './database/db.js';
 
@@ -29,6 +35,7 @@ app.use('/persona' , rutaPerfil);
 app.use('/superUser', rutasSU)
 app.use('/admins', rutaAdmins)
 app.use('/carrito', rutaCarrito)
+app.use('/productoShop', rutaShop)
 
 
 
