@@ -1,6 +1,6 @@
 import express from 'express'; 
 import {validarToken} from '../middleware/Auth.js';
-import { changeRol } from '../controllers/superUserControllers.js';
+import { changeRol, AllDomPersona } from '../controllers/superUserControllers.js';
 
 
 const rutas = express.Router()
@@ -15,6 +15,8 @@ rutas.put('/roles/:id', changeRol)
 //rutas.delete('/user/:id', delUser)
 // auth login
 //rutas.get('/auth',validarToken,authLog )
+
+rutas.get('/exDom/:id', AllDomPersona)
 
 export default rutas
 

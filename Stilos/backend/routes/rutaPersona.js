@@ -1,5 +1,5 @@
 import express from 'express'; 
-import {deletePersona, newPersona, obtPersona} from '../controllers/tablaPersona.js';
+import {deletePersona, newPersona, obtPersona,DomPersona} from '../controllers/tablaPersona.js';
 import {validarToken} from '../middleware/Auth.js';
 
 const rutas = express.Router();
@@ -9,5 +9,7 @@ rutas.post('/createPerfil/',validarToken,newPersona)
 rutas.get('/obtDatos/',validarToken,obtPersona)
 // ruta para eleminar todos los datos de la persona
 rutas.delete('/delPersona/:id',validarToken, deletePersona)
+
+rutas.get('/domicilio/:id',validarToken, DomPersona)
 
 export default rutas
