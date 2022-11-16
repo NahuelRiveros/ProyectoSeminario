@@ -10,7 +10,7 @@ import { DataTypes } from 'sequelize';
 
 
 // bassicamente construimos la estrucutra de nuestras tablas y lo que vamos a manejar
-export const tbUser = db.define('usuarios', { email: DataTypes.STRING,contrasena: DataTypes.STRING}, {freezeTableName: true});
+export const tbUser = db.define('usuarios', { email: DataTypes.STRING,contrasena: DataTypes.STRING, fk_permiso_usuario: DataTypes.INTEGER}, {freezeTableName: true});
 export const tbUserRol = db.define('usuarios', { fk_permiso_usuario: DataTypes.INTEGER}, {freezeTableName: true});
 
 // Usado en controlls admin

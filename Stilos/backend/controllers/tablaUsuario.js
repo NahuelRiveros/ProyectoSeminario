@@ -68,7 +68,7 @@ export const newUser = async (req, res) => {
     }
     else {
       let claveHash = await bcryptjs.hash(contrasena, 8)
-      const creado = await tbUser.create({ email, contrasena: claveHash });
+      const creado = await tbUser.create({ email, contrasena: claveHash, fk_permiso_usuario: 1 });
       return (res.json({ msg: "Creado correctamente" }));
     }
   } catch (error) {
