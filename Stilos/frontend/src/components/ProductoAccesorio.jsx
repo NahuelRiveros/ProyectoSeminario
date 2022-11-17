@@ -102,14 +102,14 @@ export function ProductoAccesorio() {
   return (
     <div className="container">
       <section className="rgba">
-        <div className="text-center container py-5">
+        <div className="text-center py-5">
+
+          <div className="row">
           <h4 className="mt-4 mb-5">
             <strong>Productos Hombres</strong>
           </h4>
-
-          <div className="row">
-            <div className="col-3-sm">
-              <h6 className="font-weight-bold mb-3">Tipo Producto</h6>
+            <div className="col-md-3">
+              <h6 className="font-weight-bold mb-3">Producto</h6>
               {/* // Inicio */}
               {listTipoProduct &&
                 listTipoProduct.map((productoTipo) => {
@@ -141,7 +141,7 @@ export function ProductoAccesorio() {
             </div>
 
             {/* // Inicio */}
-            <div className="col-3-sm">
+            <div className="col-md-3">
               <h6 className="font-weight-bold mb-3">Marcas</h6>
 
               {listMarcaProduct &&
@@ -173,14 +173,14 @@ export function ProductoAccesorio() {
                 })}
             </div>
             {/* // Inicio */}
-            <div className="col-3-sm">
+            <div className="col-md-3">
               <h6 className="font-weight-bold mb-3">Color</h6>
 
               {listColorProduct &&
                 listColorProduct.map((productoColor) => {
                   return (
                     
-                      <section className="text-center">
+                      <section className="mb-4">
                         <div className="form-check" key={productoColor.id}>
                           <input
                             className="form-check-input"
@@ -205,14 +205,14 @@ export function ProductoAccesorio() {
                 })}
             </div>
             {/* // Inicio */}
-            <div className="col-3-sm">
+            <div className="col-md-3">
               <h6 className="font-weight-bold mb-3">Talle</h6>
 
               {listTalleProduct &&
                 listTalleProduct.map((productoTalle) => {
                   return (
                     
-                      <section className="text-center">
+                      <section className="mb-4">
                         <div className="form-check" key={productoTalle.id}>
                           <input
                             className="form-check-input"
