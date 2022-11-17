@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useAuth } from "../context/authContext";
 
 export function ProductoHombre() {
   const uriProductos = "http://localhost:8000/productoShop/obtProducto";
@@ -24,11 +25,13 @@ export function ProductoHombre() {
   const [marcaRadio, setMarcaRadio] = useState("");
   const [colorRadio, setColorRadio] = useState("");
   const [talleRadio, setTalleRadio] = useState("");
+  const {user , setUser} = useAuth()
   // obtengo todo los productos
   const obtProductos = async () => {
     await axios.get(uriProductos).then((res) => {
       setProductos(res.data);
       setListPorduct(res.data);
+      
     });
   };
   // obtengo solo el tipo de producto remeras o pantalones , etc
@@ -84,6 +87,14 @@ export function ProductoHombre() {
     setTalleRadio(e);
     console.log(e);
   };
+  // AddCarrito
+  const handelAddCarrito = async(e) => {
+    const uriAddCarrito = "http://localhost:8000/carrito/newCarrProd/" + user.id;
+    let idProd= e
+    console.log(e , uriAddCarrito)
+    await axios.post(uriAddCarrito, {idProd})
+  }
+
   return (
     <div className="container">
       
@@ -94,74 +105,8 @@ export function ProductoHombre() {
               <section>
                 {/* <!-- Section: Filters --> */}
                 <section id="filters" data-auto-filter="true">
-                  <h5>Filters</h5>
-
-                  {/* <!-- Section: Condition --> */}
-                  <section className="mb-4" data-filter="condition">
-                    <h6 className="font-weight-bold mb-3">Condition</h6>
-
-                    <div className="form-check mb-3">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value="new"
-                        id="condition-checkbox"
-                        autocompleted=""
-                      />
-                      <label
-                        className="form-check-label text-uppercase small text-muted"
-                        for="condition-checkbox"
-                      >
-                        New
-                      </label>
-                    </div>
-
-                    <div className="form-check mb-3">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value="used"
-                        id="condition-checkbox2"
-                      />
-                      <label
-                        className="form-check-label text-uppercase small text-muted"
-                        for="condition-checkbox2"
-                      >
-                        Used
-                      </label>
-                    </div>
-
-                    <div className="form-check mb-3">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value="collectible"
-                        id="condition-checkbox3"
-                      />
-                      <label
-                        className="form-check-label text-uppercase small text-muted"
-                        for="condition-checkbox3"
-                      >
-                        Collectible
-                      </label>
-                    </div>
-
-                    <div className="form-check mb-3">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value="renewed"
-                        id="condition-checkbox4"
-                      />
-                      <label
-                        className="form-check-label text-uppercase small text-muted"
-                        for="condition-checkbox4"
-                      >
-                        Renewed
-                      </label>
-                    </div>
-                  </section>
-                  {/* <!-- Section: Condition --> */}
+                  <h5>Filtros</h5>
+  
 
                   {/* <!-- Section: Avg. Customer Review --> */}
                   <h6 className="font-weight-bold mb-3">Talle</h6>
@@ -309,7 +254,7 @@ export function ProductoHombre() {
                         aria-disabled="false"
                         aria-haspopup="true"
                         aria-expanded="false"
-                        readonly=""
+                        
                       />
                       <label className="form-label select-label active">
                         Buscador
@@ -325,7 +270,11 @@ export function ProductoHombre() {
                   </div>
                 </div>
               </div>
-              <div className="row mb-4" id="content">
+              {listPorduct &&
+                listPorduct.map((producto) => {
+                  return (
+                
+                <div className="row mb-4" key={producto.id}>
                 <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
                   <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
                     <img
@@ -338,10 +287,17 @@ export function ProductoHombre() {
                   </div>
                   <div className="pt-4">
                     <h5>Fantasy T-shirt</h5>
-                    <strong>$12.99</strong>
+                    <strong>{producto.precio_unitario}</strong>
                   </div>
+                  <button className="btn btn-outline-primary btn-sm mt-2" type="button" onClick={()=>{handelAddCarrito(producto.id)}}>
+                    Agregar Carrito <i className="fas fa-cart-plus"></i>
+                  </button>
                 </div>
               </div>
+                
+                  )}
+                  )}
+              
             </div>
           </div>
         </div>
