@@ -28,7 +28,7 @@ export const CarrAddProd = async (req, res) => {
     } else {        //Pero si el carrito existe
         try {
             //Solo guardara los datos, ya que el carrito existe, los pasos de mas no son necesarios
-            const crearDetail = await tbCarrDetalle.create({fk_id_carrito: Carrito.id, fk_producto_id: Prod.id, cantidad: req.body.cantidad, estado_compra: "En carro", fecha_compra: null, precio_unitario: Prod.precio_unitario})
+            const crearDetail = await tbCarrDetalle.create({fk_id_carrito: Carrito.id, fk_producto_id: Prod.id, cantidad:1, estado_compra: "En carro", fecha_compra: null, precio_unitario: Prod.precio_unitario})
             res.json({msg: "Guardado con exito"})
         } catch (error) {
             res.json({msg: error.message + "   error 2"})

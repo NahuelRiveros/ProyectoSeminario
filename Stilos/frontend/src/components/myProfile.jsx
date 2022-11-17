@@ -3,14 +3,23 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export  const PerfilUser = ()=> {
-  const [nombreUno, setNombreUno] = useState("")
-  const [nombreDos, setNombreDos] = useState("")
-  const [apellido, setApellido] = useState("")
-  const [telefono, setTelefono] = useState("")
-  const [provincia, setProvincia] = useState(1)
-  const [localidad, setLocalidad] = useState(1)
-  const [genero, setGenero] = useState(1)
-  const [Registro, setRegistro] = useState([])
+  const [nombreUno, setNombreUno] = useState("");
+  const [nombreDos, setNombreDos] = useState("");
+  const [apellido, setApellido] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [provincia, setProvincia] = useState(1);
+  const [localidad, setLocalidad] = useState(1);
+  const [genero, setGenero] = useState(1);
+  const [Registro, setRegistro] = useState([]);
+  const [domicilio, setDomicilio] = useState('');
+  const [calle, setCalle] = useState('');
+  const [departamento, setDepartamento] = useState('');
+  const [piso, setPiso] = useState('');
+  const [num_Casa, setNum_Casa] = useState('');
+  const [barrio, setBarrio] = useState('');
+
+
+
 
   const URIobtDatos= "http://localhost:8000/persona/obtDatos/"
   const URIcreatePerfil = "http://localhost:8000/persona/createPerfil/"
@@ -51,7 +60,7 @@ export  const PerfilUser = ()=> {
   
   const cargarRegistro = async () => {
     const token = localStorage.getItem("authorization")
-    await axios.post(URIcreatePerfil, {nombre_uno: nombreUno, nombre_dos: nombreDos, apellido: apellido, fk_localidad: localidad, fk_provincia: provincia, fk_genero: genero, telefono: telefono}, {headers: { "authorization" : `${token}` }})
+    await axios.post(URIcreatePerfil, {nombre_uno: nombreUno, nombre_dos: nombreDos, apellido: apellido, fk_localidad: localidad, fk_provincia: provincia, fk_genero: genero, telefono: telefono, domicilio: domicilio,calle:calle, departamento:departamento, piso:piso, num_Casa: num_Casa, barrio: barrio}, {headers: { "authorization" : `${token}` }})
   };
 
   const DeletePersona = async() =>{
@@ -93,39 +102,40 @@ export  const PerfilUser = ()=> {
                 <h3 className="mb-5 text-uppercase">Mi Perfil</h3>
 
                 <div className="row">
-                  <div className="col-md-6 mb-4">
+                  <div className="col-sm-6 mb-4">
                     <div className="form-outline">
-                      {Registro ? <input defaultValue={Registro.nombre_uno} required type="text" id="form3Example1m" className="form-control form-control-lg" onChange={(e)=>setNombreUno(e.target.value)} />
+                      {Registro ? <input defaultValue={Registro.nombre_uno} required type="text" id="form3Example1m" className="form-control-plaintext" onChange={(e)=>setNombreUno(e.target.value)} />
                       :
-                      <input required type="text" id="form3Example1m" className="form-control form-control-lg" onChange={(e)=>setNombreUno(e.target.value)} />}
-                      <label className="form-label">Primer Nombre</label>
+                      <input required type="text" 
+                      placeholder="Primer Nombre"
+                      id="form3Example1m" className="form-control-plaintext" onChange={(e)=>setNombreUno(e.target.value)} />}
                     </div>
                   </div>
-                  <div className="col-md-6 mb-4">
+                  <div className="col-sm-6 mb-4">
                     <div className="form-outline">
-                      {Registro ? <input defaultValue={Registro.nombre_dos} required type="text" id="form3Example1n" className="form-control form-control-lg" onChange={(e)=>setNombreDos(e.target.value)} />
+                      {Registro ? <input defaultValue={Registro.nombre_dos} required 
+                      type="text" id="form3Example1n" className="form-control-plaintext" onChange={(e)=>setNombreDos(e.target.value)} />
                       :
-                      <input required type="text" id="form3Example1n" className="form-control form-control-lg" onChange={(e)=>setNombreDos(e.target.value)} />}
-                      <label className="form-label" >Segundo Nombre</label>
+                      <input required type="text" id="form3Example1n"
+                      placeholder="Segundo Nombre" className="form-control-plaintext"
+                      onChange={(e)=>setNombreDos(e.target.value)} />}
                     </div>
                   </div>
                 </div>
 
                 <div className="row">
-                  <div className="col-md-6 mb-4">
+                  <div className="col-sm-6 mb-4">
                     <div className="form-outline">
-                      {Registro ? <input defaultValue={Registro.apellido} required type="text" id="form3Example1m1" className="form-control form-control-lg" onChange={(e)=>setApellido(e.target.value)} />
+                      {Registro ? <input defaultValue={Registro.apellido} required type="text" id="form3Example1m1" className="form-control-plaintext" onChange={(e)=>setApellido(e.target.value)} />
                       :
-                      <input required type="text" id="form3Example1m1" className="form-control form-control-lg" onChange={(e)=>setApellido(e.target.value)} />}
-                      <label className="form-label">Apellido</label>
+                      <input required type="text" id="form3Example1m1" placeholder="Apellido" className="form-control-plaintext" onChange={(e)=>setApellido(e.target.value)} />}
                     </div>
                   </div>
-                  <div className="col-md-6 mb-4">
+                  <div className="col-sm-6 mb-4">
                     <div className="form-outline">
-                    {Registro ? <input defaultValue={Registro.telefono} required type="text" id="form3Example1n1" className="form-control form-control-lg" onChange={(e)=>setTelefono(e.target.value)} />
+                    {Registro ? <input defaultValue={Registro.telefono} required type="text" id="form3Example1n1" className="form-control-plaintext" onChange={(e)=>setTelefono(e.target.value)} />
                       :
-                      <input required type="text" id="form3Example1n1" className="form-control form-control-lg" onChange={(e)=>setTelefono(e.target.value)} />}
-                      <label className="form-label" >Telefono</label>
+                      <input required type="text" id="form3Example1n1" placeholder="telefono" className="form-control-plaintext" onChange={(e)=>setTelefono(e.target.value)} />}
                     </div>
                   </div>
                 </div>
@@ -158,7 +168,7 @@ export  const PerfilUser = ()=> {
                 </div>
 
                 <div className="row">
-                  <div className="col-md-6 mb-4">
+                  <div className="col-sm-6 mb-4">
 
                     <select required className="select" onChange={(e)=>setProvincia(e.target.value)}>
                       <option disabled>Provincia</option>
@@ -166,7 +176,7 @@ export  const PerfilUser = ()=> {
                     </select>
 
                   </div>
-                  <div className="col-md-6 mb-4">
+                  <div className="col-sm-6 mb-4">
 
                     <select required className="select" onChange={(e)=>setLocalidad(e.target.value)}>
                       <option disabled>Localidad</option>
@@ -176,6 +186,86 @@ export  const PerfilUser = ()=> {
                     </select>
 
                   </div>
+                </div>
+
+
+                <h3 className="mb-5 text-uppercase">Domicilio</h3>
+
+
+                {/* Datos DOMICILIO */}
+
+
+                <div className="row">
+                      {/* Domicilio */}
+                  <div className="col-sm-6 mb-4">
+                    <div className="form-outline">
+                      {Registro ? <input defaultValue={Registro.nombre_uno} required type="text" id="form3Example1m" className="form-control-plaintext" onChange={(e)=> setDomicilio(e.target.value)} />
+                      :
+                      <input required type="text" 
+                      placeholder="Domicilio"
+                      id="form3Example1m" className="form-control-plaintext" onChange={(e)=> setDomicilio(e.target.value)} />}
+                    </div>
+                  </div>
+                  {/* calle */}
+                  <div className="col-sm-6 mb-4">
+                    <div className="form-outline">
+                      {Registro ? <input defaultValue={Registro.nombre_dos} required 
+                      type="text" id="form3Example1n" className="form-control-plaintext" onChange={(e)=>setCalle(e.target.value)} />
+                      :
+                      <input required type="text" id="form3Example1n"
+                      placeholder="calle" className="form-control-plaintext"
+                      onChange={(e)=>setCalle(e.target.value)} />}
+                    </div>
+                  </div>
+
+                  {/* departamento */}
+                  <div className="col-sm-6 mb-4">
+                    <div className="form-outline">
+                      {Registro ? <input defaultValue={Registro.nombre_dos} required 
+                      type="text" id="form3Example1n" className="form-control-plaintext" onChange={(e)=>setDepartamento(e.target.value)} />
+                      :
+                      <input required type="text" id="form3Example1n"
+                      placeholder="Departamento" className="form-control-plaintext"
+                      onChange={(e)=>setDepartamento(e.target.value)} />}
+                    </div>
+                  </div>
+
+                  {/* Piso */}
+                  <div className="col-sm-6 mb-4">
+                    <div className="form-outline">
+                      {Registro ? <input defaultValue={Registro.nombre_dos} required 
+                      type="text" id="form3Example1n" className="form-control-plaintext" onChange={(e)=>setPiso(e.target.value)} />
+                      :
+                      <input required type="text" id="form3Example1n"
+                      placeholder="Piso" className="form-control-plaintext"
+                      onChange={(e)=>setPiso(e.target.value)} />}
+                    </div>
+                  </div>
+
+                  {/* Numero de casa */}
+                  <div className="col-sm-6 mb-4">
+                    <div className="form-outline">
+                      {Registro ? <input defaultValue={Registro.nombre_dos} required 
+                      type="text" id="form3Example1n" className="form-control-plaintext" onChange={(e)=>setNum_Casa(e.target.value)} />
+                      :
+                      <input required type="text" id="form3Example1n"
+                      placeholder="Número Casa" className="form-control-plaintext"
+                      onChange={(e)=>setNum_Casa(e.target.value)} />}
+                    </div>
+                  </div>
+
+                  {/* Barrio */}
+                  <div className="col-sm-6 mb-4">
+                    <div className="form-outline">
+                      {Registro ? <input defaultValue={Registro.nombre_dos} required 
+                      type="text" id="form3Example1n" className="form-control-plaintext" onChange={(e)=>setBarrio(e.target.value)} />
+                      :
+                      <input required type="text" id="form3Example1n"
+                      placeholder="Barrio" className="form-control-plaintext"
+                      onChange={(e)=>setBarrio(e.target.value)} />}
+                    </div>
+                  </div>
+
                 </div>
 
 
