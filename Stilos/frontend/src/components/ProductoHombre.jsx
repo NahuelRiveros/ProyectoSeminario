@@ -3,137 +3,411 @@ import React from "react";
 export function ProductoHombre() {
   return (
     <div className="container">
-        <section className="rgba">
-        <div className="text-center container py-5">
-          <h4 className="mt-4 mb-5">
-            <strong>Productos Hombres</strong>
-          </h4>
+       <main>
+      <div className="container mt-5">
+        <div className="row">
+          <div className="col-md-4">
+            {/* <!-- Section: Sidebar --> */}
+            <section>
+              {/* <!-- Section: Filters --> */}
+              <section id="filters" data-auto-filter="true">
+                <h5>Filters</h5>
 
-          <div className="row">
-            <div className="col-lg-4 col-md-12 mb-4">
-              <div className="card">
-                <div
-                  className="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-                  data-mdb-ripple-color="light"
-                >
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/belt.webp"
-                    className="w-100"
-                  />
-                  <a href="#!">
-                    <div className="mask">
-                      <div className="d-flex justify-content-start align-items-end h-100">
-                        <h5>
-                          <span className="badge bg-primary ms-2">New</span>
-                        </h5>
-                      </div>
-                    </div>
-                    <div className="hover-overlay">
-                      <div className="mask rgba"></div>
-                    </div>
-                  </a>
-                </div>
-                <div className="card-body">
-                  <a href="" className="text-reset">
-                    <h5 className="card-title mb-3">Product name</h5>
-                  </a>
-                  <a href="" className="text-reset">
-                    <p>Category</p>
-                  </a>
-                  <h6 className="mb-3">$61.99</h6>
-                  {/* BOTON CARRITO */}
-                  <button class="btn btn-outline-primary btn-sm mt-2" type="button">
-                    Agregar Carrito <i class="fas fa-cart-plus"></i>
-                  </button>
-                </div>
+                {/* <!-- Section: Condition --> */}
+                <section className="mb-4" data-filter="condition">
+                  <h6 className="font-weight-bold mb-3">Condition</h6>
+
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="checkbox" value="new" id="condition-checkbox" autocompleted=""/>
+                    <label className="form-check-label text-uppercase small text-muted" for="condition-checkbox">
+                      New
+                    </label>
+                  </div>
+
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="checkbox" value="used" id="condition-checkbox2"/>
+                    <label className="form-check-label text-uppercase small text-muted" for="condition-checkbox2">
+                      Used
+                    </label>
+                  </div>
+
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="checkbox" value="collectible" id="condition-checkbox3"/>
+                    <label className="form-check-label text-uppercase small text-muted" for="condition-checkbox3">
+                      Collectible
+                    </label>
+                  </div>
+
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="checkbox" value="renewed" id="condition-checkbox4"/>
+                    <label className="form-check-label text-uppercase small text-muted" for="condition-checkbox4">
+                      Renewed
+                    </label>
+                  </div>
+                </section>
+                {/* <!-- Section: Condition --> */}
+
+                {/* <!-- Section: Avg. Customer Review --> */}
+                <section className="mb-4">
+                  <h6 className="font-weight-bold mb-3">Avg. Customer Review</h6>
+
+                  <ul className="rating" data-toggle="rating" id="filter-rating" tabindex="0">
+                    <li>
+                      <i className="far fa-star fa-sm text-primary" title="" data-toggle="tooltip" data-original-title="1"></i>
+                    </li>
+                    <li>
+                      <i className="far fa-star fa-sm text-primary" title="" data-toggle="tooltip" data-original-title="2"></i>
+                    </li>
+                    <li>
+                      <i className="far fa-star fa-sm text-primary" title="" data-toggle="tooltip" data-original-title="3"></i>
+                    </li>
+                    <li>
+                      <i className="far fa-star fa-sm text-primary" title="" data-toggle="tooltip" data-original-title="4"></i>
+                    </li>
+                    <li>
+                      <i className="far fa-star fa-sm text-primary" title="" data-toggle="tooltip" data-original-title="5"></i>
+                    </li>
+                  </ul>
+                </section>
+                {/* <!-- Section: Avg. Customer Review --> */}
+
+                {/* <!-- Section: Price --> */}
+                <section className="mb-4">
+                  <h6 className="font-weight-bold mb-3">Price</h6>
+
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="price-radio"/>
+                    <label className="form-check-label text-uppercase small text-muted" for="price-radio">
+                      Under $25
+                    </label>
+                  </div>
+
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="price-radio2"/>
+                    <label className="form-check-label text-uppercase small text-muted" for="price-radio2">
+                      $25 to $50
+                    </label>
+                  </div>
+
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="price-radio3"/>
+                    <label className="form-check-label text-uppercase small text-muted" for="price-radio3">
+                      $50 to $100
+                    </label>
+                  </div>
+
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="price-radio4"/>
+                    <label className="form-check-label text-uppercase small text-muted" for="price-radio4">
+                      $100 to $200
+                    </label>
+                  </div>
+
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="price-radio5"/>
+                    <label className="form-check-label text-uppercase small text-muted" for="price-radio5">
+                      $200 &amp; above
+                    </label>
+                  </div>
+                </section>
+                {/* <!-- Section: Price --> */}
+
+                {/* <!-- Section: Size --> */}
+                <section className="mb-4" data-filter="size">
+                  <h6 className="font-weight-bold mb-3">Size</h6>
+
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="checkbox" value="34" id="price-checkbox"/>
+                    <label className="form-check-label text-uppercase small text-muted" for="price-checkbox">
+                      34
+                    </label>
+                  </div>
+
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="checkbox" value="36" id="price-checkbox2"/>
+                    <label className="form-check-label text-uppercase small text-muted" for="price-checkbox2">
+                      36
+                    </label>
+                  </div>
+
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="checkbox" value="38" id="price-checkbox3"/>
+                    <label className="form-check-label text-uppercase small text-muted" for="price-checkbox3">
+                      38
+                    </label>
+                  </div>
+
+                  <div className="form-check mb-3">
+                    <input className="form-check-input" type="checkbox" value="40" id="price-checkbox4"/>
+                    <label className="form-check-label text-uppercase small text-muted" for="price-checkbox4">
+                      40
+                    </label>
+                  </div>
+                </section>
+                {/* <!-- Section: Size --> */}
+
+                {/* <!-- Section: Color --> */}
+                <section className="mb-4" data-filter="color">
+                  <h6 className="font-weight-bold mb-3">Color</h6>
+
+                  <div className="form-check form-check-inline m-0 p-0 pr-3">
+                    <input className="btn-check" type="radio" name="colorRadio" id="colorRadio1" value="white"/>
+                    <label className="btn bg-light btn-rounded p-3" for="colorRadio1"></label>
+                  </div>
+
+                  <div className="form-check form-check-inline m-0 p-0 pr-3">
+                    <input className="btn-check" type="radio" name="colorRadio" id="colorRadio2" value="grey"/>
+                    <label className="btn btn-rounded p-3" for="colorRadio2" ></label>
+                  </div>
+
+                  <div className="form-check form-check-inline m-0 p-0 pr-3">
+                    <input className="btn-check" type="radio" name="colorRadio" id="colorRadio3" value="black"/>
+                    <label className="btn bg-dark text-white btn-rounded p-3" for="colorRadio3"></label>
+                  </div>
+
+                  <div className="form-check form-check-inline m-0 p-0 pr-3">
+                    <input className="btn-check" type="radio" name="colorRadio" id="colorRadio5" value="blue"/>
+                    <label className="btn bg-primary btn-rounded p-3" for="colorRadio5"></label>
+                  </div>
+
+                  <div className="form-check form-check-inline mt-3 mr-0 p-0 pr-3">
+                    <input className="btn-check" type="radio" name="colorRadio" id="colorRadio9" value="red"/>
+                    <label className="btn bg-danger btn-rounded p-3" for="colorRadio9"></label>
+                  </div>
+
+                  <div className="form-check form-check-inline mt-3 mr-0 p-0 pr-3">
+                    <input className="btn-check" type="radio" name="colorRadio" id="colorRadio10" value="orange"/>
+                    <label className="btn bg-warning btn-rounded p-3" for="colorRadio10"></label>
+                  </div>
+                </section>
+                {/* <!-- Section: Color --> */}
+              </section>
+              {/* <!-- Section: Filters --> */}
+            </section>
+            {/* <!-- Section: Sidebar --> */}
+          </div>
+          <div className="col-md-8">
+            <div className="row justify-content-center">
+              <div className="col-md-6 my-auto py-3">
+                <div id="select-wrapper-893299" className="select-wrapper"><div className="form-outline"><input className="form-control select-input" type="text" role="listbox" aria-multiselectable="false" aria-disabled="false" aria-haspopup="true" aria-expanded="false" readonly=""/>
+                <label className="form-label select-label active" >Sort</label>
+                <span className="select-arrow"></span>
+                <div className="form-notch">
+                  <div className="form-notch-leading" ></div><div className="form-notch-middle"></div><div className="form-notch-trailing"></div></div></div><select className="select initialized" id="sort-select">
+                  <option value="1">Best rating</option>
+                  <option value="2">Lowest price first</option>
+                  <option value="3">Highest price first</option>
+                </select></div>
+                
               </div>
             </div>
-
-            <div className="col-lg-4 col-md-6 mb-4">
-              <div className="card">
-                <div
-                  className="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-                  data-mdb-ripple-color="light"
-                >
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp"
-                    className="w-100"
-                  />
-                  <a href="#!">
-                    <div className="mask">
-                      <div className="d-flex justify-content-start align-items-end h-100">
-                        <h5>
-                          <span className="badge bg-success ms-2">Eco</span>
-                        </h5>
-                      </div>
-                    </div>
-                    <div className="hover-overlay">
-                      <div className="mask rgba"></div>
-                    </div>
-                  </a>
-                </div>
-                <div className="card-body">
-                  <a href="" className="text-reset">
-                    <h5 className="card-title mb-3">Product name</h5>
-                  </a>
-                  <a href="" className="text-reset">
-                    <p>Category</p>
-                  </a>
-                  <h6 className="mb-3">$61.99</h6>
-                  {/* BOTON CARRITO */}
-                  <button class="btn btn-outline-primary btn-sm mt-2" type="button">
-                    Agregar Carrito <i class="fas fa-cart-plus"></i>
-                  </button>
-                </div>
+            <div className="row mb-4" id="content">
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg" className="img-fluid w-100"/>
+                <a href="#!">
+                  <div className="mask rounded"></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Fantasy T-shirt</h5>
+                <strong>$12.99</strong>
               </div>
             </div>
+            
 
-            <div className="col-lg-4 col-md-6 mb-4">
-              <div className="card">
-                <div
-                  className="bg-image hover-zoom ripple"
-                  data-mdb-ripple-color="light"
-                >
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/shoes%20(3).webp"
-                    className="w-100"
-                  />
-                  <a href="#!">
-                    <div className="mask">
-                      <div className="d-flex justify-content-start align-items-end h-100">
-                        <h5>
-                          <span className="badge bg-danger ms-2">-10%</span>
-                        </h5>
-                      </div>
-                    </div>
-                    <div className="hover-overlay">
-                      <div className="mask rgba"></div>
-                    </div>
-                  </a>
-                </div>
-                <div className="card-body">
-                  <a href="" className="text-reset">
-                    <h5 className="card-title mb-3">Product name</h5>
-                  </a>
-                  <a href="" className="text-reset">
-                    <p>Category</p>
-                  </a>
-                  <h6 className="mb-3">
-                    <s>$61.99</s>
-                    <strong className="ms-2 text-danger">$50.99</strong>
-                  </h6>
-                  {/* BOTON CARRITO */}
-                  <button class="btn btn-outline-primary btn-sm mt-2" type="button">
-                    Agregar Carrito <i class="fas fa-cart-plus"></i>
-                  </button>
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg" className="img-fluid w-100"/>
+                <a href="#!">
+                  <div className="mask rounded"></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Denim Jacket</h5>
+                <strong>$40.99</strong>
+              </div>
+            </div>
+            
+
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/11.jpg" className="img-fluid w-100"/>
+                <a href="#!">
+                  <div className="mask rounded"></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Ripped jeans</h5>
+                <strong>$20.99</strong>
+              </div>
+            </div>
+            
+
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/5.jpg" className="img-fluid w-100"/>
+                <a href="#!">
+                  <div className="mask rounded"></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Red chinos</h5>
+                <strong>$62.99</strong>
+              </div>
+            </div>
+            
+
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/4.jpg" className="img-fluid w-100" />
+                <a href="#!">
+                  <div className="mask rounded" ></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Camel coat</h5>
+                <strong>$62.99</strong>
+              </div>
+            </div>
+            
+
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/3.jpg" className="img-fluid w-100" />
+                <a href="#!">
+                  <div className="mask rounded" ></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Blue jeans</h5>
+                <strong>$42.99</strong>
+              </div>
+            </div>
+            
+
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg" className="img-fluid w-100"/>
+                <a href="#!">
+                  <div className="mask rounded" ></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Fantasy T-shirt</h5>
+                <strong>$12.99</strong>
+              </div>
+            </div>
+            
+
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/10.jpg" className="img-fluid w-100"/>
+                <a href="#!">
+                  <div className="mask rounded"></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Boyfriend jeans</h5>
+                <strong>$20.99</strong>
+              </div>
+            </div>
+            
+
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/7.jpg" className="img-fluid w-100"/>
+                <a href="#!">
+                  <div className="mask rounded" ></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Ripped sweatshirt</h5>
+                <strong>$29.99</strong>
+              </div>
+            </div>
+            
+
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/8.jpg" className="img-fluid w-100"/>
+                <a href="#!">
+                  <div className="mask rounded"></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Longsleeve</h5>
+                <strong>$120.99</strong>
+              </div>
+            </div>
+            
+
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/6.jpg" className="img-fluid w-100"/>
+                <a href="#!">
+                  <div className="mask rounded"></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Stripped sweatshirt</h5>
+                <strong>$32.99</strong>
+              </div>
+            </div>
+            
+
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/2.jpg" className="img-fluid w-100" />
+                <a href="#!">
+                  <div className="mask rounded"></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Ballerina skirt</h5>
+                <strong>$12.99</strong>
+              </div>
+            </div>
+            
+
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg" className="img-fluid w-100"/>
+                <a href="#!">
+                  <div className="mask rounded"></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Fantasy T-shirt</h5>
+                <strong>$40.99</strong>
+              </div>
+            </div>
+            
+
+            <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
+              <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/3.jpg" className="img-fluid w-100" />
+                <a href="#!">
+                  <div className="mask rounded"></div>
+                </a>
+              </div>
+              <div className="pt-4">
+                <h5>Orange T-shirt</h5>
+                <strong>$12.99</strong>
+              </div>
+            </div>
+            </div>
+            <div className="row">
+              <div className="col-md-12 mt-3 text-center">
+                <div className="spinner-border text-primary mx-auto my-5" id="spinner" role="status">
+                  <span className="sr-only">Loading...</span>
                 </div>
               </div>
             </div>
           </div>
-
-         
         </div>
-      </section>
+      </div>
+    </main>
     </div>
   );
 }
