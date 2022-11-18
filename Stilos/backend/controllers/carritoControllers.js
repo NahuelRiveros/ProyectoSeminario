@@ -1,13 +1,63 @@
 import { tbCarrito, tbCarrDetalle, tbOrdenCompra } from "../models/modelCarrito.js";
-import { tbProd } from "../models/modelAdmins.js";
+import { tbColores, tbGeneroProd, tbMarcas, tbProd, tbTalles, tbTipoProd } from "../models/modelAdmins.js";
 
 //CRUD de carrito sin las acciones al comprar
 
 export const CarrAllProd = async (req, res) => {
+    const allProd = await tbProd.findAll({ raw: true });
+    const allMarcas = await tbMarcas.findAll({ raw: true })
+    const allTalles = await tbTalles.findAll({ raw: true })
+    const allColores = await tbColores.findAll({ raw: true })
+    const allTipos = await tbTipoProd.findAll({ raw: true })
+    const allGeneros = await tbGeneroProd.findAll({ raw: true })
+    
+
     try {
         const Carrito = await tbCarrito.findOne({ where: { fk_usuario : req.params.id } });     //Buscamos el carrito del usuario en cuestion
-        const CarrDetalle = await tbCarrDetalle.findAll({where: {fk_id_carrito : Carrito.id, estado_compra: "En carro"}})      //Traemos los detalles del carrito usando el id del carrito hallado en la constante anterior
-        res.json(CarrDetalle)
+        const CarrDetalle = await tbCarrDetalle.findAll({where: {fk_id_carrito : Carrito.id, estado_compra: "En carro"}, raw:true })      //Traemos los detalles del carrito usando el id del carrito hallado en la constante anterior
+        function setProductoJson(listProd = []) {
+            for (let i = 0; i < CarrDetalle.length; i++) {
+              console.log(i)
+              listProd[i] = {}
+              listProd[i].id = CarrDetalle[i].id
+              listProd[i].precio = CarrDetalle[i].precio_unitario
+                for (let ii = 0; ii < allProd.length; ii++) {
+                    
+                    if (CarrDetalle[i].fk_producto_id == allProd[ii].id) {
+                        listProd[i].img = allProd[ii].imagen_producto
+                    for (let a = 0; a < allMarcas.length; a++) {
+                      if (allProd[ii].fk_marca == allMarcas[a].id) {
+                        listProd[i].marca = allMarcas[a].marca
+                      }
+                    }
+                    for (let b = 0; b < allTalles.length; b++) {
+                      if (allProd[ii].fk_talle == allTalles[b].id) {
+                        listProd[i].talle = allTalles[b].talle
+                      }
+                    }
+                    for (let c = 0; c < allColores.length; c++) {
+                      if (allProd[ii].fk_color == allColores[c].id) {
+                        listProd[i].color = allColores[c].color
+                      }
+                    }
+                    for (let d = 0; d < allTipos.length; d++) {
+                      if (allProd[ii].fk_tipo == allTipos[d].id) {
+                        listProd[i].tipo = allTipos[d].tipo_producto
+                      }
+                    }
+                    for (let e = 0; e < allGeneros.length; e++) {
+                      if (allProd[ii].fk_genero == allGeneros[e].id) {
+                        listProd[i].genero = allGeneros[e].genero
+                      }
+                    }
+                  }
+                  
+                }
+            }
+            return listProd
+          }
+          const Productos = setProductoJson();
+          res.json(Productos);
       } catch (error) {
         res.json({ msg: error.message });
       }
