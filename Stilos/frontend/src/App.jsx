@@ -20,11 +20,10 @@ import axios  from "axios";
 import { ProductoHombre } from "./components/ProductoHombre";
 import { ProductoMujer } from "./components/ProductoMujer";
 import { ProductoAccesorio } from "./components/ProductoAccesorio";
-
+import {CompraProducto} from './components/compraProducto';
 // CONTEXT
 import {useAuth} from './context/authContext'
 import {tipoUsers} from './context/persContext'
-import { CompraProducto } from "./components/compraProducto";
 
 
 function App() {
@@ -34,7 +33,7 @@ function App() {
   useEffect( () => {
     // Perfil logeado con su token 
     // Peticion al backend
-     axios.get('http://localhost:8000/registro/auth', {headers: { "authorization" : localStorage.getItem("authorization") }}).then((res)=>{
+      axios.get('http://localhost:8000/registro/auth', {headers: { "authorization" : localStorage.getItem("authorization") }}).then((res)=>{
       if (res.data.error){
         setUser({...user,status:false})
       }
