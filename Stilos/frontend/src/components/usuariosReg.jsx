@@ -11,12 +11,6 @@ export const CompoShowRegis = () => {
   // useEffect(() => {
   //   getRegistro();
   // }, []);
-  const printPdf = () =>{
-    const doc = new jsPDF();
-
-    doc.text("Hello world!", 10, 10);
-    doc.save("a4.pdf");
-  }
 
   //procesdimiento para mostrar todos los usuarios
 
@@ -90,11 +84,6 @@ export const CompoShowRegis = () => {
   </button>
 </div>
 {/* <!-- Carousel wrapper --> */}
-    </div>
-    <div>
-      <button onClick={printPdf}>
-        PDF
-      </button>
     </div>
 
 

@@ -25,13 +25,14 @@ export function ProductoHombre() {
   const [marcaRadio, setMarcaRadio] = useState("");
   const [colorRadio, setColorRadio] = useState("");
   const [talleRadio, setTalleRadio] = useState("");
-  const {user , setUser} = useAuth()
+  const { user, setUser } = useAuth()
   // obtengo todo los productos
   const obtProductos = async () => {
-    await axios.get(uriProductos).then((res) => {
+
+    await axios.post(uriProductos, { talle: talleRadio, color: colorRadio, marca: marcaRadio, tipo: tipoRadio }).then((res) => {
       setProductos(res.data);
       setListPorduct(res.data);
-      
+
     });
   };
   // obtengo solo el tipo de producto remeras o pantalones , etc
@@ -65,7 +66,7 @@ export function ProductoHombre() {
     obtColorProducto();
     obtMarcaProducto();
     obtTalleProducto();
-  }, []);
+  }, [tipoRadio, marcaRadio, colorRadio, talleRadio]);
 
   // buscador
   const handelTipoProducto = (e) => {
@@ -88,34 +89,54 @@ export function ProductoHombre() {
     console.log(e);
   };
   // AddCarrito
-  const handelAddCarrito = async(e) => {
+  const handelAddCarrito = async (e) => {
     const uriAddCarrito = "http://localhost:8000/carrito/newCarrProd/" + user.id;
-    let idProd= e
-    console.log(e , uriAddCarrito)
-    await axios.post(uriAddCarrito, {idProd})
+    let idProd = e
+    console.log(e, uriAddCarrito)
+    await axios.post(uriAddCarrito, { idProd })
   }
 
   return (
     <div className="container">
-      
-        <div className="container mt-5">
-          <div className="row">
-            <div className="col-md-4">
-              {/* <!-- Section: Sidebar --> */}
-              <section>
-                {/* <!-- Section: Filters --> */}
-                <section id="filters" data-auto-filter="true">
-                  <h5>Filtros</h5>
-  
 
-                  {/* <!-- Section: Avg. Customer Review --> */}
-                  <h6 className="font-weight-bold mb-3">Talle</h6>
+      <div className="container mt-5">
+        <div className="row">
+          <div className="col-md-3">
+            {/* <!-- Section: Sidebar --> */}
+            <section>
+              {/* <!-- Section: Filters --> */}
+              <section id="filters" data-auto-filter="true">
+                <h5>Filtros</h5>
 
-              {listTalleProduct &&
-                listTalleProduct.map((productoTalle) => {
-                  return (
-                    
-                      <section className="mb-4">
+
+                {/* <!-- Section: Avg. Customer Review --> */}
+                <h6 className="font-weight-bold mb-2 mt-3">Talle</h6>
+                <section className="mb-1">
+                  <div className="form-check" key="deselect">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      value=""
+                      name="Talle"
+                      id="price-radio"
+                      onChange={(e) => {
+                        handelTalleProducto(e.target.value);
+                      }}
+                    />
+                    <label
+                      className="form-check-label text-uppercase small text-muted"
+                      for="price-radio"
+                    >
+                      No filtrar
+                    </label>
+                  </div>
+                </section>
+
+                {listTalleProduct &&
+                  listTalleProduct.map((productoTalle) => {
+                    return (
+
+                      <section className="mb-1">
                         <div className="form-check" key={productoTalle.id}>
                           <input
                             className="form-check-input"
@@ -129,26 +150,46 @@ export function ProductoHombre() {
                           />
                           <label
                             className="form-check-label text-uppercase small text-muted"
-                            
+
                           >
                             {productoTalle.talle}
                           </label>
                         </div>
                       </section>
-                    
-                  );
-                })}
-                  {/* <!-- Section: Avg. Customer Review --> */}
 
-                  {/* <!-- Section: Price --> */}
-                  
-              <h6 className="font-weight-bold mb-3">Color</h6>
+                    );
+                  })}
+                {/* <!-- Section: Avg. Customer Review --> */}
 
-              {listColorProduct &&
-                listColorProduct.map((productoColor) => {
-                  return (
-                    
-                      <section className="mb-4">
+                {/* <!-- Section: Price --> */}
+
+                <h6 className="font-weight-bold mt-3">Color</h6>
+                <section className="mb-1">
+                  <div className="form-check" key="deselect">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      value=""
+                      name="color"
+                      id="price-radio"
+                      onChange={(e) => {
+                        handelColorProducto(e.target.value);
+                      }}
+                    />
+                    <label
+                      className="form-check-label text-uppercase small text-muted"
+
+                    >
+                      No filtrar
+                    </label>
+                  </div>
+                </section>
+
+                {listColorProduct &&
+                  listColorProduct.map((productoColor) => {
+                    return (
+
+                      <section className="mb-1">
                         <div className="form-check" key={productoColor.id}>
                           <input
                             className="form-check-input"
@@ -162,25 +203,45 @@ export function ProductoHombre() {
                           />
                           <label
                             className="form-check-label text-uppercase small text-muted"
-                            
+
                           >
                             {productoColor.color}
                           </label>
                         </div>
                       </section>
-                    
-                  );
-                })}
-                  {/* <!-- Section: Price --> */}
 
-                  {/* <!-- Section: Size --> */}
-                  <h6 className="font-weight-bold mb-3">Marcas</h6>
+                    );
+                  })}
+                {/* <!-- Section: Price --> */}
 
-              {listMarcaProduct &&
-                listMarcaProduct.map((productoMarca) => {
-                  return (
-                    
-                      <section className="mb-4">
+                {/* <!-- Section: Size --> */}
+                <h6 className="font-weight-bold mt-3">Marcas</h6>
+                <section className="mb-1">
+                  <div className="form-check" key="deselect">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      value=""
+                      name="Marca"
+                      id="price-radio"
+                      onChange={(e) => {
+                        handelMarcaProducto(e.target.value);
+                      }}
+                    />
+                    <label
+                      className="form-check-label text-uppercase small text-muted"
+
+                    >
+                      No filtrar
+                    </label>
+                  </div>
+                </section>
+
+                {listMarcaProduct &&
+                  listMarcaProduct.map((productoMarca) => {
+                    return (
+
+                      <section className="mb-1">
                         <div className="form-check" key={productoMarca.id}>
                           <input
                             className="form-check-input"
@@ -194,26 +255,46 @@ export function ProductoHombre() {
                           />
                           <label
                             className="form-check-label text-uppercase small text-muted"
-                            
+
                           >
                             {productoMarca.marca}
                           </label>
                         </div>
                       </section>
-                    
-                  );
-                })}
-                  {/* <!-- Section: Size --> */}
 
-                  {/* <!-- Section: Color --> */}
-                  <h6 className="font-weight-bold mb-3">Tipo Producto</h6>
-              {/* // Inicio */}
-              {listTipoProduct &&
-                listTipoProduct.map((productoTipo) => {
-                  return (
-                    
-                      <section className="mb-4">
-                        <div className="form-check mb-3" key={productoTipo.id}>
+                    );
+                  })}
+                {/* <!-- Section: Size --> */}
+
+                {/* <!-- Section: Color --> */}
+                <h6 className="font-weight-bold mt-3">Tipo Producto</h6>
+                <section className="mb-1">
+                  <div className="form-check" key="deselect">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      value=""
+                      name="Tipo"
+                      id="price-radio"
+                      onChange={(e) => {
+                        handelTipoProducto(e.target.value);
+                      }}
+                    />
+                    <label
+                      className="form-check-label text-uppercase small text-muted"
+
+                    >
+                      No filtrar
+                    </label>
+                  </div>
+                </section>
+                {/* // Inicio */}
+                {listTipoProduct &&
+                  listTipoProduct.map((productoTipo) => {
+                    return (
+
+                      <section className="mb-1">
+                        <div className="form-check" key={productoTipo.id}>
                           <input
                             className="form-check-input"
                             type="radio"
@@ -226,82 +307,84 @@ export function ProductoHombre() {
                           />
                           <label
                             className="form-check-label text-uppercase small text-muted"
-                            
+
                           >
                             {productoTipo.tipo_producto}
                           </label>
                         </div>
                       </section>
-                    
-                  );
-                })}
-                  {/* <!-- Section: Color --> */}
-                </section>
-                {/* <!-- Section: Filters --> */}
+
+                    );
+                  })}
+                {/* <!-- Section: Color --> */}
               </section>
-              {/* <!-- Section: Sidebar --> */}
-            </div>
-            <div className="col-md-8">
-              <div className="row justify-content-center">
-                <div className="col-md-6 my-auto py-3">
-                  <div id="select-wrapper-893299" className="select-wrapper">
-                    <div className="form-outline">
-                      <input
-                        className="form-control select-input"
-                        type="text"
-                        role="listbox"
-                        aria-multiselectable="false"
-                        aria-disabled="false"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        
-                      />
-                      <label className="form-label select-label active">
-                        Buscador
-                      </label>
-                      <span className="select-arrow"></span>
-                      <div className="form-notch">
-                        <div className="form-notch-leading"></div>
-                        <div className="form-notch-middle"></div>
-                        <div className="form-notch-trailing"></div>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-              {listPorduct &&
-                listPorduct.map((producto) => {
-                  return (
-                
-                <div className="row mb-4" key={producto.id}>
-                <div className="col-md-4 my-4 justify-content-center text-center animation fade-in">
-                  <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
-                    <img
-                      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
-                      className="img-fluid w-100"
+              {/* <!-- Section: Filters --> */}
+            </section>
+            {/* <!-- Section: Sidebar --> */}
+          </div>
+          <div className="col-md-8">
+            <div className="row justify-content-center">
+              <div className="col-md-6 my-auto py-3">
+                <div id="select-wrapper-893299" className="select-wrapper">
+                  <div className="form-outline">
+                    <input
+                      className="form-control select-input"
+                      type="text"
+                      role="listbox"
+                      aria-multiselectable="false"
+                      aria-disabled="false"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+
                     />
-                    <a href="#!">
-                      <div className="mask rounded"></div>
-                    </a>
+                    <label className="form-label select-label active">
+                      Buscador
+                    </label>
+                    <span className="select-arrow"></span>
+                    <div className="form-notch">
+                      <div className="form-notch-leading"></div>
+                      <div className="form-notch-middle"></div>
+                      <div className="form-notch-trailing"></div>
+                    </div>
                   </div>
-                  <div className="pt-4">
-                    <h5>Fantasy T-shirt</h5>
-                    <strong>{producto.precio_unitario}</strong>
-                  </div>
-                  <button className="btn btn-outline-primary btn-sm mt-2" type="button" onClick={()=>{handelAddCarrito(producto.id)}}>
-                    Agregar Carrito <i className="fas fa-cart-plus"></i>
-                  </button>
+
                 </div>
               </div>
-                
+            </div>
+            <div className="container">
+              <div className="row align-items-start">
+                {listPorduct &&
+                  listPorduct.map((producto) => {
+                    return (
+
+                        <div className="col-md-4 my-4 text-center animation fade-in" key={producto.id}>
+                          <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
+                            <img
+                              src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
+                              className="img-fluid w-100"
+                            />
+                            <a href="#!">
+                              <div className="mask rounded"></div>
+                            </a>
+                          </div>
+                          <div className="pt-4">
+                            <h5>Fantasy T-shirt</h5>
+                            <strong>{producto.precio_unitario}</strong>
+                          </div>
+                          <button className="btn btn-outline-primary btn-sm mt-2" type="button" onClick={() => { handelAddCarrito(producto.id) }}>
+                            Agregar Carrito <i className="fas fa-cart-plus"></i>
+                          </button>
+                        </div>
+
+                    )
+                  }
                   )}
-                  )}
-              
+              </div>
             </div>
           </div>
         </div>
-      
+      </div>
+
     </div>
   );
 }

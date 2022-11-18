@@ -5,7 +5,7 @@ import { showProductos, showProductosColor, showProductosMarca, showProductosTal
 const rutas = express.Router();
 
 // obtener productos
-rutas.get('/obtProducto',showProductos)
+rutas.post('/obtProducto',showProductos)
 rutas.get('/obtProductoTalle', showProductosTalle)
 rutas.get('/obtProductoMarca', showProductosMarca)
 rutas.get('/obtProductoColor', showProductosColor)
