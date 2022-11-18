@@ -13,8 +13,9 @@ export const useAuth = ()=>{
 export function UserProvider({children}) {
     const [user, setUser] = useState({
         id : '', 
-        email : '',
-        status : false
+        rango : '',
+        status : false,
+        
     }) 
     return (
         <AuthContext.Provider value={{user, setUser}}>{children}</AuthContext.Provider>

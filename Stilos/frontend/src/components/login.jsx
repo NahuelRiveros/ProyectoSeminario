@@ -60,7 +60,7 @@ export const LoginUsuario = () => {
             )
             setUser({
               id: res.data.id ,
-              email: res.data.email,
+              rango: res.data.fk_permiso_usuario,
               status: true
             }) 
             navigate('/')

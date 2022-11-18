@@ -32,9 +32,10 @@ export function ProductoHombre() {
     await axios.post(uriProductos, { talle: talleRadio, color: colorRadio, marca: marcaRadio, tipo: tipoRadio }).then((res) => {
       setProductos(res.data);
       setListPorduct(res.data);
-
+      
     });
   };
+  console.log('a',productos)
   // obtengo solo el tipo de producto remeras o pantalones , etc
   const obtTipoProducto = async () => {
     await axios.get(uriTipoProducto).then((res) => {
@@ -76,7 +77,7 @@ export function ProductoHombre() {
   // buscador
   const handelMarcaProducto = (e) => {
     setMarcaRadio(e);
-    console.log(e);
+    console.log('a',e);
   };
   // buscador
   const handelColorProducto = (e) => {
@@ -125,7 +126,8 @@ export function ProductoHombre() {
                     />
                     <label
                       className="form-check-label text-uppercase small text-muted"
-                      for="price-radio"
+                      htmlFor="price-radio"
+                      
                     >
                       No filtrar
                     </label>
@@ -136,8 +138,8 @@ export function ProductoHombre() {
                   listTalleProduct.map((productoTalle) => {
                     return (
 
-                      <section className="mb-1">
-                        <div className="form-check" key={productoTalle.id}>
+                      <section className="mb-1" key={productoTalle.id}>
+                        <div className="form-check">
                           <input
                             className="form-check-input"
                             type="radio"
@@ -189,8 +191,8 @@ export function ProductoHombre() {
                   listColorProduct.map((productoColor) => {
                     return (
 
-                      <section className="mb-1">
-                        <div className="form-check" key={productoColor.id}>
+                      <section className="mb-1" key={productoColor.id}>
+                        <div className="form-check" >
                           <input
                             className="form-check-input"
                             type="radio"
@@ -241,8 +243,8 @@ export function ProductoHombre() {
                   listMarcaProduct.map((productoMarca) => {
                     return (
 
-                      <section className="mb-1">
-                        <div className="form-check" key={productoMarca.id}>
+                      <section className="mb-1" key={productoMarca.id}>
+                        <div className="form-check" >
                           <input
                             className="form-check-input"
                             type="radio"
@@ -257,6 +259,7 @@ export function ProductoHombre() {
                             className="form-check-label text-uppercase small text-muted"
 
                           >
+                            {productoMarca.id}
                             {productoMarca.marca}
                           </label>
                         </div>
@@ -293,8 +296,8 @@ export function ProductoHombre() {
                   listTipoProduct.map((productoTipo) => {
                     return (
 
-                      <section className="mb-1">
-                        <div className="form-check" key={productoTipo.id}>
+                      <section className="mb-1" key={productoTipo.id}>
+                        <div className="form-check" >
                           <input
                             className="form-check-input"
                             type="radio"
@@ -326,27 +329,7 @@ export function ProductoHombre() {
             <div className="row justify-content-center">
               <div className="col-md-6 my-auto py-3">
                 <div id="select-wrapper-893299" className="select-wrapper">
-                  <div className="form-outline">
-                    <input
-                      className="form-control select-input"
-                      type="text"
-                      role="listbox"
-                      aria-multiselectable="false"
-                      aria-disabled="false"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-
-                    />
-                    <label className="form-label select-label active">
-                      Buscador
-                    </label>
-                    <span className="select-arrow"></span>
-                    <div className="form-notch">
-                      <div className="form-notch-leading"></div>
-                      <div className="form-notch-middle"></div>
-                      <div className="form-notch-trailing"></div>
-                    </div>
-                  </div>
+                  
 
                 </div>
               </div>
@@ -358,6 +341,7 @@ export function ProductoHombre() {
                     return (
 
                         <div className="col-md-4 my-4 text-center animation fade-in" key={producto.id}>
+                          <h5>{producto.marca}</h5>
                           <div className="bg-image hover-overlay hover-zoom hover-shadow ripple rounded">
                             <img
                               src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
@@ -368,8 +352,11 @@ export function ProductoHombre() {
                             </a>
                           </div>
                           <div className="pt-4">
-                            <h5>Fantasy T-shirt</h5>
-                            <strong>{producto.precio_unitario}</strong>
+                            
+                            <h5>Talle: {producto.talle}</h5>
+                            <h5>Tipo: {producto.tipo}</h5>
+                            
+                            <strong>${producto.precio}</strong>
                           </div>
                           <button className="btn btn-outline-primary btn-sm mt-2" type="button" onClick={() => { handelAddCarrito(producto.id) }}>
                             Agregar Carrito <i className="fas fa-cart-plus"></i>

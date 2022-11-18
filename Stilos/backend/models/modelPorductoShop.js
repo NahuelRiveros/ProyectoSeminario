@@ -10,3 +10,5 @@ export const tbTalleProducto = db.define('talle_producto' ,{talle: DataTypes.STR
 export const tbMarcaProducto = db.define('marca_producto' ,{marca: DataTypes.STRING},{freezeTableName: true})
 
 export const tbColorProducto = db.define('color_producto' ,{color: DataTypes.STRING},{freezeTableName: true})
+
+export const tbGeneroProducto = db.define('genero_producto' ,{genero: DataTypes.STRING},{freezeTableName: true})

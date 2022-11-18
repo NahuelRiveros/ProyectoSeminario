@@ -19,7 +19,6 @@ import {useState, useEffect, useContext} from "react";
 import axios  from "axios";
 import { ProductoHombre } from "./components/ProductoHombre";
 import { ProductoMujer } from "./components/ProductoMujer";
-import { ProductoAccesorio } from "./components/ProductoAccesorio";
 import {CompraProducto} from './components/compraProducto';
 // CONTEXT
 import {useAuth} from './context/authContext'
@@ -29,7 +28,6 @@ import {tipoUsers} from './context/persContext'
 function App() {
 
   const {user, setUser} = useAuth()
-  const {tipoUser, setTipoUser} = tipoUsers()
   useEffect( () => {
     // Perfil logeado con su token 
     // Peticion al backend
@@ -38,21 +36,17 @@ function App() {
         setUser({...user,status:false})
       }
       else {
+        console.log(res.data)
         setUser({
           id:res.data.id,
-          email:res.data.email,
-          status: true
+          rango:res.data.fk_permiso_usuario,
+          status: true,
         })
         
          
       } 
     })
-    axios.get('http://localhost:8000/superUser/viewUsers/').then((response) => {
-        setTipoUser(response.data);
-      })
-      .catch((error) => {
-        alert(error);
-      });
+    
 
     
   }, [])
@@ -73,7 +67,6 @@ function App() {
           <Route path="/superAdmin/Panel" element={<SuperAdmPanel />}/>
           <Route path="/producto/hombre" element={<ProductoHombre />}/>
           <Route path="/producto/mujer" element={<ProductoMujer />}/>
-          <Route path="/producto/accesorio" element={<ProductoAccesorio />}/>
           <Route path="/producto/compra" element={<CompraProducto />}/>
 
         </Routes>

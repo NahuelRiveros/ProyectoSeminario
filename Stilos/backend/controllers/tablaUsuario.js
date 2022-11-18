@@ -25,8 +25,7 @@ export const oneUser = async (req, res) => {
   if (!user) {
     return res.json({ error: "Acceso Invalidado Error de Email " })
   }
-  const { id, email, contrasena } = user
-
+  const { id, email, contrasena , fk_permiso_usuario } = user
   // comparacion de contraseñas, si es valido logea con un token de acceso
   bcryptjs.compare(req.body.contrasena, contrasena).then(async (match) => {
     if (!match) {
@@ -35,8 +34,8 @@ export const oneUser = async (req, res) => {
 
     else {
       //devuelvo al Frontend
-      jwt.sign({ id, email }, "accessToken", (err, token) => {
-        res.json({ Token: token, id, email });
+      jwt.sign({ id, fk_permiso_usuario}, "accessToken", (err, token) => {
+        res.json({ Token: token, id, fk_permiso_usuario});
       });
 
 

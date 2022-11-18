@@ -17,7 +17,6 @@ export const CarrAllProd = async (req, res) => {
         const CarrDetalle = await tbCarrDetalle.findAll({where: {fk_id_carrito : Carrito.id, estado_compra: "En carro"}, raw:true })      //Traemos los detalles del carrito usando el id del carrito hallado en la constante anterior
         function setProductoJson(listProd = []) {
             for (let i = 0; i < CarrDetalle.length; i++) {
-              console.log(i)
               listProd[i] = {}
               listProd[i].id = CarrDetalle[i].id
               listProd[i].precio = CarrDetalle[i].precio_unitario

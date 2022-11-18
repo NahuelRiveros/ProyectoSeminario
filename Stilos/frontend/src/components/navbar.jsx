@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAuth } from "../context/authContext";
 
 
+
 export const Navbar = () => {
   const URI = "http://localhost:8000/persona/obtDatos/";
   //procesdimiento para mostrar todos los usuarios
@@ -12,8 +13,6 @@ export const Navbar = () => {
 
 // Provider
 const {user, setUser}=useAuth()
-
-
 // const token = localStorage.getItem('authorization')
 
 const handleLogout = () => {
@@ -65,12 +64,7 @@ const handleLogout = () => {
                 <Link className="nav-link" to={"/producto/hombre"}>
                   Hombres
                 </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/producto/accesorio"}>
-                  Accesorios
-                </Link>
-              </li>
+              </li>  
             </ul>
             {/* <!-- Left links --> */}
           </div>
@@ -78,13 +72,17 @@ const handleLogout = () => {
 
           {/* <!-- Right elements --> */}
           <div className="d-flex align-items-center">
-            {/* <!-- Icon --> */}
+            {/* <!-- Carrito --> */}
+            
+            { user.status === true &&
             <Link className="text-reset me-3" to={'/producto/compra'}>
               <i className="fas fa-shopping-cart"></i>
             </Link>
+            }
 
             {/* <!-- Notifications --> */}
-            
+            {
+              user.rango > 1 &&
               <Link
                 className="text-reset me-3 dropdown-toggle hidden-arrow"
                 aria-expanded="false"
@@ -93,8 +91,11 @@ const handleLogout = () => {
                 <i className="fas fa-dolly-flatbed"></i>
                 
               </Link>
+            }
               
+            {/* SUPER ADMIN */}
             
+
             {/* <!-- Avatar --> */}
             <div className="dropdown">
               <Link
