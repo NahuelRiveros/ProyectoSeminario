@@ -1360,6 +1360,7 @@ export const showProductosTalle = async (req, res) => {
     res.json({ msg: error.message });
   }
 };
+
 // Genero de los productos
 export const showProductosGenero = async (req, res) => {
   try {

@@ -7,6 +7,7 @@ export function ProductoCargaAdmin() {
   const uriTalleProducto ="http://localhost:8000/productoShop/obtProductoTalle";
   const uriColorProducto ="http://localhost:8000/productoShop/obtProductoColor";
   const uriGeneroProducto ="http://localhost:8000/productoShop/obtProductoGenero";
+  const URISUBIR = "http://localhost:8000/admins/prodAdd/";
 
     const [listTipoProduct, setListTipoProduct] = useState([]);
     const [listMarcaProduct, setListMarcaProduct] = useState([]);
@@ -77,14 +78,15 @@ export function ProductoCargaAdmin() {
                     Registration Info
                   </h3>
 
-                  <form className="px-md-2">
+                  <form className="px-md-2" onSubmit={submitProduct} enctype="multipartform-data">
                     {/* IMG */}
                     <div className="form-outline mb-4">
                       <input
                         type="file"
-                        id="form3Example1q"
+                        id="file"
                         className="form-control-plaintext"
                         placeholder="IMG"
+                        name="file"
                       />
                     </div>
                     {/* IMG */}

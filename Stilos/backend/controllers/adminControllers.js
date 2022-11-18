@@ -74,9 +74,13 @@ export const oneProd = async (req, res) => {
   }
 }
 
-export const newProd = async (req, res) => {
+export const newProd = async (req, res, next) => {
   try {
-    const { descripcion, existencia, imagen, precio, talle, color, genero, marca, tipo } = req.body
+    const archivo = req.files.archivo;
+    const nombreFile = archivo.name
+    const path = __dirname + '/../imagenes/' + nombreFile
+    const imagen = path
+    const { descripcion, existencia, precio, talle, color, genero, marca, tipo } = req.body
     const creado = await tbProd.create({ descripcion: descripcion, existencia_producto: existencia, imagen_producto: imagen, precio_unitario: precio, fk_talle: talle, fk_color: color, fk_genero: genero, fk_marca: marca, fk_tipo: tipo });
 
     return (res.json({ msg: "Creado correctamente" }));
