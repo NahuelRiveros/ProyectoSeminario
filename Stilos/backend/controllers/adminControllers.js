@@ -1,6 +1,5 @@
 import { tbCompras, tbProd, tbMarcas, tbTalles, tbColores, tbGeneroProd, tbTipoProd } from "../models/modelAdmins.js";
 import { tbPersonaPerfil } from "../models/modelPersona.js";
-import { tbUserAdmin } from "../models/modelRegistroUsuario.js";
 import { Op } from "sequelize";
 
 //Controladores de productos

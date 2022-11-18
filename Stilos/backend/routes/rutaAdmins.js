@@ -1,5 +1,5 @@
 import express from 'express'; 
-import { allProd, oneProd, delProd, newProd, updProd, contGenPersona, getVentasM, viewUsuarioAdmin } from '../controllers/adminControllers.js';
+import { allProd, oneProd, delProd, newProd, updProd, contGenPersona, getVentasM } from '../controllers/adminControllers.js';
 
 
 const rutas = express.Router()
