@@ -75,7 +75,6 @@ export const ReportesAdmin = () => {
 
     for (let i = 0; i < ventasData.length; i++) {
       let dateMonth = new Date(ventasData[i].createdAt)
-      console.log(dateMonth.getMonth())
       if (dateMonth.getMonth() == 0) {
         x = 0
         ventas[x] = ventas[x] + ventasData[i].cantidad_producto
@@ -153,7 +152,6 @@ export const ReportesAdmin = () => {
   const getStock = async () => {
     const AllStock = await axios.get(URIStock)
     setStock(AllStock.data)
-    console.log(Stock)
   }
 
   const getFecha = async () => {

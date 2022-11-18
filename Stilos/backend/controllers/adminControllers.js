@@ -14,7 +14,6 @@ export const allProd = async (req, res) => {
     const allGeneros = await tbGeneroProd.findAll({ raw: true })
     function createStockJson(allStock = []) {
       for (let i = 0; i < allProd.length; i++) {
-        console.log(i)
         allStock[i] = {}
         allStock[i].existencias = allProd[i].existencia_producto
         for (let a = 0; a < allMarcas.length; a++) {
