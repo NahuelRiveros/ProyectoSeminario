@@ -1,11 +1,12 @@
 import express from 'express';
-import { showProductos, showProductosColor, showProductosMarca, showProductosTalle, showProductosTipo } from '../controllers/productoShop.js';
+import { showProductosM, showProductosF, showProductosColor, showProductosMarca, showProductosTalle, showProductosTipo } from '../controllers/productoShop.js';
 
 
 const rutas = express.Router();
 
 // obtener productos
-rutas.post('/obtProducto',showProductos)
+rutas.post('/obtProductoM',showProductosM)
+rutas.post('/obtProductoF',showProductosF)
 rutas.get('/obtProductoTalle', showProductosTalle)
 rutas.get('/obtProductoMarca', showProductosMarca)
 rutas.get('/obtProductoColor', showProductosColor)

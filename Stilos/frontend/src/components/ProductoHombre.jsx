@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useAuth } from "../context/authContext";
 
 export function ProductoHombre() {
-  const uriProductos = "http://localhost:8000/productoShop/obtProducto";
+  const uriProductos = "http://localhost:8000/productoShop/obtProductoM";
   const uriTipoProducto = "http://localhost:8000/productoShop/obtProductoTipo";
   const uriMarcaProducto =
     "http://localhost:8000/productoShop/obtProductoMarca";
