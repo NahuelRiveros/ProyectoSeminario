@@ -101,9 +101,9 @@ export function ProductoMujer() {
 
       <div className="container mt-5">
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-md-3 col-sm-3">
             {/* <!-- Section: Sidebar --> */}
-            <section>
+            <section >
               {/* <!-- Section: Filters --> */}
               <section id="filters" data-auto-filter="true">
                 <h5>Filtros</h5>
@@ -333,7 +333,7 @@ export function ProductoMujer() {
                 </div>
               </div>
             </div>
-            <div className="container">
+            <div className="container ">
               <div className="row align-items-start">
                 {listPorduct &&
                   listPorduct.map((producto) => {

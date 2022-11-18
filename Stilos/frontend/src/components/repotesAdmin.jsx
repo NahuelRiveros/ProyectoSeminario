@@ -1,230 +1,352 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { jsPDF } from "jsPDF";
-import autoTable from 'jspdf-autotable'
+import autoTable from "jspdf-autotable";
+import { Link } from "react-router-dom";
 
 export const ReportesAdmin = () => {
-  const [hombre, setHombre] = useState(0)
-  const [mujer, setMujer] = useState(0)
-  const [otro, setOtro] = useState(0)
-  const [fecha, setFecha] = useState()
-  const [año, setAño] = useState('2022')
-  const [VentaMensual, setVentaMensual] = useState([])
-  const [Stock, setStock] = useState([])
+  const [hombre, setHombre] = useState(0);
+  const [mujer, setMujer] = useState(0);
+  const [otro, setOtro] = useState(0);
+  const [fecha, setFecha] = useState();
+  const [año, setAño] = useState("2022");
+  const [VentaMensual, setVentaMensual] = useState([]);
+  const [Stock, setStock] = useState([]);
 
-  const URI = "http://localhost:8000/admins/personas/"
-  const URIVentasMensual = "http://localhost:8000/admins/VentasM?año=" + año
-  const URIStock = "http://localhost:8000/admins/prod/"
+  const URI = "http://localhost:8000/admins/personas/";
+  const URIVentasMensual = "http://localhost:8000/admins/VentasM?año=" + año;
+  const URIStock = "http://localhost:8000/admins/prod/";
 
-  const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-  const dias_semana = ['Domingo', 'Lunes', 'martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+  const meses = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+  const dias_semana = [
+    "Domingo",
+    "Lunes",
+    "martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado",
+  ];
 
   useEffect(() => {
-    getCantGen()
-    getFecha()
-    getVentasMensual()
-    getStock()
+    getCantGen();
+    getFecha();
+    getVentasMensual();
+    getStock();
   }, []);
 
-
   const InformeGeneroUsers = async (e) => {
-    printPDFGen()
-  }
+    printPDFGen();
+  };
 
   const InformeVentaMensual = async (e) => {
-    printPDFMen()
-  }
+    printPDFMen();
+  };
 
   const InformeStock = async (e) => {
-    printPDFStock()
-  }
+    printPDFStock();
+  };
 
   const getCantGen = async () => {
-    let hom = 0
-    let muj = 0
-    let otr = 0
+    let hom = 0;
+    let muj = 0;
+    let otr = 0;
     const AllPersons = await axios.get(URI);
-    const usuarios = (AllPersons.data)
+    const usuarios = AllPersons.data;
     for (let i = 0; i < usuarios.length; i++) {
       if (usuarios[i].fk_genero == 1) {
-        hom += 1
-        setHombre(hom)
+        hom += 1;
+        setHombre(hom);
       } else if (usuarios[i].fk_genero == 2) {
-        muj += 1
-        setMujer(muj)
+        muj += 1;
+        setMujer(muj);
       } else if (usuarios[i].fk_genero == 3) {
-        otr += 1
-        setOtro(otr)
+        otr += 1;
+        setOtro(otr);
       }
     }
   };
 
   const getVentasMensual = async () => {
+    let ventas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-    let ventas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let ingresos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-    let ingresos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let ventasMensuales = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 
-    let ventasMensuales = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+    let x = 0;
 
-    let x = 0
-
-
-    const queryVentas = await axios.get(URIVentasMensual)
-    const ventasData = (queryVentas.data)
+    const queryVentas = await axios.get(URIVentasMensual);
+    const ventasData = queryVentas.data;
 
     for (let i = 0; i < ventasData.length; i++) {
-      let dateMonth = new Date(ventasData[i].createdAt)
+      let dateMonth = new Date(ventasData[i].createdAt);
       if (dateMonth.getMonth() == 0) {
-        x = 0
-        ventas[x] = ventas[x] + ventasData[i].cantidad_producto
-        ingresos[x] = ingresos[x] + ventasData[i].total_pagado
+        x = 0;
+        ventas[x] = ventas[x] + ventasData[i].cantidad_producto;
+        ingresos[x] = ingresos[x] + ventasData[i].total_pagado;
       }
       if (dateMonth.getMonth() == 1) {
-        x = 1
-        ventas[x] = ventas[x] + ventasData[i].cantidad_producto
-        ingresos[x] = ingresos[x] + ventasData[i].total_pagado
+        x = 1;
+        ventas[x] = ventas[x] + ventasData[i].cantidad_producto;
+        ingresos[x] = ingresos[x] + ventasData[i].total_pagado;
       }
       if (dateMonth.getMonth() == 2) {
-        x = 2
-        ventas[x] = ventas[x] + ventasData[i].cantidad_producto
-        ingresos[x] = ingresos[x] + ventasData[i].total_pagado
+        x = 2;
+        ventas[x] = ventas[x] + ventasData[i].cantidad_producto;
+        ingresos[x] = ingresos[x] + ventasData[i].total_pagado;
       }
       if (dateMonth.getMonth() == 3) {
-        x = 3
-        ventas[x] = ventas[x] + ventasData[i].cantidad_producto
-        ingresos[x] = ingresos[x] + ventasData[i].total_pagado
+        x = 3;
+        ventas[x] = ventas[x] + ventasData[i].cantidad_producto;
+        ingresos[x] = ingresos[x] + ventasData[i].total_pagado;
       }
       if (dateMonth.getMonth() == 4) {
-        x = 4
-        ventas[x] = ventas[x] + ventasData[i].cantidad_producto
-        ingresos[x] = ingresos[x] + ventasData[i].total_pagado
+        x = 4;
+        ventas[x] = ventas[x] + ventasData[i].cantidad_producto;
+        ingresos[x] = ingresos[x] + ventasData[i].total_pagado;
       }
       if (dateMonth.getMonth() == 5) {
-        x = 5
-        ventas[x] = ventas[x] + ventasData[i].cantidad_producto
-        ingresos[x] = ingresos[x] + ventasData[i].total_pagado
+        x = 5;
+        ventas[x] = ventas[x] + ventasData[i].cantidad_producto;
+        ingresos[x] = ingresos[x] + ventasData[i].total_pagado;
       }
       if (dateMonth.getMonth() == 6) {
-        x = 6
-        ventas[x] = ventas[x] + ventasData[i].cantidad_producto
-        ingresos[x] = ingresos[x] + ventasData[i].total_pagado
+        x = 6;
+        ventas[x] = ventas[x] + ventasData[i].cantidad_producto;
+        ingresos[x] = ingresos[x] + ventasData[i].total_pagado;
       }
       if (dateMonth.getMonth() == 7) {
-        x = 7
-        ventas[x] = ventas[x] + ventasData[i].cantidad_producto
-        ingresos[x] = ingresos[x] + ventasData[i].total_pagado
+        x = 7;
+        ventas[x] = ventas[x] + ventasData[i].cantidad_producto;
+        ingresos[x] = ingresos[x] + ventasData[i].total_pagado;
       }
       if (dateMonth.getMonth() == 8) {
-        x = 8
-        ventas[x] = ventas[x] + ventasData[i].cantidad_producto
-        ingresos[x] = ingresos[x] + ventasData[i].total_pagado
+        x = 8;
+        ventas[x] = ventas[x] + ventasData[i].cantidad_producto;
+        ingresos[x] = ingresos[x] + ventasData[i].total_pagado;
       }
       if (dateMonth.getMonth() == 9) {
-        x = 9
-        ventas[x] = ventas[x] + ventasData[i].cantidad_producto
-        ingresos[x] = ingresos[x] + ventasData[i].total_pagado
+        x = 9;
+        ventas[x] = ventas[x] + ventasData[i].cantidad_producto;
+        ingresos[x] = ingresos[x] + ventasData[i].total_pagado;
       }
       if (dateMonth.getMonth() == 10) {
-        x = 10
-        ventas[x] = ventas[x] + ventasData[i].cantidad_producto
-        ingresos[x] = ingresos[x] + ventasData[i].total_pagado
+        x = 10;
+        ventas[x] = ventas[x] + ventasData[i].cantidad_producto;
+        ingresos[x] = ingresos[x] + ventasData[i].total_pagado;
       }
       if (dateMonth.getMonth() == 11) {
-        x = 11
-        ventas[x] = ventas[x] + ventasData[i].cantidad_producto
-        ingresos[x] = ingresos[x] + ventasData[i].total_pagado
+        x = 11;
+        ventas[x] = ventas[x] + ventasData[i].cantidad_producto;
+        ingresos[x] = ingresos[x] + ventasData[i].total_pagado;
       }
     }
     for (let i = 0; i < 12; i++) {
-      ventasMensuales[i].mes = meses[i]
-      ventasMensuales[i].cantidadVendida = ventas[i]
-      ventasMensuales[i].totalIngresos = ingresos[i]
+      ventasMensuales[i].mes = meses[i];
+      ventasMensuales[i].cantidadVendida = ventas[i];
+      ventasMensuales[i].totalIngresos = ingresos[i];
       if (i > 0) {
-        ventasMensuales[i].crecimiento = ingresos[i] - ingresos[i - 1]
+        ventasMensuales[i].crecimiento = ingresos[i] - ingresos[i - 1];
       } else {
-        ventasMensuales[i].crecimiento = 0
+        ventasMensuales[i].crecimiento = 0;
       }
     }
-    setVentaMensual(ventasMensuales)
-  }
+    setVentaMensual(ventasMensuales);
+  };
 
   const getStock = async () => {
-    const AllStock = await axios.get(URIStock)
-    setStock(AllStock.data)
-  }
+    const AllStock = await axios.get(URIStock);
+    setStock(AllStock.data);
+  };
 
   const getFecha = async () => {
     var hoy = new Date();
-    return setFecha(hoy)
-  }
+    return setFecha(hoy);
+  };
 
   const printPDFGen = async () => {
-    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+    const doc = new jsPDF({ orientation: "p", unit: "mm", format: "a4" });
 
-    doc.setFontSize(30)
+    doc.setFontSize(30);
     doc.text("Informe", 30, 18);
-    doc.setFontSize(16)
-    doc.text("Tipo: Cantidad de usuarios por genero", 20, 30)
-    doc.text("Orden: --", 20, 40)
-    doc.text("Fecha: " + dias_semana[fecha.getDay()] + ", " + fecha.getDate() + " de " + meses[fecha.getMonth()] + " de " + fecha.getUTCFullYear() + " (" + fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getUTCFullYear() + ")", 20, 50)
+    doc.setFontSize(16);
+    doc.text("Tipo: Cantidad de usuarios por genero", 20, 30);
+    doc.text("Orden: --", 20, 40);
+    doc.text(
+      "Fecha: " +
+        dias_semana[fecha.getDay()] +
+        ", " +
+        fecha.getDate() +
+        " de " +
+        meses[fecha.getMonth()] +
+        " de " +
+        fecha.getUTCFullYear() +
+        " (" +
+        fecha.getDate() +
+        "/" +
+        fecha.getMonth() +
+        "/" +
+        fecha.getUTCFullYear() +
+        ")",
+      20,
+      50
+    );
 
     doc.autoTable({
       startY: 65,
-      head: [['Genero', 'Cantidad']],
-      body: [["Hombres", hombre], ["Mujeres", mujer], ["Otros", otro]],
-    })
+      head: [["Genero", "Cantidad"]],
+      body: [
+        ["Hombres", hombre],
+        ["Mujeres", mujer],
+        ["Otros", otro],
+      ],
+    });
 
-    doc.save("Informe-Genero-" + fecha.getDate() + fecha.getMonth() + fecha.getUTCFullYear());
-  }
+    doc.save(
+      "Informe-Genero-" +
+        fecha.getDate() +
+        fecha.getMonth() +
+        fecha.getUTCFullYear()
+    );
+  };
 
   const printPDFMen = async () => {
-    let jsPDFinfo = []
+    let jsPDFinfo = [];
 
     VentaMensual.forEach((element, index, array) => {
-      jsPDFinfo.push([element.mes, element.cantidadVendida, element.totalIngresos, element.crecimiento])
-    })
-    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+      jsPDFinfo.push([
+        element.mes,
+        element.cantidadVendida,
+        element.totalIngresos,
+        element.crecimiento,
+      ]);
+    });
+    const doc = new jsPDF({ orientation: "p", unit: "mm", format: "a4" });
 
-    doc.setFontSize(30)
+    doc.setFontSize(30);
     doc.text("Informe", 30, 18);
-    doc.setFontSize(16)
-    doc.text("Tipo: Ventas mensuales del año" + año, 20, 30)
-    doc.text("Orden: Por mes", 20, 40)
-    doc.text("Fecha: " + dias_semana[fecha.getDay()] + ", " + fecha.getDate() + " de " + meses[fecha.getMonth()] + " de " + fecha.getUTCFullYear() + " (" + fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getUTCFullYear() + ")", 20, 50)
+    doc.setFontSize(16);
+    doc.text("Tipo: Ventas mensuales del año" + año, 20, 30);
+    doc.text("Orden: Por mes", 20, 40);
+    doc.text(
+      "Fecha: " +
+        dias_semana[fecha.getDay()] +
+        ", " +
+        fecha.getDate() +
+        " de " +
+        meses[fecha.getMonth()] +
+        " de " +
+        fecha.getUTCFullYear() +
+        " (" +
+        fecha.getDate() +
+        "/" +
+        fecha.getMonth() +
+        "/" +
+        fecha.getUTCFullYear() +
+        ")",
+      20,
+      50
+    );
 
     doc.autoTable({
       startY: 65,
-      head: [['Mes', 'Cantidad vendido', 'Ingresos totales', 'Diferencia (Crecimiento)']],
+      head: [
+        [
+          "Mes",
+          "Cantidad vendido",
+          "Ingresos totales",
+          "Diferencia (Crecimiento)",
+        ],
+      ],
       body: jsPDFinfo,
-    })
+    });
 
-    doc.save("Informe-Venta-Mensual-" + fecha.getDate() + fecha.getMonth() + fecha.getUTCFullYear());
-  }
+    doc.save(
+      "Informe-Venta-Mensual-" +
+        fecha.getDate() +
+        fecha.getMonth() +
+        fecha.getUTCFullYear()
+    );
+  };
 
   const printPDFStock = async () => {
-    let jsPDFinfo = []
+    let jsPDFinfo = [];
 
     Stock.forEach((element, index, array) => {
-      jsPDFinfo.push([element.tipo, element.marca, element.genero, element.color, element.talle, element.existencias, element.stock])
-    })
-    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+      jsPDFinfo.push([
+        element.tipo,
+        element.marca,
+        element.genero,
+        element.color,
+        element.talle,
+        element.existencias,
+        element.stock,
+      ]);
+    });
+    const doc = new jsPDF({ orientation: "p", unit: "mm", format: "a4" });
 
-    doc.setFontSize(30)
+    doc.setFontSize(30);
     doc.text("Informe", 30, 18);
-    doc.setFontSize(16)
-    doc.text("Tipo: Stock", 20, 30)
-    doc.text("Orden: --", 20, 40)
-    doc.text("Fecha: " + dias_semana[fecha.getDay()] + ", " + fecha.getDate() + " de " + meses[fecha.getMonth()] + " de " + fecha.getUTCFullYear() + " (" + fecha.getDate() + "/" + fecha.getMonth() + "/" + fecha.getUTCFullYear() + ")", 20, 50)
+    doc.setFontSize(16);
+    doc.text("Tipo: Stock", 20, 30);
+    doc.text("Orden: --", 20, 40);
+    doc.text(
+      "Fecha: " +
+        dias_semana[fecha.getDay()] +
+        ", " +
+        fecha.getDate() +
+        " de " +
+        meses[fecha.getMonth()] +
+        " de " +
+        fecha.getUTCFullYear() +
+        " (" +
+        fecha.getDate() +
+        "/" +
+        fecha.getMonth() +
+        "/" +
+        fecha.getUTCFullYear() +
+        ")",
+      20,
+      50
+    );
 
     doc.autoTable({
       startY: 65,
-      head: [['Producto', 'Marca', 'genero', 'color', 'talle', 'existencia', 'stock']],
+      head: [
+        [
+          "Producto",
+          "Marca",
+          "genero",
+          "color",
+          "talle",
+          "existencia",
+          "stock",
+        ],
+      ],
       body: jsPDFinfo,
-    })
+    });
 
-    doc.save("Informe-Stock-" + fecha.getDate() + fecha.getMonth() + fecha.getUTCFullYear());
-  }
+    doc.save(
+      "Informe-Stock-" +
+        fecha.getDate() +
+        fecha.getMonth() +
+        fecha.getUTCFullYear()
+    );
+  };
 
   return (
     <div>
@@ -232,6 +354,7 @@ export const ReportesAdmin = () => {
         <section>
           <div className="row">
             <button className="btn btn-tertiary mb-0">
+              <Link to={'/admin/producto/Carga'}>
               <div className="col-12 mb-3">
                 <div className="card">
                   <div className="card-body">
@@ -246,8 +369,12 @@ export const ReportesAdmin = () => {
                   </div>
                 </div>
               </div>
+              </Link>
             </button>
-            <button className="btn btn-tertiary mb-0" onClick={InformeVentaMensual}>
+            <button
+              className="btn btn-tertiary mb-0"
+              onClick={InformeVentaMensual}
+            >
               <div className="col-12 mb-3">
                 <div className="card">
                   <div className="card-body">
@@ -279,7 +406,10 @@ export const ReportesAdmin = () => {
                 </div>
               </div>
             </button>
-            <button className="btn btn-tertiary mb-1" onClick={InformeGeneroUsers}>
+            <button
+              className="btn btn-tertiary mb-1"
+              onClick={InformeGeneroUsers}
+            >
               <div className="col-12 mb-3">
                 <div className="card">
                   <div className="card-body">

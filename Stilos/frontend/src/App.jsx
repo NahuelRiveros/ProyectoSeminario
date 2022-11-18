@@ -23,6 +23,7 @@ import {CompraProducto} from './components/compraProducto';
 // CONTEXT
 import {useAuth} from './context/authContext'
 import {tipoUsers} from './context/persContext'
+import { ProductoCargaAdmin } from "./components/ProductoCargaAdmin";
 
 
 function App() {
@@ -63,11 +64,13 @@ function App() {
           <Route path="/login" element={<LoginUsuario />}/>
           <Route path="/Admin" element={<CompoShowRegis />}/>
           <Route path="/MiPerfil" element={<PerfilUser/>}/>
-          <Route path="/admin/reportes" element={<ReportesAdmin/>}/>
           <Route path="/superAdmin/Panel" element={<SuperAdmPanel />}/>
           <Route path="/producto/hombre" element={<ProductoHombre />}/>
           <Route path="/producto/mujer" element={<ProductoMujer />}/>
           <Route path="/producto/compra" element={<CompraProducto />}/>
+          <Route path="/admin/reportes" element={<ReportesAdmin/>}/>
+          <Route path="/admin/producto/Carga" element={<ProductoCargaAdmin />}/>
+          
 
         </Routes>
         
