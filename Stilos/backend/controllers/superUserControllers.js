@@ -1,6 +1,6 @@
 import {tbUserRol} from "../models/modelRegistroUsuario.js";
-import {tbDomicilio} from "../models/modelPersona.js"
-
+import {tbDomicilio} from "../models/modelPersona.js";
+import { tbUserAdmin } from "../models/modelSuperAdmin.js";
 
 export const changeRol = async (req, res) => {
     try{
@@ -20,3 +20,13 @@ export const AllDomPersona = async (req,res) => {
         res.json({msg: error.message})
     }
 }
+export const viewUsuarioAdmin = async (req, res) => {
+ 
+    try {
+        const allPerson = await tbUserAdmin.findAll();
+        res.json(allPerson)
+  
+      } catch (error) {
+        res.json({ msg: error.message });
+      }
+  }

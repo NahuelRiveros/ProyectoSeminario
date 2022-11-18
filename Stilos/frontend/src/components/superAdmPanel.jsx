@@ -3,12 +3,22 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { Await } from "react-router-dom";
+// CONTEXT
+import { tipoUsers } from "../context/persContext";
+
+
+
 export const SuperAdmPanel = () => {
+
+  //COntext HOOCKs
+  const {tipoUser, setTipoUser} = tipoUsers();
+  // HOOCKs
   const [buscador, setBuscador] = useState("");
   const [usuarios, setUsuarios] = useState([]);
   const [listaUsers, setListaUsers] = useState([]);
-  const URI = "http://localhost:8000/admins/viewUsers/";
-
+  const URI = "http://localhost:8000/superUser/viewUsers/";
+  const user = [];
+  
   const peticionGet = async () => {
     await axios
       .get(URI)
@@ -21,33 +31,16 @@ export const SuperAdmPanel = () => {
       });
   };
 
+  for (var i = 0; i < usuarios.length; i++) {
+    const element = usuarios[i];
+    if (element.fk_permiso_usuario < 3) {
+      user.push(element);
+    }
+  }
+
   useEffect(() => {
     peticionGet();
   }, []);
-
-  const columns = [
-    {
-      name: "ID",
-      selector: "id",
-      sortable: true,
-    },
-    {
-      name: "Nombre",
-      selector: "nombre_uno",
-      sortable: true,
-    },
-    {
-      name: "Apellido",
-      selector: "apellido",
-      sortable: true,
-    },
-  ];
-  const paginationOptions = {
-    rowsPerPageText: "Filas por Pagina",
-    rangeSeparatorText: "de",
-    selectAllRowsItem: true,
-    selectAllRowsItemText: "todos",
-  };
 
   const handelBuscador = (e) => {
     setBuscador(e);
@@ -66,6 +59,23 @@ export const SuperAdmPanel = () => {
       }
     });
     setUsuarios(search);
+  };
+
+  const addPermiso = async (e) => {
+    const URIrangos= "http://localhost:8000/superUser/roles/" + e
+    await axios.put(URIrangos,{fk_permiso_usuario : 2})
+    peticionGet();
+    console.log(URIrangos);
+    
+    // 
+  };
+  const removePermiso = async (e) => {
+    const URIrangos= "http://localhost:8000/superUser/roles/" + e
+    await axios.put(URIrangos,{fk_permiso_usuario : 1})
+    console.log(URIrangos);
+    peticionGet();
+    
+    // {"fk_permiso_usuario" : 1}
   };
 
   return (
@@ -95,22 +105,44 @@ export const SuperAdmPanel = () => {
             <div className="table-responsive">
               <table className="table table-sm table-bordered">
                 <thead>
-                  <th className="text-center">Email</th>
-                  <th className="text-center">Action</th>
+                  <tr>
+                    <th className="text-center">Email</th>
+                    <th className="text-center">Rango</th>
+                    <th className="text-center">Action</th>
+                  </tr>
                 </thead>
                 <tbody>
-                  {usuarios &&
-                    usuarios.map((usuario) => (
+                  {user &&
+                    user.map((usuario) => (
                       <tr key={usuario.id}>
                         <td className="text-center">{usuario.email}</td>
+                        <td>
+                          {usuario.fk_permiso_usuario === 1
+                            ? "Usuario"
+                            : "Usuario Admin"}
+                        </td>
                         <td className="text-center">
-                          <button className="btn btn-outline-success m-1 btn-sm">
-                            Dar Rango <i className="fas fa-angle-double-up"></i>
-                          </button>
-                          <button className="btn btn-outline-danger m-1 btn-sm">
-                            Quitar Rango{" "}
-                            <i className="fas fa-angle-double-down"></i>
-                          </button>
+                          {usuario.fk_permiso_usuario === 1 ? (
+                            <button
+                              type="button"
+                              className="btn btn-success"
+                              onClick={(e) => {
+                                addPermiso(usuario.id);
+                              }}
+                            >
+                              Dar
+                              <i className="fas fa-angle-double-up p-1"></i>
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              className="btn btn-danger btn-sm"
+                              onClick={(e)=>{removePermiso(usuario.id)}}
+                            >
+                              remover
+                              <i className="fas fa-angle-double-down p-1"></i>
+                            </button>
+                          )}
                         </td>
                       </tr>
                     ))}

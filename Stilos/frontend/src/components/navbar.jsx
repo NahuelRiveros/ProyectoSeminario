@@ -79,7 +79,7 @@ const handleLogout = () => {
           {/* <!-- Right elements --> */}
           <div className="d-flex align-items-center">
             {/* <!-- Icon --> */}
-            <Link className="text-reset me-3">
+            <Link className="text-reset me-3" to={'/producto/compra'}>
               <i className="fas fa-shopping-cart"></i>
             </Link>
 

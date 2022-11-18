@@ -15,22 +15,26 @@ import {SuperAdmPanel} from './components/superAdmPanel';
 import {RegistroUser} from './components/registro';
 import {PerfilUser} from './components/myProfile'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import {useAuth} from './context/authContext'
 import {useState, useEffect, useContext} from "react";
 import axios  from "axios";
 import { ProductoHombre } from "./components/ProductoHombre";
 import { ProductoMujer } from "./components/ProductoMujer";
 import { ProductoAccesorio } from "./components/ProductoAccesorio";
 
+// CONTEXT
+import {useAuth} from './context/authContext'
+import {tipoUsers} from './context/persContext'
+import { CompraProducto } from "./components/compraProducto";
+
 
 function App() {
 
   const {user, setUser} = useAuth()
-  
-  useEffect(() => {
+  const {tipoUser, setTipoUser} = tipoUsers()
+  useEffect( () => {
     // Perfil logeado con su token 
     // Peticion al backend
-    axios.get('http://localhost:8000/registro/auth', {headers: { "authorization" : localStorage.getItem("authorization") }}).then((res)=>{
+     axios.get('http://localhost:8000/registro/auth', {headers: { "authorization" : localStorage.getItem("authorization") }}).then((res)=>{
       if (res.data.error){
         setUser({...user,status:false})
       }
@@ -41,11 +45,18 @@ function App() {
           status: true
         })
         
+         
       } 
     })
+    axios.get('http://localhost:8000/superUser/viewUsers/').then((response) => {
+        setTipoUser(response.data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+
     
   }, [])
-
   return (
     <div>
       <BrowserRouter>
@@ -64,6 +75,7 @@ function App() {
           <Route path="/producto/hombre" element={<ProductoHombre />}/>
           <Route path="/producto/mujer" element={<ProductoMujer />}/>
           <Route path="/producto/accesorio" element={<ProductoAccesorio />}/>
+          <Route path="/producto/compra" element={<CompraProducto />}/>
 
         </Routes>
         

@@ -35,7 +35,7 @@ app.use('/persona' , rutaPerfil);
 app.use('/superUser', rutasSU)
 app.use('/admins', rutaAdmins)
 app.use('/carrito', rutaCarrito)
-app.use('/productoShop', rutaShop)
+app.use('/productoShop/', rutaShop)
 
 
 
