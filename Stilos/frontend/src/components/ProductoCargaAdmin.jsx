@@ -15,13 +15,35 @@ export function ProductoCargaAdmin() {
     const [listColorProduct, setListColorProduct] = useState([]);
     const [listGeneroProduct, setListGeneroProduct] = useState([]);
 
-    const [getInputTipo, setgetInputTipo] = useState('')
-    const [getInputMarca, setgetInputMarca] = useState('')
-    const [getInputTalle, setgetInputTalle] = useState('')
-    const [getInputColor, setgetInputColor] = useState('')
-    const [getInputGenero, setgetInputGenero] = useState('')
+    const [getInputTipo, setgetInputTipo] = useState(5)
+    const [getInputMarca, setgetInputMarca] = useState(5)
+    const [getInputGenero, setgetInputGenero] = useState(3)
+    const [getInputTalle, setgetInputTalle] = useState(4)
+    const [getInputColor, setgetInputColor] = useState(5)
+    const [getInputCantidad, setgetInputCantidad] = useState(999)
+    const [getInputPrecio, setgetInputPrecio] = useState(999)
 
-  console.log(listTalleProduct)
+
+    const cargarProducto = () =>{
+        console.log(getInputCantidad,getInputColor,getInputGenero,getInputMarca,getInputTipo,getInputTalle,getInputPrecio)
+    }
+  const funtGetTipo = (e) => {
+    setgetInputTipo(e)
+  }
+  const funtGetMarca = (e) => {
+    setgetInputMarca(e)
+  }
+  const funtGetTalle = (e) => {
+    setgetInputTalle(e)
+  }
+  const funtGetColor = (e) => {
+    setgetInputColor(e)
+  }
+  const funtGetGenero = (e) => {
+    setgetInputGenero(e)
+  }
+
+
   // obtengo solo el tipo de producto remeras o pantalones , etc
   const obtTipoProducto = async () => {
     await axios.get(uriTipoProducto).then((res) => {
@@ -94,6 +116,7 @@ export function ProductoCargaAdmin() {
                       {/* 1 */}
                       <div className="col-md-6 mb-4">
                         <div className="form-outline datepicker">
+                        <i className="fas fa-clipboard-list"> Stock</i>
                           <input
                             type="number"
                             required
@@ -101,6 +124,7 @@ export function ProductoCargaAdmin() {
                             className="form-control-plaintext"
                             id="exampleDatepicker1"
                             placeholder="Existencia producto"
+                            onChange={(e)=>{setgetInputCantidad(e.target.value)}}
                           />
                         </div>
                       </div>
@@ -108,6 +132,7 @@ export function ProductoCargaAdmin() {
                       {/* 2 */}
                       <div className="col-md-6 mb-4">
                         <div className="form-outline datepicker">
+                        <i className="fas fa-comment-dollar"> Valor</i>
                           <input
                             type="number"
                             required
@@ -115,7 +140,10 @@ export function ProductoCargaAdmin() {
                             id="exampleDatepicker1"
                             placeholder="$ Precio"
                             min={0}
+                            onChange={(e)=>{setgetInputPrecio(e.target.value)}}
                           />
+                          
+                          
                         </div>
                       </div>
                       {/* 2 */}
@@ -123,11 +151,11 @@ export function ProductoCargaAdmin() {
                         <label htmlFor=""> Talle Producto</label>
                       <div className="col-md-6 mb-4">
                         talle
-                          <select className="select" >
+                          <select className="select" onChange={(e)=>{funtGetTalle(e.target.value)}}>
                         {listTalleProduct &&
                           listTalleProduct.map((talle) => {
                             return (
-                                <option value={talle.id}>{talle.talle}</option>
+                                <option value={talle.id} key={talle.id} >{talle.talle}</option>
                                 );
                             })}
                             </select>
@@ -136,12 +164,12 @@ export function ProductoCargaAdmin() {
                         {/* selects Color*/}
                         <label htmlFor=""> Color Producto</label>
                       <div className="col-md-6 mb-4">
-                          <select className="select" >
+                          <select className="select" onChange={(e)=>{funtGetColor(e.target.value)}}>
                         {listColorProduct &&
                           listColorProduct.map((color) => {
                             return (
                                 
-                                <option value={color.id}>{color.color}</option>
+                                <option value={color.id} key={color.id}>{color.color}</option>
                                 
                                 );
                             })}
@@ -152,11 +180,14 @@ export function ProductoCargaAdmin() {
                         <label htmlFor=""> Genero</label>
                       <div className="col-md-6 mb-4">
                         
-                          <select className="select" >
+                          <select className="select" onChange={(e)=>{funtGetGenero(e.target.value)}}>
                         {listGeneroProduct &&
                           listGeneroProduct.map((genero) => {
                             return (
-                                <option value={genero.id}>{genero.genero}</option>
+                                
+                                    <option value={genero.id} key={genero.id}>{genero.genero}</option>
+
+                                
                                 );
                             })}
                             </select>
@@ -165,12 +196,12 @@ export function ProductoCargaAdmin() {
                         {/* selects Marca */}
                         <label htmlFor=""> Marca</label>
                       <div className="col-md-6 mb-4">
-                          <select className="select" >
+                          <select className="select" onChange={(e)=>{funtGetMarca(e.target.value)}}>
                         {listMarcaProduct &&
                           listMarcaProduct.map((marca) => {
                             return (
                                 
-                                <option value={marca.id}>{marca.marca}</option>
+                                <option value={marca.id} key={marca.id}>{marca.marca}</option>
                                 
                                 );
                             })}
@@ -180,12 +211,12 @@ export function ProductoCargaAdmin() {
                         {/* selects Tipo */}
                         <label htmlFor=""> Tipo Producto</label>
                       <div className="col-md-6 mb-4">
-                          <select className="select" >
+                          <select className="select" onChange={(e)=>{funtGetTipo(e.target.value)}}>
                         {listTipoProduct &&
                           listTipoProduct.map((tipo) => {
                             return (
                                 
-                                <option value={tipo.id}>{tipo.tipo_producto}</option>
+                                <option value={tipo.id} key={tipo.id}>{tipo.tipo_producto}</option>
                                 
                                 );
                             })}
@@ -210,8 +241,9 @@ export function ProductoCargaAdmin() {
                     </div>
 
                     <button
-                      type="submit"
+                      type="button"
                       className="btn btn-success btn-lg mb-1"
+                      onClick={()=>{cargarProducto()}}
                     >
                       Submit
                     </button>
