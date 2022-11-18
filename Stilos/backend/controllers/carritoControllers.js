@@ -29,7 +29,7 @@ export const CarrAllProd = async (req, res) => {
                       if (allProd[ii].fk_marca == allMarcas[a].id) {
                         listProd[i].marca = allMarcas[a].marca
                       }
-                    }
+                    } 
                     for (let b = 0; b < allTalles.length; b++) {
                       if (allProd[ii].fk_talle == allTalles[b].id) {
                         listProd[i].talle = allTalles[b].talle
