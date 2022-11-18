@@ -61,6 +61,14 @@ export const showProductos = async (req, res) => {
       const productos = await tbProductoShop.findAll({where: {fk_talle:req.body.talle, fk_marca: req.body.marca, fk_tipo:req.body.tipo}});
       res.json(productos)
     }
+    if (req.body.talle && req.body.color && !req.body.marca && req.body.tipo){
+      const productos = await tbProductoShop.findAll({where: {fk_talle:req.body.talle, fk_color:req.body.color, fk_tipo:req.body.tipo}});
+      res.json(productos)
+    }
+    if (req.body.talle && req.body.color && req.body.marca && !req.body.tipo){
+      const productos = await tbProductoShop.findAll({where: {fk_talle:req.body.talle, fk_color:req.body.color, fk_marca: req.body.marca}});
+      res.json(productos)
+    }
     if (req.body.talle && req.body.color && req.body.marca && req.body.tipo){
       const productos = await tbProductoShop.findAll({where: {fk_talle:req.body.talle, fk_color:req.body.color, fk_marca: req.body.marca, fk_tipo:req.body.tipo}});
       res.json(productos)
