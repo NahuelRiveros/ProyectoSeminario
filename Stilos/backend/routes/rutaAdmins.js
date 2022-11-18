@@ -1,5 +1,5 @@
 import express from 'express'; 
-import { allProd, oneProd, delProd, newProd, updProd, contGenPersona, viewUsuarioAdmin } from '../controllers/adminControllers.js';
+import { allProd, oneProd, delProd, newProd, updProd, contGenPersona, getVentasM, viewUsuarioAdmin } from '../controllers/adminControllers.js';
 
 
 const rutas = express.Router()
@@ -19,8 +19,10 @@ rutas.delete('/prod/:id', delProd)
 //Rutas para informe de personas
 rutas.get('/personas/', contGenPersona)
 
+//rutas para informe de ventas
+rutas.get('/ventasM/', getVentasM)
+
 //Rutas para Mostrar usuario en pantalla del SuperAdmin
 rutas.get('/viewUsers/', viewUsuarioAdmin)
-
 
 export default rutas

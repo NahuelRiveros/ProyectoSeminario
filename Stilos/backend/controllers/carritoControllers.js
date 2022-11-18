@@ -1,5 +1,5 @@
 import { tbCarrito, tbCarrDetalle, tbOrdenCompra } from "../models/modelCarrito.js";
-import { tbProd } from "../models/modelAdminProd.js";
+import { tbProd } from "../models/modelAdmins.js";
 
 //CRUD de carrito sin las acciones al comprar
 
