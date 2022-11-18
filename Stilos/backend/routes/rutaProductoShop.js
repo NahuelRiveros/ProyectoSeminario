@@ -1,5 +1,5 @@
 import express from 'express';
-import { showProductosM, showProductosF, showProductosColor, showProductosMarca, showProductosTalle, showProductosTipo } from '../controllers/productoShop.js';
+import { showProductosM, showProductosF, showProductosColor, showProductosMarca, showProductosTalle, showProductosTipo, showProductosGenero } from '../controllers/productoShop.js';
 
 
 const rutas = express.Router();
@@ -11,6 +11,7 @@ rutas.get('/obtProductoTalle', showProductosTalle)
 rutas.get('/obtProductoMarca', showProductosMarca)
 rutas.get('/obtProductoColor', showProductosColor)
 rutas.get('/obtProductoTipo', showProductosTipo)
+rutas.get('/obtProductoGenero', showProductosGenero)
 
 
 export default rutas

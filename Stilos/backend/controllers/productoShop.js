@@ -1360,3 +1360,12 @@ export const showProductosTalle = async (req, res) => {
     res.json({ msg: error.message });
   }
 };
+// Genero de los productos
+export const showProductosGenero = async (req, res) => {
+  try {
+    const productos = await tbGeneroProducto.findAll();
+    res.json(productos);
+  } catch (error) {
+    res.json({ msg: error.message });
+  }
+};
