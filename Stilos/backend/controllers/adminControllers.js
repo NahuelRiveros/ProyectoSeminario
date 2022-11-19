@@ -4,15 +4,15 @@ import { Op } from "sequelize";
 import multer from "multer";
 import path from "path";
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join("backend/uploads"))
-  }, filename:(req,file,cb) => {
-    cb(null, file.originalname)
-  }
-})
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, path.join("backend/uploads/"));
+//   }, filename:(req,file,cb) => {
+//     cb(null, file.originalname)
+//   }
+// })
 
-export const uploader = multer({storage:storage})
+// export const uploader = multer({storage:storage})
 //Controladores de productos
 
 export const allProd = async (req, res) => {
@@ -87,16 +87,17 @@ export const oneProd = async (req, res) => {
 
 export const newProd = async (req, res, next) => {
   try {
-    const archivo = req.file
-    console.log(archivo+"hola1")
-    const data = req.body
-    const producto = JSON.parse(data.data)
+    // const archivo = req.file.filename
+    // console.log(archivo+"hola1")
+    console.log(req.body)
+    const producto = req.body
+    //const producto1 = JSON.parse(data)
     console.log(producto,"hola")
-    data.file = archivo
-    const newProdFinal = await tbProd.create({fk_color:producto.color, fk_marca:producto.marca,fk_tipo:producto.tipo,fk_genero:producto.genero,fk_talle:producto.talle,existencia_producto:producto.cantidad,precio_unitario:producto.precio,imagen_producto:producto.file})
+    //data.file = archivo
+    const newProdFinal = await tbProd.create({fk_color:producto.color, fk_marca:producto.marca,fk_tipo:producto.tipo,fk_genero:producto.genero,fk_talle:producto.talle,existencia_producto:producto.cantidad,precio_unitario:producto.precio,imagen_producto:null})
     return (res.json({ msg: "Creado correctamente" }));
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message+"hola")
     return (res.json({ msg: error.message }));
   }
 };

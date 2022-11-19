@@ -58,7 +58,7 @@ export const CarrAllProd = async (req, res) => {
           const Productos = setProductoJson();
           res.json(Productos);
       } catch (error) {
-        res.json({ msg: error.message, json: null });
+        res.json({ msg: error.message, reS: false });
       }
 }
 

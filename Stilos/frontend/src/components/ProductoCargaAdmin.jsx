@@ -2,8 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import * as yup from "yup"
 import {Formik,Form,Field} from "formik"
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/authContext";
 
 export function ProductoCargaAdmin() {
   const uriTipoProducto = "http://localhost:8000/productoShop/obtProductoTipo";
@@ -22,13 +20,13 @@ export function ProductoCargaAdmin() {
   const [file, setFile] = useState({preview:"", data:""})
 
   const initialValues = {
-      tipo:1,
-      marca:5,
-      color:3,
-      genero:4,
-      precio:999,
-      talle:2,
-      cantidad:999,
+      tipo:"1",
+      marca:"5",
+      color:"3",
+      genero:"4",
+      precio:"999",
+      talle:"2",
+      cantidad:"999",
       file:""
   }
 
@@ -47,7 +45,8 @@ export function ProductoCargaAdmin() {
   const cargarProducto = (data) => {
     const formData = new FormData(miFormulario)
     formData.append("data", JSON.stringify(data))
-    formData.append("file",file?.data)
+    console.log(data)
+    console.log(formData.data)
     try {
       axios.post(URISUBIR, formData,{
         "Content-Type":"application/json"
@@ -128,13 +127,13 @@ export function ProductoCargaAdmin() {
             <div className="col-lg-8 col-xl-6">
               <div className="card rounded-3">
                 <img
-                  src="https://mecaluxar.cdnwm.com/documents/20128/542159/M40P03+stock-maximo.jpg/f0618777-774e-e4df-cb01-144d0d73e086?t=1644969680000&e=jpg"
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
                   className="w-100 img-carProduc"
                   alt="Sample photo"
                 />
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
-                    Carga Producto
+                    Registration Info
                   </h3>
 
                   <Formik className="px-md-2" onSubmit={cargarProducto} initialValues={initialValues} validationSchema={validationScheme}>
@@ -196,7 +195,7 @@ export function ProductoCargaAdmin() {
                           {listTalleProduct &&
                             listTalleProduct.map((talle) => {
                               return (
-                                <option value={talle.id} type="number" key={talle.id} >{talle.talle}</option>
+                                <option value={talle.id} key={talle.id} >{talle.talle}</option>
                               );
                             })}
                         </Field>
@@ -210,7 +209,7 @@ export function ProductoCargaAdmin() {
                             listColorProduct.map((color) => {
                               return (
 
-                                <option value={color.id} type="number" key={color.id}>{color.color}</option>
+                                <option value={color.id} key={color.id}>{color.color}</option>
 
                               );
                             })}
@@ -226,7 +225,7 @@ export function ProductoCargaAdmin() {
                             listGeneroProduct.map((genero) => {
                               return (
 
-                                <option value={genero.id} type="number" key={genero.id}>{genero.genero}</option>
+                                <option value={genero.id} key={genero.id}>{genero.genero}</option>
 
 
                               );
@@ -242,7 +241,7 @@ export function ProductoCargaAdmin() {
                             listMarcaProduct.map((marca) => {
                               return (
 
-                                <option value={marca.id} type="number" key={marca.id}>{marca.marca}</option>
+                                <option value={marca.id} key={marca.id}>{marca.marca}</option>
 
                               );
                             })}
@@ -257,7 +256,7 @@ export function ProductoCargaAdmin() {
                             listTipoProduct.map((tipo) => {
                               return (
 
-                                <option value={tipo.id} type="number" key={tipo.id}>{tipo.tipo_producto}</option>
+                                <option value={tipo.id} key={tipo.id}>{tipo.tipo_producto}</option>
 
                               );
                             })}

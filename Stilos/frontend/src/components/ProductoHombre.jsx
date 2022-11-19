@@ -14,7 +14,7 @@ export function ProductoHombre() {
   const uriColorProducto =
     "http://localhost:8000/productoShop/obtProductoColor";
 
-  const [buscador, setBuscador] = useState("");
+
   const [productos, setProductos] = useState([]);
   const [listPorduct, setListPorduct] = useState([]);
   const [listTipoProduct, setListTipoProduct] = useState([]);
@@ -35,7 +35,7 @@ export function ProductoHombre() {
       
     });
   };
-  console.log('a',productos)
+
   // obtengo solo el tipo de producto remeras o pantalones , etc
   const obtTipoProducto = async () => {
     await axios.get(uriTipoProducto).then((res) => {

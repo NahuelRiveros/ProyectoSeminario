@@ -10,9 +10,11 @@ export function CompraProducto() {
   var precioMostrar = 0
   
   const navigate = useNavigate()
-  for (let i = 0; i < carProductos.length; i++) {
-    const element = carProductos[i].precio;
-    precioMostrar += element;
+  if (carProductos != null) {
+    for (let i = 0; i < carProductos.length; i++) {
+      const element = carProductos[i].precio;
+      precioMostrar += element;
+    }
   }
 
   const eventCompra = ()=>{
@@ -29,12 +31,15 @@ export function CompraProducto() {
       .post(`http://localhost:8000/carrito/allProds/${user.id}`)
       .then((res) => {
         console.log(res.data)
-        if (res.data == null) {
+        try {
+          if (res.data[0].id) {
+            setCarProductos(res.data)
+        }} catch (error) {
           setCarProductos(null);
-        } else {
-          setCarProductos(res.data)
         }
-      });
+          
+        }
+      );
   };
 
   useEffect(() => {
