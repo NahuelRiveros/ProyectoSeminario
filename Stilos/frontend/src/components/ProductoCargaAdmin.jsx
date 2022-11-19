@@ -1,32 +1,67 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import * as yup from "yup"
+import {Formik,Form,Field} from "formik"
 
 export function ProductoCargaAdmin() {
   const uriTipoProducto = "http://localhost:8000/productoShop/obtProductoTipo";
-  const uriMarcaProducto ="http://localhost:8000/productoShop/obtProductoMarca";
-  const uriTalleProducto ="http://localhost:8000/productoShop/obtProductoTalle";
-  const uriColorProducto ="http://localhost:8000/productoShop/obtProductoColor";
-  const uriGeneroProducto ="http://localhost:8000/productoShop/obtProductoGenero";
+  const uriMarcaProducto = "http://localhost:8000/productoShop/obtProductoMarca";
+  const uriTalleProducto = "http://localhost:8000/productoShop/obtProductoTalle";
+  const uriColorProducto = "http://localhost:8000/productoShop/obtProductoColor";
+  const uriGeneroProducto = "http://localhost:8000/productoShop/obtProductoGenero";
   const URISUBIR = "http://localhost:8000/admins/prodAdd/";
 
-    const [listTipoProduct, setListTipoProduct] = useState([]);
-    const [listMarcaProduct, setListMarcaProduct] = useState([]);
-    const [listTalleProduct, setListTalleProduct] = useState([]);
-    const [listColorProduct, setListColorProduct] = useState([]);
-    const [listGeneroProduct, setListGeneroProduct] = useState([]);
+  const [listTipoProduct, setListTipoProduct] = useState([]);
+  const [listMarcaProduct, setListMarcaProduct] = useState([]);
+  const [listTalleProduct, setListTalleProduct] = useState([]);
+  const [listColorProduct, setListColorProduct] = useState([]);
+  const [listGeneroProduct, setListGeneroProduct] = useState([]);
 
-    const [getInputTipo, setgetInputTipo] = useState(5)
-    const [getInputMarca, setgetInputMarca] = useState(5)
-    const [getInputGenero, setgetInputGenero] = useState(3)
-    const [getInputTalle, setgetInputTalle] = useState(4)
-    const [getInputColor, setgetInputColor] = useState(5)
-    const [getInputCantidad, setgetInputCantidad] = useState(999)
-    const [getInputPrecio, setgetInputPrecio] = useState(999)
+  const [file, setFile] = useState({preview:"", data:""})
 
+  const initialValues = {
+      tipo:1,
+      marca:5,
+      color:3,
+      genero:4,
+      precio:999,
+      talle:2,
+      cantidad:999,
+      file:""
+  }
 
-    const cargarProducto = () =>{
-        console.log(getInputCantidad,getInputColor,getInputGenero,getInputMarca,getInputTipo,getInputTalle,getInputPrecio)
+  const miFormulario = document.getElementById("formularioImagen")
+
+  const validationScheme = yup.object().shape({
+    tipo:yup.number(),
+    marca:yup.number(),
+    color:yup.number(),
+    genero:yup.number(),
+    precio:yup.number(),
+    talle:yup.number(),
+    cantidad:yup.number(),
+  })
+
+  const cargarProducto = (data) => {
+    const formData = new FormData(miFormulario)
+    formData.append("data", JSON.stringify(data))
+    formData.append("file",file?.data)
+    try {
+      axios.post(URISUBIR, formData,{
+        "Content-Type":"application/json"
+      }).then((res)=>{
+        console.log(res)
+      })
+    } catch(error){
+      console.log(error.message)
     }
+  }
+
+  const handleFile = (e) => {
+    let fileC = {data:e.target.files[0],preview:URL.createObjectURL(e.target.files[0])}
+    setFile(fileC)
+  }
+
   const funtGetTipo = (e) => {
     setgetInputTipo(e)
   }
@@ -100,31 +135,36 @@ export function ProductoCargaAdmin() {
                     Registration Info
                   </h3>
 
-                  <form className="px-md-2" onSubmit={submitProduct} enctype="multipartform-data">
+                  <Formik className="px-md-2" onSubmit={cargarProducto} initialValues={initialValues} validationSchema={validationScheme}>
+                    <Form id="formularioImagen">
                     {/* IMG */}
                     <div className="form-outline mb-4">
-                      <input
+                      <Field
                         type="file"
                         id="file"
                         className="form-control-plaintext"
                         placeholder="IMG"
                         name="file"
+                        onChange={handleFile}
                       />
+                      <div>
+                        {file.preview &&(
+                          <img src={file.preview} width="100"/>)}
+                      </div>
                     </div>
                     {/* IMG */}
                     <div className="row">
                       {/* 1 */}
                       <div className="col-md-6 mb-4">
                         <div className="form-outline datepicker">
-                        <i className="fas fa-clipboard-list"> Stock</i>
-                          <input
+                          <i className="fas fa-clipboard-list"> Stock</i>
+                          <Field
                             type="number"
                             required
                             min={0}
                             className="form-control-plaintext"
-                            id="exampleDatepicker1"
+                            name="cantidad"
                             placeholder="Existencia producto"
-                            onChange={(e)=>{setgetInputCantidad(e.target.value)}}
                           />
                         </div>
                       </div>
@@ -132,122 +172,106 @@ export function ProductoCargaAdmin() {
                       {/* 2 */}
                       <div className="col-md-6 mb-4">
                         <div className="form-outline datepicker">
-                        <i className="fas fa-comment-dollar"> Valor</i>
-                          <input
+                          <i className="fas fa-comment-dollar"> Valor</i>
+                          <Field
                             type="number"
                             required
                             className="form-control-plaintext"
-                            id="exampleDatepicker1"
+                            name="precio"
                             placeholder="$ Precio"
                             min={0}
-                            onChange={(e)=>{setgetInputPrecio(e.target.value)}}
                           />
-                          
-                          
+
+
                         </div>
                       </div>
                       {/* 2 */}
-                        {/* selects  Talle*/}
-                        <label htmlFor=""> Talle Producto</label>
+                      {/* selects  Talle*/}
+                      <label htmlFor=""> Talle Producto</label>
                       <div className="col-md-6 mb-4">
                         talle
-                          <select className="select" onChange={(e)=>{funtGetTalle(e.target.value)}}>
-                        {listTalleProduct &&
-                          listTalleProduct.map((talle) => {
-                            return (
-                                <option value={talle.id} key={talle.id} >{talle.talle}</option>
-                                );
+                        <Field as="select" className="select" name="talle">
+                          {listTalleProduct &&
+                            listTalleProduct.map((talle) => {
+                              return (
+                                <option value={talle.id} type="number" key={talle.id} >{talle.talle}</option>
+                              );
                             })}
-                            </select>
+                        </Field>
                       </div>
-                        {/* select Talle */}
-                        {/* selects Color*/}
-                        <label htmlFor=""> Color Producto</label>
+                      {/* select Talle */}
+                      {/* selects Color*/}
+                      <label htmlFor=""> Color Producto</label>
                       <div className="col-md-6 mb-4">
-                          <select className="select" onChange={(e)=>{funtGetColor(e.target.value)}}>
-                        {listColorProduct &&
-                          listColorProduct.map((color) => {
-                            return (
-                                
-                                <option value={color.id} key={color.id}>{color.color}</option>
-                                
-                                );
+                        <Field as="select" className="select" name="color">
+                          {listColorProduct &&
+                            listColorProduct.map((color) => {
+                              return (
+
+                                <option value={color.id} type="number" key={color.id}>{color.color}</option>
+
+                              );
                             })}
-                            </select>
+                        </Field>
                       </div>
-                        {/* select Color */}
-                        {/* selects Genero*/}
-                        <label htmlFor=""> Genero</label>
+                      {/* select Color */}
+                      {/* selects Genero*/}
+                      <label htmlFor=""> Genero</label>
                       <div className="col-md-6 mb-4">
-                        
-                          <select className="select" onChange={(e)=>{funtGetGenero(e.target.value)}}>
-                        {listGeneroProduct &&
-                          listGeneroProduct.map((genero) => {
-                            return (
-                                
-                                    <option value={genero.id} key={genero.id}>{genero.genero}</option>
 
-                                
-                                );
+                        <Field as="select" className="select" name="genero">
+                          {listGeneroProduct &&
+                            listGeneroProduct.map((genero) => {
+                              return (
+
+                                <option value={genero.id} type="number" key={genero.id}>{genero.genero}</option>
+
+
+                              );
                             })}
-                            </select>
+                        </Field>
                       </div>
-                        {/* select Genero*/}
-                        {/* selects Marca */}
-                        <label htmlFor=""> Marca</label>
+                      {/* select Genero*/}
+                      {/* selects Marca */}
+                      <label htmlFor=""> Marca</label>
                       <div className="col-md-6 mb-4">
-                          <select className="select" onChange={(e)=>{funtGetMarca(e.target.value)}}>
-                        {listMarcaProduct &&
-                          listMarcaProduct.map((marca) => {
-                            return (
-                                
-                                <option value={marca.id} key={marca.id}>{marca.marca}</option>
-                                
-                                );
+                        <Field as="select" className="select" name="marca">
+                          {listMarcaProduct &&
+                            listMarcaProduct.map((marca) => {
+                              return (
+
+                                <option value={marca.id} type="number" key={marca.id}>{marca.marca}</option>
+
+                              );
                             })}
-                            </select>
+                        </Field>
                       </div>
-                        {/* select Marca*/}
-                        {/* selects Tipo */}
-                        <label htmlFor=""> Tipo Producto</label>
+                      {/* select Marca*/}
+                      {/* selects Tipo */}
+                      <label htmlFor=""> Tipo Producto</label>
                       <div className="col-md-6 mb-4">
-                          <select className="select" onChange={(e)=>{funtGetTipo(e.target.value)}}>
-                        {listTipoProduct &&
-                          listTipoProduct.map((tipo) => {
-                            return (
-                                
-                                <option value={tipo.id} key={tipo.id}>{tipo.tipo_producto}</option>
-                                
-                                );
+                        <Field as="select" className="select" name="tipo">
+                          {listTipoProduct &&
+                            listTipoProduct.map((tipo) => {
+                              return (
+
+                                <option value={tipo.id} type="number" key={tipo.id}>{tipo.tipo_producto}</option>
+
+                              );
                             })}
-                            </select>
+                        </Field>
                       </div>
-                        {/* select Tipo*/}
+                      {/* select Tipo*/}
 
-                    </div>
-
-                   
-
-                    <div className="row mb-4 pb-2 pb-md-0 mb-md-5">
-                      <div className="col-md-6">
-                        <div className="form-outline">
-                          <input
-                            type="text"
-                            id="form3Example1w"
-                            className="form-control"
-                          />
-                        </div>
-                      </div>
                     </div>
 
                     <button
-                      type="button"
                       className="btn btn-success btn-lg mb-1"
-                      onClick={()=>{cargarProducto()}}
-                    >
-                      Submit
+                      type="submit">
+                        Submit
                     </button>
-                  </form>
+                    </Form>
+                  </Formik>
                 </div>
               </div>
             </div>

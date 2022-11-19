@@ -1,7 +1,18 @@
 import { tbCompras, tbProd, tbMarcas, tbTalles, tbColores, tbGeneroProd, tbTipoProd } from "../models/modelAdmins.js";
 import { tbPersonaPerfil } from "../models/modelPersona.js";
 import { Op } from "sequelize";
+import multer from "multer";
+import path from "path";
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join("backend/uploads"))
+  }, filename:(req,file,cb) => {
+    cb(null, file.originalname)
+  }
+})
+
+export const uploader = multer({storage:storage})
 //Controladores de productos
 
 export const allProd = async (req, res) => {
@@ -76,15 +87,16 @@ export const oneProd = async (req, res) => {
 
 export const newProd = async (req, res, next) => {
   try {
-    const archivo = req.files.archivo;
-    const nombreFile = archivo.name
-    const path = __dirname + '/../imagenes/' + nombreFile
-    const imagen = path
-    const { descripcion, existencia, precio, talle, color, genero, marca, tipo } = req.body
-    const creado = await tbProd.create({ descripcion: descripcion, existencia_producto: existencia, imagen_producto: imagen, precio_unitario: precio, fk_talle: talle, fk_color: color, fk_genero: genero, fk_marca: marca, fk_tipo: tipo });
-
+    const archivo = req.file
+    console.log(archivo+"hola1")
+    const data = req.body
+    const producto = JSON.parse(data.data)
+    console.log(producto,"hola")
+    data.file = archivo
+    const newProdFinal = await tbProd.create({fk_color:producto.color, fk_marca:producto.marca,fk_tipo:producto.tipo,fk_genero:producto.genero,fk_talle:producto.talle,existencia_producto:producto.cantidad,precio_unitario:producto.precio,imagen_producto:producto.file})
     return (res.json({ msg: "Creado correctamente" }));
   } catch (error) {
+    console.log(error.message)
     return (res.json({ msg: error.message }));
   }
 };

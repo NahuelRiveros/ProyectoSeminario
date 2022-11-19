@@ -1,5 +1,5 @@
 import express from 'express'; 
-import { allProd, oneProd, delProd, newProd, updProd, contGenPersona, getVentasM } from '../controllers/adminControllers.js';
+import { allProd, oneProd, delProd, newProd, updProd, contGenPersona, getVentasM, uploader } from '../controllers/adminControllers.js';
 
 
 const rutas = express.Router()
@@ -7,7 +7,7 @@ const rutas = express.Router()
 rutas.get('/prod/', allProd)
 rutas.get('/unProd/:id', oneProd)
 //post metedo para crear
-rutas.post('/prodAdd/',newProd)
+rutas.post('/prodAdd/', uploader.single('file') ,newProd)
 // put metodo para actualizar
 rutas.put('/prod/:id', updProd)
 // delete metodo para eliminar registro
