@@ -1,21 +1,35 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 
 export function CompraProducto() {
   const { user, setUser } = useAuth();
   const [carProductos, setCarProductos] = useState([]);
   const [test, setTest] = useState([]);
+  var precioMostrar = 0
+  
+  const navigate = useNavigate()
+  for (let i = 0; i < carProductos.length; i++) {
+    const element = carProductos[i].precio;
+    precioMostrar += element;
+  }
 
-
+  const eventCompra = ()=>{
+    Swal.fire(
+      'Gracias!',
+      'Haz clic en ok',
+      'success'
+    )
+    navigate('/')
+  }
 
   const getProductos = async (e) => {
-
     await axios
       .post(`http://localhost:8000/carrito/allProds/${user.id}`)
       .then((res) => {
         console.log(res.data)
-        if (res.data.json == null) {
+        if (res.data == null) {
           setCarProductos(null);
         } else {
           setCarProductos(res.data)
@@ -24,7 +38,6 @@ export function CompraProducto() {
   };
 
   useEffect(() => {
-    console.log(carProductos)
     if (!user.id) {
       return
     }
@@ -152,6 +165,8 @@ export function CompraProducto() {
                             <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
                               <p className="text-start text-md-center">
                                 <strong>${productos.precio}</strong>
+                                
+
                               </p>
                             </div>
                           </div>
@@ -180,7 +195,7 @@ export function CompraProducto() {
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                         Productos
-                        <span>$53.98</span>
+                        <span></span>
                       </li>
                       <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                         Shipping
@@ -194,12 +209,12 @@ export function CompraProducto() {
                           </strong>
                         </div>
                         <span>
-                          <strong>$53.98</strong>
+                          <strong>${precioMostrar}</strong>
                         </span>
                       </li>
                     </ul>
-                    <button type="button" className="btn btn-primary btn-lg btn-block">
-                      Go to checkout
+                    <button type="button" className="btn btn-primary btn-lg btn-block" onClick={()=>{eventCompra()}}>
+                      comprar
                     </button>
                   </div>
                 </div>

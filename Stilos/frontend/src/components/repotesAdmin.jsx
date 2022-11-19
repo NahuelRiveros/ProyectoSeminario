@@ -2,8 +2,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { jsPDF } from "jsPDF";
 import autoTable from "jspdf-autotable";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 export const ReportesAdmin = () => {
   const [hombre, setHombre] = useState(0);
   const [mujer, setMujer] = useState(0);
@@ -12,6 +12,14 @@ export const ReportesAdmin = () => {
   const [año, setAño] = useState("2022");
   const [VentaMensual, setVentaMensual] = useState([]);
   const [Stock, setStock] = useState([]);
+  
+  const { user, setUser } = useAuth()
+    const navigate = useNavigate()
+    if (user.rango < 2){
+        navigate('/home')
+    }
+
+
 
   const URI = "http://localhost:8000/admins/personas/";
   const URIVentasMensual = "http://localhost:8000/admins/VentasM?año=" + año;
