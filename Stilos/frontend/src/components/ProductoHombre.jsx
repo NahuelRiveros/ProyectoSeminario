@@ -259,7 +259,6 @@ export function ProductoHombre() {
                             className="form-check-label text-uppercase small text-muted"
 
                           >
-                            {productoMarca.id}
                             {productoMarca.marca}
                           </label>
                         </div>

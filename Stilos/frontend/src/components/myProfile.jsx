@@ -23,6 +23,8 @@ export const PerfilUser = () => {
   const URIdelPersona = "http://localhost:8000/persona/delPersona/";
   const URIdomicilio = 'http://localhost:8000/persona/domicilio/';
 
+  console.log(registroDomicilio)
+
   const navigate = useNavigate();
   useEffect(() => {
     handleLogin();
@@ -54,6 +56,8 @@ export const PerfilUser = () => {
  
   
 
+    
+
  
 
   //Cuando se envia
@@ -64,6 +68,12 @@ export const PerfilUser = () => {
     //   `nombre: ${nombreUno}, nombredos: ${nombreDos}, localidad: ${localidad}, provincia: ${provincia}, apellido: ${apellido},genero: ${genero}, telefono: ${telefono}`
     // );
     cargarRegistro();
+    Swal.fire(
+      'Gracias!',
+      'Haz clic en ok',
+      'success'
+    )
+    navigate('/')
   };
 
   // procedimiento para insertar datos del usuario
@@ -97,6 +107,12 @@ export const PerfilUser = () => {
     const eliminar = await axios.delete(Uridel, {
       headers: { authorization: `${token}` },
     });
+    Swal.fire(
+      'Gracias!',
+      'Haz clic en ok',
+      'success'
+    )
+    navigate('/')
     
   };
 
@@ -141,6 +157,7 @@ export const PerfilUser = () => {
                                 type="text"
                                 id="form3Example1m"
                                 className="form-control-plaintext"
+                                placeholder="Primer Nombre"
                                 onChange={(e) => setNombreUno(e.target.value)}
                               />
                             ) : (
@@ -163,6 +180,7 @@ export const PerfilUser = () => {
                                 required
                                 type="text"
                                 id="form3Example1n"
+                                placeholder="Segundo Nombre"
                                 className="form-control-plaintext"
                                 onChange={(e) => setNombreDos(e.target.value)}
                               />
@@ -189,6 +207,7 @@ export const PerfilUser = () => {
                                 required
                                 type="text"
                                 id="form3Example1m1"
+                                placeholder="Apellido"
                                 className="form-control-plaintext"
                                 onChange={(e) => setApellido(e.target.value)}
                               />
@@ -212,6 +231,7 @@ export const PerfilUser = () => {
                                 required
                                 type="text"
                                 id="form3Example1n1"
+                                placeholder="telefono"
                                 className="form-control-plaintext"
                                 onChange={(e) => setTelefono(e.target.value)}
                               />

@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 
 export function ProductoCargaAdmin() {
   const uriTipoProducto = "http://localhost:8000/productoShop/obtProductoTipo";
@@ -21,10 +23,18 @@ export function ProductoCargaAdmin() {
     const [getInputColor, setgetInputColor] = useState(5)
     const [getInputCantidad, setgetInputCantidad] = useState(999)
     const [getInputPrecio, setgetInputPrecio] = useState(999)
+    const { user, setUser } = useAuth()
 
+    // Navigate 
+    const navigate = useNavigate()
+    if (user.rango < 2){
+        navigate('/home')
+    }
 
     const cargarProducto = () =>{
         console.log(getInputCantidad,getInputColor,getInputGenero,getInputMarca,getInputTipo,getInputTalle,getInputPrecio)
+
+
     }
   const funtGetTipo = (e) => {
     setgetInputTipo(e)
@@ -90,13 +100,13 @@ export function ProductoCargaAdmin() {
             <div className="col-lg-8 col-xl-6">
               <div className="card rounded-3">
                 <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+                  src="https://mecaluxar.cdnwm.com/documents/20128/542159/M40P03+stock-maximo.jpg/f0618777-774e-e4df-cb01-144d0d73e086?t=1644969680000&e=jpg"
                   className="w-100 img-carProduc"
                   alt="Sample photo"
                 />
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
-                    Registration Info
+                    Carga Producto
                   </h3>
 
                   <form className="px-md-2">

@@ -9,7 +9,6 @@ import { CompoShowRegis } from "./components/usuariosReg";
 import {Navbar} from './components/navbar';
 import {LoginUsuario} from './components/login'
 import {Footer} from './components/footer';
-import {Carruserl} from './components/carruserl';
 import { ReportesAdmin } from "./components/repotesAdmin";
 import {SuperAdmPanel} from './components/superAdmPanel';
 import {RegistroUser} from './components/registro';
@@ -24,6 +23,7 @@ import {CompraProducto} from './components/compraProducto';
 import {useAuth} from './context/authContext'
 import {tipoUsers} from './context/persContext'
 import { ProductoCargaAdmin } from "./components/ProductoCargaAdmin";
+
 
 
 function App() {
@@ -70,6 +70,7 @@ function App() {
           <Route path="/producto/compra" element={<CompraProducto />}/>
           <Route path="/admin/reportes" element={<ReportesAdmin/>}/>
           <Route path="/admin/producto/Carga" element={<ProductoCargaAdmin />}/>
+          <Route path="/" element={<ProductoHombre />}/>
           
 
         </Routes>

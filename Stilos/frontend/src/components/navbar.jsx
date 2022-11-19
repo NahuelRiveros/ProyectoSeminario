@@ -45,10 +45,10 @@ const handleLogout = () => {
           {/* <!-- Collapsible wrapper --> */}
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {/* <!-- Navbar brand --> */}
-            <Link className="navbar-brand mt-2 mt-lg-0" to={"/home"}>
+            <Link className="navbar-brand mt-2 mt-lg-0" to={"/"}>
               <img
-                src="./assets/react.svg"
-                height="25"
+                src="../src/assets/stilo1.jpg"
+                width="40"
                 alt="Stilos Logo"
                 loading="lazy"
               />
@@ -89,6 +89,19 @@ const handleLogout = () => {
                 to={'admin/reportes'}
               >
                 <i className="fas fa-dolly-flatbed"></i>
+                
+              </Link>
+            }
+              
+            {/* SUPER ADMIN */}
+            {
+              user.rango === 3 &&
+              <Link
+                className="text-reset me-3 dropdown-toggle hidden-arrow"
+                aria-expanded="false"
+                to={'/superAdmin/Panel'}
+              >
+                <i className="fas fa-users-cog"></i>
                 
               </Link>
             }

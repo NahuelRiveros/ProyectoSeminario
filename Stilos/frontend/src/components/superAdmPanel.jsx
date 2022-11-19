@@ -2,22 +2,33 @@ import DataTable from "react-data-table-component";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-import { Await } from "react-router-dom";
+import { Await, useNavigate } from "react-router-dom";
 // CONTEXT
 import { tipoUsers } from "../context/persContext";
-
+import { useAuth } from "../context/authContext";
 
 
 export const SuperAdmPanel = () => {
 
+
+
+
+
   //COntext HOOCKs
-  const {tipoUser, setTipoUser} = tipoUsers();
+ 
+  const { user, setUser } = useAuth()
   // HOOCKs
   const [buscador, setBuscador] = useState("");
   const [usuarios, setUsuarios] = useState([]);
   const [listaUsers, setListaUsers] = useState([]);
   const URI = "http://localhost:8000/superUser/viewUsers/";
-  const user = [];
+  const listUser = [];
+
+    // Navigate 
+    const navigate = useNavigate()
+    if (user.rango < 3){
+        navigate('/home')
+    }
   
   const peticionGet = async () => {
     await axios
@@ -34,7 +45,7 @@ export const SuperAdmPanel = () => {
   for (var i = 0; i < usuarios.length; i++) {
     const element = usuarios[i];
     if (element.fk_permiso_usuario < 3) {
-      user.push(element);
+      listUser.push(element);
     }
   }
 
@@ -65,17 +76,15 @@ export const SuperAdmPanel = () => {
     const URIrangos= "http://localhost:8000/superUser/roles/" + e
     await axios.put(URIrangos,{fk_permiso_usuario : 2})
     peticionGet();
-    console.log(URIrangos);
+    
     
     // 
   };
   const removePermiso = async (e) => {
     const URIrangos= "http://localhost:8000/superUser/roles/" + e
     await axios.put(URIrangos,{fk_permiso_usuario : 1})
-    console.log(URIrangos);
     peticionGet();
     
-    // {"fk_permiso_usuario" : 1}
   };
 
   return (
@@ -112,8 +121,8 @@ export const SuperAdmPanel = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {user &&
-                    user.map((usuario) => (
+                  {listUser &&
+                    listUser.map((usuario) => (
                       <tr key={usuario.id}>
                         <td className="text-center">{usuario.email}</td>
                         <td>
